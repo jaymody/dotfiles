@@ -20,13 +20,13 @@ There's a few special files in the hierarchy.
 - **topic/\*.zsh**: Any files ending in `.zsh` get loaded into your
   environment via `source *.zsh`.
 - **topic/init.zsh**: Any file named `init.zsh` is loaded first (might be needed to set up a `$PATH` or similar for other .zsh files in same the topic directory).
-- **topic/*.sh**: Any file named `*.sh` is executed when you run `install`.
+- **topic/install.sh**: Any file named `install.sh` is executed when you run `install`.
 - **topic/\*.symlink**: Any file ending in `*.symlink` gets symlinked into
   your `$HOME`. This is so you can keep all of those versioned in your dotfiles
   but still keep those autoloaded files in your home directory. These get
   symlinked in when you run `dotfiles`.
 
-On a fresh install of a system run the following to install homebrew, setup your system preferences, etc ... :
+On a fresh install of a system run the following to install homebrew, setup your system preferences, apps, etc ... :
 ```sh
 cd $DOTFILES_ROOT
 ./install

@@ -3,6 +3,10 @@
 if [ -z "$DOTFILES_ROOT" ] ; then
   echo "DOTFILES_ROOT is not set, terminating ..."
   exit 1
+elif [ ! -d "$DOTFILES_ROOT" ] ; then
+  echo "Directory for DOTFILES_ROOT does not exist: $DOTFILES_ROOT"
+  echo "terminating ..."
+  exit 1
 fi
 
 set -e
