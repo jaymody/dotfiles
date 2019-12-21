@@ -31,10 +31,13 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 # misc
 alias q='exit'
 alias cls='clear'
-alias duh="du -csh *"
-alias cleands="find . -type f -name '*.DS_Store' -ls -delete"
-alias reload="exec ${SHELL} -l"
+alias duh="du -csh * | sort -rh"
+alias cdir="pwd | pbcopy"
+alias json='function __json() { jq -C . $* | less -R; unset -f __json; }; __json'
 alias paths='echo -e ${PATH//:/\\n}'
+alias reload="exec ${SHELL} -l"
+alias cleands="find . -type f -name '*.DS_Store' -ls -delete"
+alias closewin="osascript -e 'tell application \"Finder\" to close windows'"
 
 # shortcuts
 alias dcode="cd ~/code"
