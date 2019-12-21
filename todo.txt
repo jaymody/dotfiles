@@ -6,3 +6,4 @@
 - sublime settings
 - macos defualts
 - look into editorconfig
+- use alias/export for web browser

@@ -1,3 +1,9 @@
+# dotfiles
+alias dotfiles='cd $DOTFILES_ROOT'
+alias edotfiles='$EDITOR $DOTFILES_ROOT'
+alias scripts='cd $DOTFILES_ROOT/bin'
+alias escripts='$EDITOR $DOTFILES_ROOT/bin'
+
 # navigation
 alias ..="cd .."
 alias ...="cd ../.."
@@ -30,17 +36,12 @@ alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
-# recursively delete .DS_Store
+# misc
+alias q='exit'
+alias cls='clear'
 alias cleands="find . -type f -name '*.DS_Store' -ls -delete"
-
-# Reload the shell (i.e. invoke as a login shell)
 alias reload="exec ${SHELL} -l"
-
-# Print each PATH entry on a separate line
 alias paths='echo -e ${PATH//:/\\n}'
-
-
-
 
 # shortcuts
 alias dcode="cd ~/code"
@@ -49,4 +50,11 @@ alias dt="cd ~/Desktop"
 alias dl="cd ~/Downloads"
 
 # apps
-alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
+alias chrome='open -n "/Applications/Google Chrome.app"'
+
+# ssh
+alias moore='ssh -X modyj@moore.mcmaster.ca'
+alias mserv='ssh modyj@mserv.magarveylab.ca'
+alias sesame-vm='gcloud compute ssh --project magarvey-dl --zone us-central1-a sesame-vm'
+alias sesame-vm-openport='gcloud compute ssh --project magarvey-dl --zone us-central1-a sesame-vm -- -L localhost:7001:localhost:7001'
+alias valerievm='gcloud compute ssh jaykmody@instance-1-vm --zone=us-central1-a'

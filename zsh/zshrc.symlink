@@ -1,21 +1,35 @@
 # Stash your environment variables in ~/.localrc. This means they'll stay out
 # of your main dotfiles repository (which may be public, like this one), but
-# you'll have access to them in your scripts.
+# you'll have access to them in your scripts. DOTFILES_ROOT must be set in .localrc
 if [[ -a ~/.localrc ]]
 then
   source ~/.localrc
 fi
 
-# all of our zsh files
+# make sure dotfiles root is set
+if [ -z "$DOTFILES_ROOT" ] ; then
+  echo "DOTFILES_ROOT is not set, stopping execution of .zshrc ..."
+  exit 1
+elif [ ! -d "$DOTFILES_ROOT" ] ; then
+  echo "Directory for DOTFILES_ROOT does not exist: $DOTFILES_ROOT"
+  echo "stopping execution of .zshrc ..."
+  exit 1
+fi
+
+# add bin to path
+export PATH=$PATH:${DOTFILES_ROOT}/bin
+
+# find all .zsh files
 typeset -U config_files
 config_files=(${DOTFILES_ROOT}/*/*.zsh)
+
 # load the init files
 for file in ${(M)config_files:#*/init.zsh}
 do
   source $file
 done
 
-# load everything but the init
+# load everything but the init files
 for file in ${${config_files:#*/path.zsh}}
 do
   source $file
