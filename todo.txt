@@ -1,0 +1,8 @@
+- keep track of sub .git repos (ie zsh/oh-my-zsh/)
+- install nerd font and set it up for iterm
+
+- iterm settings
+- spectacle settings
+- sublime settings
+- macos defualts
+- look into editorconfig
