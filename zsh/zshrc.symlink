@@ -30,7 +30,7 @@ do
 done
 
 # load everything but the init files
-for file in ${${config_files:#*/path.zsh}}
+for file in ${${config_files:#*/init.zsh}}
 do
   source $file
 done
