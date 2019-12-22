@@ -1,5 +1,5 @@
 # default text editor
-export EDITOR='subl';
+export EDITOR='code';
 
 # lang
 export LANG='en_US.UTF-8';
