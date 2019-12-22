@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# get root privileges
+sudo -v
+
+# get dotfiles repo
+echo "export DOTFILES_ROOT=~/.dotfiles" >> ~/.localrc
+source ~/.localrc
+git clone https://github.com/jaymody/dotfiles.git $DOTFILES_ROOT
+
+cd $DOTFILES_ROOT
+
+# install
+./install
+
+# dotfiles
+./dotfiles

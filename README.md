@@ -9,7 +9,7 @@ Heavily inspired by https://github.com/holman/dotfiles.git, it's a great repo, g
 ```sh
 echo "export DOTFILES_ROOT=path/to/where/you/want/to/save/this/repo/" >> ~/.localrc # I recommend saving it to ~/.dotfiles
 source ~/.localrc
-git clone https://github.com/holman/dotfiles.git $DOTFILES_ROOT
+git clone https://github.com/jaymody/dotfiles.git $DOTFILES_ROOT
 ```
 
 ## usage
