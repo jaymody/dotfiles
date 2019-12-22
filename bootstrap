@@ -3,11 +3,16 @@
 # get root privileges
 sudo -v
 
-# get dotfiles repo
-echo "export DOTFILES_ROOT=~/.dotfiles" >> ~/.localrc
+# add $DOTFILES_ROOT to env vars
+DOTFILES_ROOT="~/.dotfiles"
+echo "export DOTFILES_ROOT=\"$DOTFILES_ROOT\"" >> ~/.localrc
 source ~/.localrc
-git clone https://github.com/jaymody/dotfiles.git $DOTFILES_ROOT
 
+# get dotfiles repo
+curl -LO https://github.com/jaymody/dotfiles/archive/master.zip
+unzip master.zip
+rm master.zip
+mv dotfiles-master $DOTFILES_ROOT
 cd $DOTFILES_ROOT
 
 # install
