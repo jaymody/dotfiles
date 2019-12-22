@@ -1,11 +1,6 @@
 #!/bin/sh
-#
-# Homebrew
-#
-# This installs some of the common dependencies needed (or at least desired)
-# using Homebrew.
 
-# Check for Homebrew
+# check for brew
 if test ! $(which brew)
 then
   echo "  Installing Homebrew for you."
@@ -21,13 +16,13 @@ then
   	echo "os must be linux or darwin"
     exit 1
   fi
-
-  # install from Brewfile
-  echo " Installing from Brewfile"
-  brew update
-  brew upgrade
-  brew bundle --file ./Brewfile
-  brew cleanup
 fi
+
+# install from Brewfile
+echo " Installing from Brewfile"
+brew update
+brew upgrade
+brew bundle --file ./Brewfile
+brew cleanup
 
 exit 0

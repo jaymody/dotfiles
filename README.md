@@ -20,7 +20,7 @@ There's a few special files in the hierarchy.
 - **topic/\*.zsh**: Any files ending in `.zsh` get loaded into your
   environment via `source *.zsh`.
 - **topic/init.zsh**: Any file named `init.zsh` is loaded first (might be needed to set up a `$PATH` or similar for other .zsh files in same the topic directory).
-- **topic/install.sh**: Any file named `install.sh` is executed when you run `install`.
+- **topic/install.sh**: Any file named `install.sh` is executed when you run `install`. These need to manually added to the install script since order matters (technically you can name `topic/install.sh` anything as long as the right reference is made in `./install`)
 - **topic/\*.symlink**: Any file ending in `*.symlink` gets symlinked into
   your `$HOME`. This is so you can keep all of those versioned in your dotfiles
   but still keep those autoloaded files in your home directory. These get

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-#
-# Run all dotfiles installers.
+
+# get root priveleges
+sudo -v 
 
 set -e
 
@@ -15,5 +16,14 @@ fi
 
 cd ${DOTFILES_ROOT}
 
-# find the installers and run them iteratively
-find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+# install macos settings
+sudo sh macos/install.sh
+
+# install brew
+sudo sh brew/install.sh
+
+# install zsh
+sudo sh zsh/install.sh
+
+# install docker
+sudo sh docker/install.sh
