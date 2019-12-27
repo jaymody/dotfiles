@@ -32,6 +32,7 @@ This is done using a couple of special files/folders in the repo:
 - **topic/\*.zsh**: Any files ending in `.zsh` get loaded into your environment via `source *.zsh`.
 - **topic/init.zsh**: Any file named `init.zsh` is loaded first (might be needed to set up a `$PATH` or similar for other .zsh files in same the topic directory).
 - **topic/install.sh**: Any file named `install.sh` is executed when you run `install`. These need to manually added to the install script since order matters (technically you can name `topic/install.sh` anything as long as the right reference is made in `./install`)
+- **topic/save.sh**: Any file named `save.sh` is executed when you run `save`. These are meant to be scripts that will save settings from your current setup that aren't symlinked files in your homedir (things like settings.json from vscode, Brewfile, .plists, etc ...)
 - **topic/\*.symlink**: Any file ending in `*.symlink` gets symlinked into your `$HOME`. This is so you can keep all of those versioned in your dotfiles but still keep those autoloaded files in your home directory. These get symlinked in when you run `./dotfiles`.
 
 ### `./dotfiles`
@@ -43,6 +44,13 @@ cd $DOTFILES_ROOT
 
 ### `./install`
 On a fresh install of a system run the following to install homebrew, setup your system preferences, apps via install scripts specified in the file (often `topic/install.sh`):
+```sh
+cd $DOTFILES_ROOT
+./install
+```
+
+### `./save`
+Saves various settings on your machine that can't be symlinked from this repo:
 ```sh
 cd $DOTFILES_ROOT
 ./install
