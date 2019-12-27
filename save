@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# check if DOTFILES_ROOT exists
+if [ -z "$DOTFILES_ROOT" ] ; then
+  echo "DOTFILES_ROOT is not set, terminating ..."
+  exit 1
+elif [ ! -d "$DOTFILES_ROOT" ] ; then
+  echo "Directory for DOTFILES_ROOT does not exist: $DOTFILES_ROOT"
+  echo "terminating ..."
+  exit 1
+fi
+
+# iterate updates.sh files
+for file in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name 'save.sh' -not -path '*.git*')
+do
+    sh $file
+done

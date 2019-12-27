@@ -1,0 +1,10 @@
+{
+    "editor.minimap.enabled": false,
+    "workbench.statusBar.visible": false,
+    "workbench.activityBar.visible": false,
+    "workbench.colorTheme": "Mariana Pro (Cool)",
+    "workbench.iconTheme": "file-icons-colourless-mac",
+    "window.zoomLevel": 1,
+    "workbench.startupEditor": "newUntitledFile",
+    "breadcrumbs.enabled": false
+}

@@ -1,9 +1,9 @@
 - keep track of sub .git repos (ie zsh/oh-my-zsh/)
-- install nerd font and set it up for iterm
-
-- iterm settings
 - spectacle settings
-- sublime settings
 - macos defualts
 - look into editorconfig
-- use alias/export for web browser
+- use alias/export for chrome browser
+- use aliases for save locations of settings (vscode)
+- figure out a way to automatically save and load iterm2 settings
+- create all "save.sh" scripts
+- automate the calling of "./save" every couple days

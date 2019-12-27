@@ -49,6 +49,7 @@ alias dl="cd ~/Downloads"
 alias chrome='open -n "/Applications/Google Chrome.app"'
 
 # ssh
+alias macvpn='sudo openconnect sslvpn.mcmaster.ca'
 alias moore='ssh -X modyj@moore.mcmaster.ca'
 alias mserv='ssh modyj@mserv.magarveylab.ca'
 alias sesame-vm='gcloud compute ssh --project magarvey-dl --zone us-central1-a sesame-vm'
