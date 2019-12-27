@@ -4,7 +4,7 @@
 sudo -v
 
 # add $DOTFILES_ROOT to env vars
-DOTFILES_ROOT="~/.dotfiles"
+DOTFILES_ROOT="${HOME}/.dotfiles"
 echo "export DOTFILES_ROOT=\"$DOTFILES_ROOT\"" >> ~/.localrc
 source ~/.localrc
 
