@@ -190,7 +190,7 @@
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
 	<string>546 541 347 181 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>380 485 1060 392 0 0 1440 877 </string>
+	<string>1 0 717 877 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>294 332 1060 392 0 0 1440 877 </string>
 	<key>NeverWarnAboutShortLivedSessions_F9957ED4-9DFC-45DB-BE72-F70DBB4C3811</key>
@@ -827,14 +827,14 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {1440, 900}}</string>
 		<key>topLeft</key>
-		<string>{232, 679}</string>
+		<string>{231, 679}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
 	<string>0A9DB030-04D0-4889-B542-4D881066516E</string>
 	<key>NoSyncLastTipTime</key>
-	<real>599104442.89766502</real>
+	<real>600379149.94359303</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>19</integer>
+	<integer>35</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -1581,11 +1581,22 @@
 	<real>598424548.73763096</real>
 	<key>NoSyncTipsToNotShow</key>
 	<array>
-		<string>0001</string>
-		<string>000</string>
-		<string>0002</string>
+		<string>0004</string>
 		<string>0000</string>
+		<string>0010</string>
+		<string>0007</string>
 		<string>0003</string>
+		<string>0013</string>
+		<string>0006</string>
+		<string>0002</string>
+		<string>000</string>
+		<string>0012</string>
+		<string>0009</string>
+		<string>0005</string>
+		<string>0001</string>
+		<string>0011</string>
+		<string>0008</string>
+		<string>0014</string>
 	</array>
 	<key>PointerActions</key>
 	<dict>
@@ -1633,7 +1644,7 @@
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<false/>
+	<true/>
 	<key>SoundForEsc</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>

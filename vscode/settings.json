@@ -6,5 +6,7 @@
     "workbench.iconTheme": "file-icons-colourless-mac",
     "window.zoomLevel": 1,
     "workbench.startupEditor": "newUntitledFile",
-    "breadcrumbs.enabled": false
+    "breadcrumbs.enabled": false,
+    "latex-workshop.view.pdf.viewer": "tab",
+    "window.restoreWindows": "none"
 }

@@ -1,5 +1,7 @@
+James-Yu.latex-workshop
 ms-python.python
 ms-vscode.sublime-keybindings
+ms-vsliveshare.vsliveshare
 rickynormandeau.mariana-pro
 shd101wyy.markdown-preview-enhanced
 wayou.file-icons-mac
