@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# check if play dir exists
+if [ -d ${CODE_DIR_PLAY} ]; then
+	cd ${CODE_DIR_PLAY}
+else
+	echo 'error, could not find ${CODE_DIR_PLAY}'
+	exit 1
+fi
+
+# check command line args
+if [ $# -eq 0 ]; then
+	echo "Command requires at least 1 argument [project_name]"
+	exit 1
+fi
+
+# start session
+mkdir $1
+cd $1
+TERM=xterm-256color
+jupyter lab
