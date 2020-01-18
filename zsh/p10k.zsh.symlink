@@ -96,7 +96,7 @@
   )
 
   ######## default icons ########
-  typeset -g POWERLEVEL9K_VISUAL_IDENTIFIER_EXPANSION= 
+  typeset -g POWERLEVEL9K_VISUAL_IDENTIFIER_EXPANSION=
 
   ######## font ########
   typeset -g POWERLEVEL9K_MODE=nerdfont-complete
