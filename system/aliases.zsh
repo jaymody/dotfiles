@@ -39,19 +39,13 @@ alias reload="exec ${SHELL} -l"
 alias cleands="find . -type f -name '*.DS_Store' -ls -delete"
 alias closewin="osascript -e 'tell application \"Finder\" to close windows'"
 
-# shortcuts
-alias dcode="cd ~/code"
-alias dr="cd ~/drive"
-alias dt="cd ~/Desktop"
-alias dl="cd ~/Downloads"
-
 # apps
 alias chrome='open -n "/Applications/Google Chrome.app"'
 
 # ssh
 alias macvpn='sudo openconnect sslvpn.mcmaster.ca'
-alias moore='ssh -X modyj@moore.mcmaster.ca'
 alias mserv='ssh modyj@mserv.magarveylab.ca'
 alias sesame-vm='gcloud compute ssh --project magarvey-dl --zone us-central1-a sesame-vm'
 alias sesame-vm-openport='gcloud compute ssh --project magarvey-dl --zone us-central1-a sesame-vm -- -L localhost:7001:localhost:7001'
+alias moore='ssh -X modyj@moore.mcmaster.ca'
 alias valerievm='gcloud compute ssh jaykmody@instance-1-vm --zone=us-central1-a'

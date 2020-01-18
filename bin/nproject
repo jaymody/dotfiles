@@ -64,5 +64,5 @@ git init
 open .
 
 if [ "$2" == "g" ]; then
-	remote-git	
+	remote-git
 fi

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # get root priveleges
-sudo -v 
+sudo -v
 
 set -e
 
