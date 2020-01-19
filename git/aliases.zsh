@@ -1,1 +1,1 @@
-remoteurl='git config --get remote.origin.url | pbcopy'
+alias remoteurl='git config --get remote.origin.url | pbcopy'
