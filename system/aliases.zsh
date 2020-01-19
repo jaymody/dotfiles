@@ -39,9 +39,6 @@ alias reload="exec ${SHELL} -l"
 alias cleands="find . -type f -name '*.DS_Store' -ls -delete"
 alias closewin="osascript -e 'tell application \"Finder\" to close windows'"
 
-# apps
-alias chrome='open -n "/Applications/Google Chrome.app"'
-
 # ssh
 alias macvpn='sudo openconnect sslvpn.mcmaster.ca'
 alias mserv='ssh modyj@mserv.magarveylab.ca'
