@@ -1,3 +1,4 @@
+EditorConfig.EditorConfig
 James-Yu.latex-workshop
 ms-python.python
 ms-vscode.sublime-keybindings
