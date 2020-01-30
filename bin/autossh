@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+	echo "Command requires 1 argument [user@host]"
+	exit 1
+fi
+
+cd ~
+
+if [ ! -f ".ssh/id_rsa" ]; then
+    ssh-keygen -t rsa
+fi
+
+ssh $1 mkdir -p .ssh
+cat .ssh/id_rsa.pub | ssh $1 'cat >> .ssh/authorized_keys'
