@@ -9,6 +9,7 @@ source $ZSH/oh-my-zsh.sh
 unalias -m '*'
 eval $save_aliases
 unset save_aliases
+alias ${_Z_CMD:-z}='_z 2>&1'
 
 # load powerlevel10k config
 source ~/.p10k.zsh
