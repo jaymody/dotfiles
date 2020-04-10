@@ -12,3 +12,6 @@ Thumbs.db
 
 # Visual Studio Code Project Folder
 .vscode/
+
+# Pyenv
+.python-version
