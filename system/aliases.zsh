@@ -14,9 +14,17 @@ alias ~="cd ~"
 
 # ls
 export LS_COLORS="di=1;36:ln=0;44:so=32:pi=31:ex=35:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
-alias l="gls -1 --color --group-directories-first"
-alias la="gls -A1 --color --group-directories-first"
-alias ll="gls -Ahl --color --group-directories-first"
+
+if ls --color > /dev/null 2>&1; then
+    lsflag="ls"
+else
+    lsflag="gls"
+fi
+
+alias ls="$lsflag --color --group-directories-first"
+alias l="$lsflag -1 --color --group-directories-first"
+alias la="$lsflag -A1 --color --group-directories-first"
+alias ll="$lsflag -Ahl --color --group-directories-first"
 
 # network
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
