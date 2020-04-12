@@ -1,3 +1,0 @@
-#!/bin/bash
-
-screen -m -S mserv-jlab bash -c "ssh -L localhost:8679:localhost:8679 modyj@mserv.magarveylab.ca 'bash /home/modyj/.startjl'"
