@@ -51,7 +51,7 @@ alias closewin="osascript -e 'tell application \"Finder\" to close windows'"
 
 # ssh
 alias macvpn='sudo openconnect -u modyj sslvpn.mcmaster.ca'
-alias mserv='ssh modyj@mserv.magarveylab.ca'
+alias mserv='ssh modyj@magarveylab-computational.mcmaster.ca'
 alias sesame-vm='gcloud compute ssh --project magarvey-dl --zone us-central1-a sesame-vm'
 alias sesame-vm-openport='gcloud compute ssh --project magarvey-dl --zone us-central1-a sesame-vm -- -L localhost:7001:localhost:7001'
 alias moore='ssh modyj@moore.mcmaster.ca'
