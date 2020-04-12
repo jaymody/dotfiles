@@ -7,8 +7,7 @@ Heavily inspired by https://github.com/holman/dotfiles.git, it's a great repo, g
 
 ## install
 ```sh
-DOTFILES_ROOT="~/.dotfiles"
-DOTFILES_ROOT="${DOTFILES_ROOT/#\~/$HOME}"
+DOTFILES_ROOT="${HOME}/.dotfiles"
 echo "export DOTFILES_ROOT=\"$DOTFILES_ROOT\"" >> ~/.localrc
 source ~/.localrc
 
