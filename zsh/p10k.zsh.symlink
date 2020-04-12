@@ -232,21 +232,30 @@
 
 
   ##################################[ context: user@hostname ]##################################
-  # foreground
-  typeset -g POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND=${TEXT_COLOR}
-  typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_FOREGROUND=${TEXT_COLOR}
-  typeset -g POWERLEVEL9K_CONTEXT_FOREGROUND=${TEXT_COLOR}
+  # bold username@machine = '%B%n@%m'
 
-  # background
-  typeset -g POWERLEVEL9K_CONTEXT_ROOT_BACKGROUND=${CONTEXT_BLUE}
-  typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_BACKGROUND=${CONTEXT_BLUE}
+  # default
+  typeset -g POWERLEVEL9K_CONTEXT_FOREGROUND=${TEXT_COLOR}
   typeset -g POWERLEVEL9K_CONTEXT_BACKGROUND=${CONTEXT_BLUE}
+  typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='%n'
+
+  # root
+  typeset -g POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND=${TEXT_COLOR}
+  typeset -g POWERLEVEL9K_CONTEXT_ROOT_BACKGROUND=${BATTERY_ORANGE}
+  typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='B%n'
+
+  # remote
+  typeset -g POWERLEVEL9K_CONTEXT_REMOTE_FOREGROUND=${TEXT_COLOR}
+  typeset -g POWERLEVEL9K_CONTEXT_REMOTE_BACKGROUND=${BATTERY_ORANGE}
+  typeset -g POWERLEVEL9K_CONTEXT_REMOTE_TEMPLATE='%n@%m'
+
+  # remote root
+  typeset -g POWERLEVEL9K_CONTEXT_REMOTE_SUDO_FOREGROUND=${TEXT_COLOR}
+  typeset -g POWERLEVEL9K_CONTEXT_REMOTE_SUDO_BACKGROUND=${BATTERY_ORANGE}
+  typeset -g POWERLEVEL9K_CONTEXT_REMOTE_SUDO_TEMPLATE='B%n@%m'
 
   # expansion
-  # bold username@machine = '%B%n@%m'
-  typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='%n'
-  typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_TEMPLATE='%n'
-  typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='%n'
+  # typeset -g POWERLEVEL9K_CONTEXT_ROOT_CONTENT_EXPANSION='root'
 
   # Don't show context unless running with privileges or in SSH.
   # Tip: Remove the next line to always show context.
