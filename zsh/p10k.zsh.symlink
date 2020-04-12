@@ -254,9 +254,6 @@
   typeset -g POWERLEVEL9K_CONTEXT_REMOTE_SUDO_BACKGROUND=${BATTERY_ORANGE}
   typeset -g POWERLEVEL9K_CONTEXT_REMOTE_SUDO_TEMPLATE='B%n@%m'
 
-  # expansion
-  # typeset -g POWERLEVEL9K_CONTEXT_ROOT_CONTENT_EXPANSION='root'
-
   # Don't show context unless running with privileges or in SSH.
   # Tip: Remove the next line to always show context.
   # typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO}_{CONTENT,VISUAL_IDENTIFIER}_EXPANSION=
