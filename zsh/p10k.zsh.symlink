@@ -243,7 +243,7 @@
   # root
   typeset -g POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND=${TEXT_COLOR}
   typeset -g POWERLEVEL9K_CONTEXT_ROOT_BACKGROUND=${CONTEXT_SUDO_ORANGE}
-  typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='B%n'
+  typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='%B%n'
 
   # remote
   typeset -g POWERLEVEL9K_CONTEXT_REMOTE_FOREGROUND=${TEXT_COLOR}
@@ -253,7 +253,7 @@
   # remote root
   typeset -g POWERLEVEL9K_CONTEXT_REMOTE_SUDO_FOREGROUND=${TEXT_COLOR}
   typeset -g POWERLEVEL9K_CONTEXT_REMOTE_SUDO_BACKGROUND=${CONTEXT_SUDO_ORANGE}
-  typeset -g POWERLEVEL9K_CONTEXT_REMOTE_SUDO_TEMPLATE='B%n@%m'
+  typeset -g POWERLEVEL9K_CONTEXT_REMOTE_SUDO_TEMPLATE='%B%n@%m'
 
   # Don't show context unless running with privileges or in SSH.
   # Tip: Remove the next line to always show context.
