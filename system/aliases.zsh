@@ -42,7 +42,6 @@ alias cls='clear'
 alias duh="du -csh * | sort -rh"
 alias tsv='function __tsv() { column -t $* | less; unset -f __tsv; }; __tsv'
 alias csv='function __csv() { column -s, -t < $* | less -#2 -N -S; unset -f __csv; }; __csv'
-alias cdir="pwd | pbcopy"
 alias json='function __json() { jq -C . $* | less -R; unset -f __json; }; __json'
 alias paths='echo -e ${PATH//:/\\n}'
 alias reload="exec ${SHELL} -l"

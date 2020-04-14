@@ -14,6 +14,14 @@
 	<string>manual</string>
 	<key>Default Bookmark Guid</key>
 	<string>F9957ED4-9DFC-45DB-BE72-F70DBB4C3811</string>
+	<key>DimBackgroundWindows</key>
+	<false/>
+	<key>DimOnlyText</key>
+	<false/>
+	<key>DisableFullscreenTransparency</key>
+	<false/>
+	<key>EnableDivisionView</key>
+	<true/>
 	<key>FocusFollowsMouse</key>
 	<false/>
 	<key>GlobalKeyMap</key>
@@ -126,8 +134,14 @@
 	</dict>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
+	<key>HideActivityIndicator</key>
+	<false/>
 	<key>HideMenuBarInFullscreen</key>
 	<false/>
+	<key>HideScrollbar</key>
+	<false/>
+	<key>HideTab</key>
+	<true/>
 	<key>HideTabNumber</key>
 	<true/>
 	<key>HotkeyMigratedFromSingleToMulti</key>
@@ -190,7 +204,7 @@
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
 	<string>546 541 347 181 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 433 1210 467 0 0 1440 900 </string>
+	<string>0 430 1210 467 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>0 351 1060 392 0 0 1440 900 </string>
 	<key>NeverWarnAboutShortLivedSessions_F9957ED4-9DFC-45DB-BE72-F70DBB4C3811</key>
@@ -834,7 +848,7 @@
 	<key>NoSyncLastTipTime</key>
 	<real>601609378.64239895</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>166</integer>
+	<integer>174</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -1665,7 +1679,13 @@
 	</dict>
 	<key>PrefsCustomFolder</key>
 	<string>/Users/jay/.dotfiles/iterm/</string>
+	<key>PreserveWindowSizeWhenTabBarVisibilityChanges</key>
+	<false/>
 	<key>Print In Black And White</key>
+	<true/>
+	<key>PromptOnQuit</key>
+	<false/>
+	<key>QuitWhenAllWindowsClosed</key>
 	<true/>
 	<key>SUEnableAutomaticChecks</key>
 	<false/>
@@ -1682,13 +1702,19 @@
 	<key>SoundForEsc</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
-	<real>0.36719858156028373</real>
+	<real>0.3729609929078016</real>
 	<key>StatusBarPosition</key>
 	<integer>0</integer>
+	<key>StretchTabsToFillBar</key>
+	<true/>
 	<key>TabStyleWithAutomaticOption</key>
 	<integer>5</integer>
 	<key>TabViewType</key>
 	<integer>0</integer>
+	<key>TabsHaveCloseButton</key>
+	<true/>
+	<key>UseBorder</key>
+	<false/>
 	<key>VisualIndicatorForEsc</key>
 	<false/>
 	<key>WindowNumber</key>
