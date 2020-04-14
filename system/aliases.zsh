@@ -50,7 +50,6 @@ alias cleands="find . -type f -name '*.DS_Store' -ls -delete"
 alias closewin="osascript -e 'tell application \"Finder\" to close windows'"
 
 # ssh
-alias macvpn='sudo openconnect -u modyj sslvpn.mcmaster.ca'
 alias mserv='ssh jay@magarveylab-computational.mcmaster.ca'
 alias sesame-vm='gcloud compute ssh --project magarvey-dl --zone us-central1-a sesame-vm'
 alias sesame-vm-openport='gcloud compute ssh --project magarvey-dl --zone us-central1-a sesame-vm -- -L localhost:7001:localhost:7001'

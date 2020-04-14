@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if pgrep openconnect > /dev/null ; then
+    echo "stopping current VPN connection"
+    sudo killall openconnect
+fi
+
+echo "starting VPN connection to sslvpn.mcmaster.ca as modyj"
+sudo openconnect -b -q -u modyj sslvpn.mcmaster.ca > /dev/null
+if pgrep openconnect > /dev/null ; then
+    echo "connnection successfull"
+else
+    echo "failed to establish connnection"
+fi

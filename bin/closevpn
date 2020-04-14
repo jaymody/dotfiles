@@ -1,0 +1,5 @@
+#!/bin/bash
+
+if pgrep openconnect > /dev/null ; then
+    sudo killall openconnect
+fi
