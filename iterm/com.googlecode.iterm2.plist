@@ -204,7 +204,7 @@
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
 	<string>546 541 347 181 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 430 1210 467 0 0 1440 900 </string>
+	<string>0 433 1210 467 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>0 351 1060 392 0 0 1440 900 </string>
 	<key>NeverWarnAboutShortLivedSessions_F9957ED4-9DFC-45DB-BE72-F70DBB4C3811</key>
@@ -758,7 +758,7 @@
 			<key>Only The Default BG Color Uses Transparency</key>
 			<false/>
 			<key>Option Key Sends</key>
-			<integer>0</integer>
+			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
 			<false/>
 			<key>Right Option Key Sends</key>
@@ -848,7 +848,7 @@
 	<key>NoSyncLastTipTime</key>
 	<real>601609378.64239895</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>174</integer>
+	<integer>282</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -1601,6 +1601,8 @@
 	<true/>
 	<key>NoSyncSearchHistory2</key>
 	<array>
+		<string>seabor</string>
+		<string>seba</string>
 		<string>minnea</string>
 		<string>miami</string>
 		<string>boston</string>
@@ -1698,7 +1700,7 @@
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<false/>
+	<true/>
 	<key>SoundForEsc</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>

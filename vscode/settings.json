@@ -16,5 +16,12 @@
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     "window.closeWhenEmpty": true,
     "extensions.ignoreRecommendations": true,
-    "java.configuration.checkProjectSettingsExclusions": false
+    "java.configuration.checkProjectSettingsExclusions": false,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python"
+    },
+    "python.jediEnabled": false,
+    "terminal.external.osxExec": "iTerm.app",
+    "terminal.integrated.cursorStyle": "line",
+    "latex-workshop.message.update.show": false,
 }
