@@ -202,9 +202,9 @@
 	<key>NSWindow Frame NSColorPanel</key>
 	<string>0 159 224 275 0 0 1440 877 </string>
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
-	<string>546 541 347 181 0 0 1440 877 </string>
+	<string>320 339 799 448 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 433 1210 467 0 0 1440 900 </string>
+	<string>0 0 1440 900 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>0 351 1060 392 0 0 1440 900 </string>
 	<key>NeverWarnAboutShortLivedSessions_F9957ED4-9DFC-45DB-BE72-F70DBB4C3811</key>
@@ -841,14 +841,14 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {1440, 900}}</string>
 		<key>topLeft</key>
-		<string>{231, 679}</string>
+		<string>{229, 679}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
 	<string>0A9DB030-04D0-4889-B542-4D881066516E</string>
 	<key>NoSyncLastTipTime</key>
 	<real>601609378.64239895</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>282</integer>
+	<integer>336</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -1680,7 +1680,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/jay/.dotfiles/iterm/</string>
+	<string>~/.dotfiles/iterm/</string>
 	<key>PreserveWindowSizeWhenTabBarVisibilityChanges</key>
 	<false/>
 	<key>Print In Black And White</key>
