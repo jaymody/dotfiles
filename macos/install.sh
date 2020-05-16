@@ -2,4 +2,4 @@
 xcode-select --install
 
 # load defaults
-bash ${DOTFILES_ROOT}/defaults.sh
+bash ${DOTFILES_ROOT}/macos/defaults.sh

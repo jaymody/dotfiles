@@ -1,7 +1,7 @@
 # pyenv
 alias pyv='pyenv versions'
 alias act='pyenv shell '
-alias dact='pyenv shell system'
+alias dact='pyenv shell $(pyenv global)'
 
 # shell
 alias py='python'

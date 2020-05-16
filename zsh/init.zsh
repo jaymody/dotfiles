@@ -1,5 +1,5 @@
 # oh-my-zsh settings
-export ZSH="$DOTFILES_ROOT/zsh/oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(z git virtualenv docker pyenv python screen gcloud zsh-autosuggestions)
 

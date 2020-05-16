@@ -1,5 +1,5 @@
 # install oh-my-zsh
-export ZSH="$DOTFILES_ROOT/zsh/oh-my-zsh"
+export ZSH="$$HOME/.oh-my-zsh"
 export KEEP_ZSHRC=yes
 export RUNZSH=no
 curl -fsSLo install-ohmyzsh.sh https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh

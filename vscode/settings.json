@@ -4,7 +4,7 @@
     "workbench.activityBar.visible": false,
     "workbench.colorTheme": "Mariana Pro (Cool)",
     "workbench.iconTheme": "file-icons-colourless-mac",
-    "window.zoomLevel": 1,
+    "window.zoomLevel": 2,
     "workbench.startupEditor": "newUntitledFile",
     "breadcrumbs.enabled": false,
     "latex-workshop.view.pdf.viewer": "browser",

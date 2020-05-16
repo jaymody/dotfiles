@@ -1,5 +1,9 @@
 - macos defaults
 - use aliases for save locations of settings (vscode)
 - figure out a way to automatically save and load iterm2 settings
-- create all "save.sh" scripts
-- automate the calling of "./save" every couple days
+- create all "update.sh" scripts
+- automate the calling of "./update" every couple days
+- linux compatibility
+- better organization
+- setup vs install
+- use .profile as entry point

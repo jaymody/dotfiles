@@ -11,7 +11,7 @@ elif [ ! -d "$DOTFILES_ROOT" ] ; then
 fi
 
 # iterate updates.sh files
-for file in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name 'save.sh' -not -path '*.git*')
+for file in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name 'update.sh' -not -path '*.git*')
 do
     sh $file
 done
