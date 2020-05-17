@@ -1,3 +1,8 @@
+# check zsh is installed
+if ! [ -x "$(command -v zsh)" ]; then
+    exit 1
+fi
+
 echo "updating oh-my-zsh"
 cd $ZSH
 git pull

@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if [ $# -eq 0 ]; then
-	echo "Command requires 1 argument [user@host]"
-	exit 1
+    echo "Command requires 1 argument [user@host]"
+    exit 1
 fi
 
 cd ~

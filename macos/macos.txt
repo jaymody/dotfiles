@@ -1,0 +1,45 @@
+General
+- dark mode
+- blue accent
+- jump to spot that’s clicked
+- none recent items
+- autohide menu bar
+
+Dock
+- scale effect
+- autohide
+- no show recent applications in dock
+- turn off double click to X
+
+Mission Control
+- group windows by application
+- disable automatically rearrange spaces based on most recent use
+
+Extensions
+- today, now playing
+
+Security and Preferences
+- require password immediately
+
+Sound
+- show volume in menu bar
+
+Keyboard
+- don't show input menu in menu bar
+- turn off autocorrect
+- turn off autocapitalize
+- move focus to menu bar (cmd + shift + ,)
+
+Trackpad
+- medium
+- default tracking speed (4th tick)
+
+Display
+- automatically adjust brightness
+
+Energy Saver
+- 5 min battery
+- 15 min power adapter
+
+Keyboard
+- shortcuts spotlight to ctrl+space

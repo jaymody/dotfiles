@@ -50,19 +50,19 @@ dist/
 setuptxt="import setuptools
 
 with open('README.md', 'r') as fh:
-	long_description = fh.read()
+    long_description = fh.read()
 
 setuptools.setup(
-	name='$1',
-	version='0.0.1',
-	author='Jay Mody',
-	author_email='jaykmody@gmail.com',
-	description='',
-	long_description = long_description,
-	long_description_content_type = 'text/markdown',
-	url='',
-	packages=setuptools.find_packages(),
-	classifiers=[]
+    name='$1',
+    version='0.0.1',
+    author='Jay Mody',
+    author_email='jaykmody@gmail.com',
+    description='',
+    long_description = long_description,
+    long_description_content_type = 'text/markdown',
+    url='',
+    packages=setuptools.find_packages(),
+    classifiers=[]
 )
 "
 
@@ -74,8 +74,8 @@ todotxt="- update LICENSE
 
 
 if [ $# -eq 0 ]; then
-	echo "Command requires at least 1 argument [projectname][optional: github (g)]"
-	exit 1
+    echo "Command requires at least 1 argument [projectname][optional: github (g)]"
+    exit 1
 fi
 
 
@@ -93,5 +93,5 @@ git init
 open .
 
 if [ "$2" == "g" ]; then
-	remote-git
+    remote-git
 fi

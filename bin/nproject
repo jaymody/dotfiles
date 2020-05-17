@@ -45,8 +45,8 @@ todotxt="- update LICENSE
 "
 
 if [ $# -eq 0 ]; then
-	echo "Command requires at least 1 argument [projectname][github (g)]"
-	exit 1
+    echo "Command requires at least 1 argument [projectname][github (g)]"
+    exit 1
 fi
 
 
@@ -64,5 +64,5 @@ git init
 open .
 
 if [ "$2" == "g" ]; then
-	remote-git
+    remote-git
 fi

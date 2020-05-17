@@ -12,3 +12,5 @@ if pgrep openconnect > /dev/null ; then
 else
     echo "failed to establish connnection"
 fi
+
+sleep 2

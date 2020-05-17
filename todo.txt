@@ -1,9 +1,16 @@
-- macos defaults
-- use aliases for save locations of settings (vscode)
+- macos defaults/settings (https://github.com/mathiasbynens/dotfiles/blob/master/.macos)
 - figure out a way to automatically save and load iterm2 settings
-- create all "update.sh" scripts
+- figure out a way to automatically save and load btt settings
 - automate the calling of "./update" every couple days
-- linux compatibility
-- better organization
+- linux compatibility (install script, test, add features)
 - setup vs install
-- use .profile as entry point
+- vscode autosetup
+- vscode update only works on mac
+- centralize tree command ignores (.git, .ipynb_checkpoints, etc ...)
+- add install option on linux when sudo priveleges are absent
+- add install option on linux when gui is not avaliable (server environment)
+
+non-portable commands:
+- open vs xdg-open
+- pbcopy vs xclip
+- gls --group-directories-first vs ls --group-directories-first

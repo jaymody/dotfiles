@@ -5,25 +5,39 @@ sudo -v
 
 set -e
 
-if [ -z "$DOTFILES_ROOT" ] ; then
-  echo "DOTFILES_ROOT is not set, terminating ..."
-  exit 1
-elif [ ! -d "$DOTFILES_ROOT" ] ; then
-  echo "Directory for DOTFILES_ROOT does not exist: $DOTFILES_ROOT"
-  echo "terminating ..."
-  exit 1
+# set default dotfiles root and override it with value set in .localrc (if it exists)
+export DOTFILES_ROOT=${HOME}/.dotfiles
+if [[ -a ~/.localrc ]]
+then
+    source ~/.localrc &> /dev/null
+fi
+
+if [ ! -d "$DOTFILES_ROOT" ] ; then
+    echo "ERROR"
+    echo "-----"
+    echo "dotfiles root directory was not found: $DOTFILES_ROOT"
+    echo "stopping install ..."
+    echo ""
+    echo "if you are not using the default location (~/.dotfiles), please specify"
+    echo "the location via the DOTFILES_ROOT env variable in ~/.localrc:"
+    echo "    export DOTFILES_ROOT=\"/custom/path/to/dotfiles\""
+    echo ""
+    return
 fi
 
 cd ${DOTFILES_ROOT}
 
-# install macos settings
-sudo sh macos/install.sh
+# check os and install accordingly
+if test "$(uname)" = "Darwin"; then
+    sudo sh macos/install.sh
+elif test "$(uname)" = "Linux"; then
+    sudo sh linux/install.sh
+else
+    echo "os must be darwin (macos) or linux"
+    exit 1
+fi
 
-# install brew
-sudo sh brew/install.sh
-
-# install zsh
-sudo sh zsh/install.sh
-
-# install docker
-sudo sh docker/install.sh
+# source setup.sh files
+for file in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name 'setup.sh' -not -path '*.git*'); do
+    sh $file
+done
