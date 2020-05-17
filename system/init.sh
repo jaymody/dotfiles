@@ -1,12 +1,12 @@
 # default text editor
-export EDITOR="code";
+export EDITOR="code"
 
 # lang
-export LANG="en_US.UTF-8";
-export LC_ALL="en_US.UTF-8";
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8" &> /dev/null
 
 # dirs
-export CODE_DIR="${HOME}/code";
+export CODE_DIR="${HOME}/code"
 export CODE_DIR_ACTIVE="${CODE_DIR}/active"
 export CODE_DIR_ARCHIVE="${CODE_DIR}/archive"
 export CODE_DIR_EDU="${CODE_DIR}/edu"
