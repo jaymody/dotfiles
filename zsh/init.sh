@@ -20,7 +20,7 @@ alias ${_Z_CMD:-z}='_z 2>&1'
 
 
 # load powerlevel10k config
-source ~/.p10k.zsh
+source ${HOME}/.p10k.zsh
 
 
 # terminal title

@@ -8,18 +8,18 @@ Heavily inspired by https://github.com/holman/dotfiles.git, it's a great repo, g
 ## install
 ### via git
 ```sh
-git clone https://github.com/jaymody/dotfiles.git "~/.dotfiles"
-cd "~/.dotfiles"
+git clone https://github.com/jaymody/dotfiles.git "${HOME}/.dotfiles"
+cd "${HOME}/.dotfiles"
 ./bootstrap  # bootstrap system (install/setup apps, os, and other software)
 ./dotfiles   # symlink dotfiles from repo to home dir
 ```
 
 ### custom install location
-The default location for dotfiles is `~/.dotfiles`. If you want to use a custom location, you'll need to specify it's location via the `DOTFILES_ROOT` environment variable that must be set in `~/.localrc`:
+The default location for dotfiles is `${HOME}/.dotfiles`. If you want to use a custom location, you'll need to specify it's location via the `DOTFILES_ROOT` environment variable that must be set in `${HOME}/.localrc`:
 ```sh
 DOTFILES_ROOT="${HOME}/.dotfiles" # replace with your custom location here
-echo "export DOTFILES_ROOT=\"$DOTFILES_ROOT\"" >> ~/.localrc
-source ~/.localrc
+echo "export DOTFILES_ROOT=\"$DOTFILES_ROOT\"" >> ${HOME}/.localrc
+source ${HOME}/.localrc
 
 git clone https://github.com/jaymody/dotfiles.git $DOTFILES_ROOT
 cd $DOTFILES_ROOT
@@ -31,8 +31,8 @@ cd $DOTFILES_ROOT
 Alternatively, instead of using git, you can use curl:
 ```sh
 DOTFILES_ROOT="${HOME}/.dotfiles" # replace with your custom location here
-echo "export DOTFILES_ROOT=\"$DOTFILES_ROOT\"" >> ~/.localrc
-source ~/.localrc
+echo "export DOTFILES_ROOT=\"$DOTFILES_ROOT\"" >> ${HOME}/.localrc
+source ${HOME}/.localrc
 
 curl -LO https://github.com/jaymody/dotfiles/archive/master.zip
 unzip master.zip
@@ -59,7 +59,7 @@ In addition, there are a couple of special files/folders:
 1. **`macos/install.sh`**: If on Mac, when `./install` is run, this file is run as a script (before the `setup.sh` scripts). This will install homebrew, brew install apps/packages via the saved `Brewfile`, as well as setup things like `iterm2` settings, macos defaults, etc ...
 2. **`linux/install.sh`**: If on Linux, when `./install` is run, this file is run as a script (before the `setup.sh` scripts). This will install apps/packages via apt and snap, as well as other linux related stuff.
 3. **`bin/`**: When a shell instance is opened, this is added to your `$PATH`. This is where you can put your scripts and tricks.
-4. **`system/shellrc.symlink`**: This is a symlinked dotfile, however it is special than the others because this is the script that is the entry point for all your shells. This is where all the `init.sh` and `aliases.sh` files are searched for and sourced on startup. `bashrc`, `zshrc`, and any other shell rc file should source `~/.shellrc` and do nothing else. Code specific to each shell (ie zsh defaults, oh-my-zsh init) should be placed in their corresponding `init.sh` files instead.
+4. **`system/shellrc.symlink`**: This is a symlinked dotfile, however it is special than the others because this is the script that is the entry point for all your shells. This is where all the `init.sh` and `aliases.sh` files are searched for and sourced on startup. `bashrc`, `zshrc`, and any other shell rc file should source `${HOME}/.shellrc` and do nothing else. Code specific to each shell (ie zsh defaults, oh-my-zsh init) should be placed in their corresponding `init.sh` files instead.
 
 The advantages this design philosophy is:
 1. Everything is contained within it's own topic folder which allows for modular installs. Each `init.sh` script checks if the current topic is avaliable, meaning `init.sh` for docker won't run if docker is not installed. This is also done for the `setup.sh` and `update.sh` scripts. You no longer have to go digging into you're 400+ line long mess of a .bashrc to comment out `eval "$(pyenv init -)"` because you're on a ubuntu server where pyenv isn't installed and you're not the admin.

@@ -1,12 +1,12 @@
-# Stash your environment variables in ~/.localrc. This means they'll stay out
+# Stash your environment variables in ${HOME}/.localrc. This means they'll stay out
 # of your main dotfiles repository (which may be public, like this one), but
 # you'll have access to them in your scripts. If not using default location for
-# dotfiles repo (~/.dotfile), location must be via DOTFILES_ROOT in .localrc
+# dotfiles repo (${HOME}/.dotfile), location must be via DOTFILES_ROOT in .localrc
 # to override the default location
 export DOTFILES_ROOT=${HOME}/.dotfiles
-if [[ -a ~/.localrc ]]
+if [[ -a ${HOME}/.localrc ]]
 then
-  source ~/.localrc &> /dev/null
+  source ${HOME}/.localrc &> /dev/null
 fi
 
 # check if dotfiles dir exists
@@ -16,8 +16,8 @@ if [ ! -d "$DOTFILES_ROOT" ] ; then
     echo "dotfiles root directory was not found: $DOTFILES_ROOT"
     echo "stopping execution of .profile ..."
     echo ""
-    echo "if you are not using the default location (~/.dotfiles), please specify"
-    echo "the location via the DOTFILES_ROOT env variable in ~/.localrc:"
+    echo "if you are not using the default location (${HOME}/.dotfiles), please specify"
+    echo "the location via the DOTFILES_ROOT env variable in ${HOME}/.localrc:"
     echo "    export DOTFILES_ROOT=\"/custom/path/to/dotfiles\""
     echo ""
     return

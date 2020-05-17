@@ -1,1 +1,1 @@
-[ -n "$PS1" ] && source ~/.bashrc;
+[ -n "$PS1" ] && source ${HOME}/.bashrc;

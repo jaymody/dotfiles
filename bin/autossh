@@ -5,7 +5,7 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
-cd ~
+cd ${HOME}
 
 if [ ! -f ".ssh/id_rsa" ]; then
     ssh-keygen -t rsa

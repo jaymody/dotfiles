@@ -2,8 +2,8 @@
 
 # set default dotfiles root and override it with value set in .localrc (if it exists)
 export DOTFILES_ROOT=${HOME}/.dotfiles
-if [[ -a ~/.localrc ]]; then
-    source ~/.localrc &> /dev/null
+if [[ -a ${HOME}/.localrc ]]; then
+    source ${HOME}/.localrc &> /dev/null
 fi
 
 if [ ! -d "$DOTFILES_ROOT" ] ; then
@@ -12,8 +12,8 @@ if [ ! -d "$DOTFILES_ROOT" ] ; then
     echo "dotfiles root directory was not found: $DOTFILES_ROOT"
     echo "stopping dotfiles symlink ..."
     echo ""
-    echo "if you are not using the default location (~/.dotfiles), please specify"
-    echo "the location via the DOTFILES_ROOT env variable in ~/.localrc:"
+    echo "if you are not using the default location (${HOME}/.dotfiles), please specify"
+    echo "the location via the DOTFILES_ROOT env variable in ${HOME}/.localrc:"
     echo "    export DOTFILES_ROOT=\"/custom/path/to/dotfiles\""
     echo ""
     return
