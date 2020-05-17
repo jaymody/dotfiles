@@ -10,8 +10,7 @@ Heavily inspired by https://github.com/holman/dotfiles.git, it's a great repo, g
 ```sh
 git clone https://github.com/jaymody/dotfiles.git "${HOME}/.dotfiles"
 cd "${HOME}/.dotfiles"
-./bootstrap  # bootstrap system (install/setup apps, os, and other software)
-./dotfiles   # symlink dotfiles from repo to home dir
+./bootstrap  # bootstrap system (install/setup apps, os, dotfiles, and other software)
 ```
 
 ### custom install location
@@ -23,8 +22,7 @@ source ${HOME}/.localrc
 
 git clone https://github.com/jaymody/dotfiles.git $DOTFILES_ROOT
 cd $DOTFILES_ROOT
-./bootstrap  # bootstrap system (install/setup apps, os, and other software)
-./dotfiles   # symlink dotfiles from repo to home dir
+./bootstrap  # bootstrap system (install/setup apps, os, dotfiles, and other software)
 ```
 
 ### via curl
@@ -40,8 +38,7 @@ rm master.zip
 mv dotfiles-master $DOTFILES_ROOT
 
 cd $DOTFILES_ROOT
-./bootstrap  # bootstrap system (install/setup apps, os, and other software)
-./dotfiles   # symlink dotfiles from repo to home dir
+./bootstrap  # bootstrap system (install/setup apps, os, dotfiles, and other software)
 ```
 
 ## usage
@@ -61,6 +58,6 @@ In addition, there are a couple of special files/folders:
 3. **`bin/`**: When a shell instance is opened, this is added to your `$PATH`. This is where you can put your scripts and tricks.
 4. **`system/shellrc.symlink`**: This is a symlinked dotfile, however it is special than the others because this is the script that is the entry point for all your shells. This is where all the `init.sh` and `aliases.sh` files are searched for and sourced on startup. `bashrc`, `zshrc`, and any other shell rc file should source `${HOME}/.shellrc` and do nothing else. Code specific to each shell (ie zsh defaults, oh-my-zsh init) should be placed in their corresponding `init.sh` files instead.
 
-The advantages this design philosophy is:
+The advantages of this design philosophy is:
 1. Everything is contained within it's own topic folder which allows for modular installs. Each `init.sh` script checks if the current topic is avaliable, meaning `init.sh` for docker won't run if docker is not installed. This is also done for the `setup.sh` and `update.sh` scripts. You no longer have to go digging into you're 400+ line long mess of a .bashrc to comment out `eval "$(pyenv init -)"` because you're on a ubuntu server where pyenv isn't installed and you're not the admin.
 2. Everything is neatly organized, don't you agree.
