@@ -27,13 +27,11 @@ fi
 export PATH=$PATH:${DOTFILES_ROOT}/bin
 
 # source all init files
-for file in ${DOTFILES_ROOT}/*/init.sh; do
-    if [[ ! -e "$file" ]]; then continue; fi
+for file in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name 'init.sh' -not -path '*.git*'); do
     source $file
 done
 
 # source all aliases files
-for file in ${DOTFILES_ROOT}/*/aliases.sh; do
-    if [[ ! -e "$file" ]]; then continue; fi
+for file in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name 'aliases.sh' -not -path '*.git*'); do
     source $file
 done

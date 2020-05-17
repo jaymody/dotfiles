@@ -1,13 +1,36 @@
 # dotfiles
 
-A git repo for all my dotfiles.
+A git repo for all my dotfiles (and more).
 
 Heavily inspired by https://github.com/holman/dotfiles.git, it's a great repo, go check it out.
 
 
 ## install
+### via git
 ```sh
-DOTFILES_ROOT="${HOME}/.dotfiles"
+git clone https://github.com/jaymody/dotfiles.git "~/.dotfiles"
+cd "~/.dotfiles"
+./bootstrap  # bootstrap system (install/setup apps, os, and other software)
+./dotfiles   # symlink dotfiles from repo to home dir
+```
+
+### custom install location
+The default location for dotfiles is `~/.dotfiles`. If you want to use a custom location, you'll need to specify it's location via the `DOTFILES_ROOT` environment variable that must be set in `~/.localrc`:
+```sh
+DOTFILES_ROOT="${HOME}/.dotfiles" # replace with your custom location here
+echo "export DOTFILES_ROOT=\"$DOTFILES_ROOT\"" >> ~/.localrc
+source ~/.localrc
+
+git clone https://github.com/jaymody/dotfiles.git $DOTFILES_ROOT
+cd $DOTFILES_ROOT
+./bootstrap  # bootstrap system (install/setup apps, os, and other software)
+./dotfiles   # symlink dotfiles from repo to home dir
+```
+
+### via curl
+Alternatively, instead of using git, you can use curl:
+```sh
+DOTFILES_ROOT="${HOME}/.dotfiles" # replace with your custom location here
 echo "export DOTFILES_ROOT=\"$DOTFILES_ROOT\"" >> ~/.localrc
 source ~/.localrc
 
@@ -15,46 +38,29 @@ curl -LO https://github.com/jaymody/dotfiles/archive/master.zip
 unzip master.zip
 rm master.zip
 mv dotfiles-master $DOTFILES_ROOT
+
+cd $DOTFILES_ROOT
+./bootstrap  # bootstrap system (install/setup apps, os, and other software)
+./dotfiles   # symlink dotfiles from repo to home dir
 ```
-This will download the repo to `~/.dotfiles`, however you can change `$DOTFILES_ROOT` to save it wherever you want. It's important that `$DOTFILES_ROOT` is an accesible environment variable as many of the scripts in the repo depend on it, which is why `export DOTFILES_ROOT=path/to/dotfiles/dir` is being appended to .localrc (which then is to be sourced by `.zshrc` or `.bashrc`)
 
 ## usage
 
-The are 2 main functionalities for this repository:
-1. Track and organize all my dotfiles, scripts, aliases, shell inits, etc ...
-2. Store my system, dev, and app settings so that I can restore them easily on if I were to reset my machine.
+The main difference between this repo vs other dotfiles repos is that there is a heavy emphasis on containing everything into "topic" areas (ie zsh, bash, python, etc ...).
 
-Everything is organized by topic, so you don't have to go scrambling around to find where you put the alias for `json`, or where in your `.zshrc` anaconda is being initialized, or scratch your head trying to remember what commands you inputed to install `docker`.
+Each topic can have the following special file types:
+1. **`topic/*.symlink`**: When `./dotfiles` is run, these files will get symlinked into your `$HOME` dir. This way, you can keep all your dotfiles organized and versioned controled in this repo while still using them in your `$HOME` dir.
+2. **`topic/init.sh`**: When a shell instance is opened, these files are sourced. This is used to intialize anything needed for a given topic to run. For example, if you're using `pyenv`, this is where you would put `eval "$(pyenv init -)"`.
+3. **`topic/aliases.sh`**: When a shell instance is opened, these files are sourced. This is where you should put aliases (you could also put the aliases in the `init.sh` files, but I like to keep my aliases seperate since there can be many of them).
+4. **`topic/setup.sh`**: When `./install` is run, this file is run as a script. This should be a one time operation when you setup your machine as it is intended to setup/install the topic.
+5. **`topic/update.sh`**: When `./update` is run, this file is run as a script. This is used to update any config files for the topic. For example, for the macos topic, this is used to save a `Brewfile` of all the latest packages/apps that are installed via homebrew. Run `./update` and git commit every now and then to make sure all your settings are backed up.
 
-This is done using a couple of special files/folders in the repo:
+In addition, there are a couple of special files/folders:
+1. **`macos/install.sh`**: If on Mac, when `./install` is run, this file is run as a script (before the `setup.sh` scripts). This will install homebrew, brew install apps/packages via the saved `Brewfile`, as well as setup things like `iterm2` settings, macos defaults, etc ...
+2. **`linux/install.sh`**: If on Linux, when `./install` is run, this file is run as a script (before the `setup.sh` scripts). This will install apps/packages via apt and snap, as well as other linux related stuff.
+3. **`bin/`**: When a shell instance is opened, this is added to your `$PATH`. This is where you can put your scripts and tricks.
+4. **`system/shellrc.symlink`**: This is a symlinked dotfile, however it is special than the others because this is the script that is the entry point for all your shells. This is where all the `init.sh` and `aliases.sh` files are searched for and sourced on startup. `bashrc`, `zshrc`, and any other shell rc file should source `~/.shellrc` and do nothing else. Code specific to each shell (ie zsh defaults, oh-my-zsh init) should be placed in their corresponding `init.sh` files instead.
 
-- **bin/**: This folder is added to your `$PATH` in `.zshrc` so any scripts you put in it are easily reachable via your shell.
-- **topic/\*.zsh**: Any files ending in `.zsh` get loaded into your environment via `source *.zsh`.
-- **topic/init.zsh**: Any file named `init.zsh` is loaded first (might be needed to set up a `$PATH` or similar for other .zsh files in same the topic directory).
-- **topic/install.sh**: Any file named `install.sh` is executed when you run `install`. These need to manually added to the install script since order matters (technically you can name `topic/install.sh` anything as long as the right reference is made in `./install`)
-- **topic/save.sh**: Any file named `save.sh` is executed when you run `save`. These are meant to be scripts that will save settings from your current setup that aren't symlinked files in your homedir (things like settings.json from vscode, Brewfile, .plists, etc ...)
-- **topic/\*.symlink**: Any file ending in `*.symlink` gets symlinked into your `$HOME`. This is so you can keep all of those versioned in your dotfiles but still keep those autoloaded files in your home directory. These get symlinked in when you run `./dotfiles`.
-
-### `./dotfiles`
-Updates the symlinks in the repo to the ones in your home dir (which are denotes by `topic/*.symblink`):
-```sh
-cd $DOTFILES_ROOT
-./dotfiles
-```
-
-### `./install`
-On a fresh install of a system run the following to install homebrew, setup your system preferences, apps via install scripts specified in the file (often `topic/install.sh`):
-```sh
-cd $DOTFILES_ROOT
-./install
-```
-
-### `./save`
-Saves various settings on your machine that can't be symlinked from this repo:
-```sh
-cd $DOTFILES_ROOT
-./install
-```
-
-### `./bootstrap`
-Contains code that will bootstrap your entire system, including downloading the repo, unpacking it, adding `$DOTFILE_ROOT` to `.localrc`, running `./install` and running `./dotfiles`.
+The advantages this design philosophy is:
+1. Everything is contained within it's own topic folder which allows for modular installs. Each `init.sh` script checks if the current topic is avaliable, meaning `init.sh` for docker won't run if docker is not installed. This is also done for the `setup.sh` and `update.sh` scripts. You no longer have to go digging into you're 400+ line long mess of a .bashrc to comment out `eval "$(pyenv init -)"` because you're on a ubuntu server where pyenv isn't installed and you're not the admin.
+2. Everything is neatly organized, don't you agree.

@@ -1,13 +1,24 @@
 #!/usr/bin/env bash
 
-if [ -z "$DOTFILES_ROOT" ] ; then
-  echo "DOTFILES_ROOT is not set, terminating ..."
-  exit 1
-elif [ ! -d "$DOTFILES_ROOT" ] ; then
-  echo "Directory for DOTFILES_ROOT does not exist: $DOTFILES_ROOT"
-  echo "terminating ..."
-  exit 1
+# set default dotfiles root and override it with value set in .localrc (if it exists)
+export DOTFILES_ROOT=${HOME}/.dotfiles
+if [[ -a ~/.localrc ]]; then
+    source ~/.localrc &> /dev/null
 fi
+
+if [ ! -d "$DOTFILES_ROOT" ] ; then
+    echo "ERROR"
+    echo "-----"
+    echo "dotfiles root directory was not found: $DOTFILES_ROOT"
+    echo "stopping dotfiles symlink ..."
+    echo ""
+    echo "if you are not using the default location (~/.dotfiles), please specify"
+    echo "the location via the DOTFILES_ROOT env variable in ~/.localrc:"
+    echo "    export DOTFILES_ROOT=\"/custom/path/to/dotfiles\""
+    echo ""
+    return
+fi
+
 
 set -e
 
@@ -111,8 +122,7 @@ install_dotfiles () {
 
   local overwrite_all=false backup_all=false skip_all=false
 
-  for src in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink' -not -path '*.git*')
-  do
+  for src in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink' -not -path '*.git*'); do
     dst="$HOME/.$(basename "${src%.*}")"
     link_file "$src" "$dst"
   done

@@ -1,22 +1,45 @@
 #!/usr/bin/env bash
 
-# get root privileges
+# get root priveleges
 sudo -v
 
-# add $DOTFILES_ROOT to env vars
-DOTFILES_ROOT="${HOME}/.dotfiles"
-echo "export DOTFILES_ROOT=\"$DOTFILES_ROOT\"" >> ~/.localrc
-source ~/.localrc
+set -e
 
-# get dotfiles repo
-curl -LO https://github.com/jaymody/dotfiles/archive/master.zip
-unzip master.zip
-rm master.zip
-mv dotfiles-master $DOTFILES_ROOT
-cd $DOTFILES_ROOT
+# set default dotfiles root and override it with value set in .localrc (if it exists)
+export DOTFILES_ROOT=${HOME}/.dotfiles
+if [[ -a ~/.localrc ]]; then
+    source ~/.localrc &> /dev/null
+fi
 
-# install
-./install
+if [ ! -d "$DOTFILES_ROOT" ] ; then
+    echo "ERROR"
+    echo "-----"
+    echo "dotfiles root directory was not found: $DOTFILES_ROOT"
+    echo "stopping install ..."
+    echo ""
+    echo "if you are not using the default location (~/.dotfiles), please specify"
+    echo "the location via the DOTFILES_ROOT env variable in ~/.localrc:"
+    echo "    export DOTFILES_ROOT=\"/custom/path/to/dotfiles\""
+    echo ""
+    return
+fi
 
-# dotfiles
+cd ${DOTFILES_ROOT}
+
+# check os and install accordingly
+if test "$(uname)" = "Darwin"; then
+    sudo sh macos/install.sh
+elif test "$(uname)" = "Linux"; then
+    sudo sh linux/install.sh
+else
+    echo "os must be darwin (macos) or linux"
+    exit 1
+fi
+
+# run setup.sh files
+for file in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name 'setup.sh' -not -path '*.git*'); do
+    sh $file
+done
+
+# symlink dotfiles
 ./dotfiles
