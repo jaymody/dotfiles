@@ -7,7 +7,7 @@ fi
 # oh-my-zsh settings
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
-plugins=(z git virtualenv docker pyenv python screen gcloud zsh-autosuggestions)
+plugins=(z zsh-autosuggestions)
 
 
 # load oh-my-zsh while ignoring aliases
