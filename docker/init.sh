@@ -4,4 +4,4 @@ if ! [ -x "$(command -v docker-machine)" ]; then
 fi
 
 
-eval "$(docker-machine env default)"
+# eval "$(docker-machine env default)"
