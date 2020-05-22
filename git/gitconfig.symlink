@@ -1,19 +1,41 @@
 [alias]
 
-        # View abbreviated SHA, description, and history graph of the latest 20 commits
-        l = log --pretty=oneline -n 20 --graph --abbrev-commit
+        # Log
+        l = !git --no-pager log --pretty=oneline -n 20 --graph --abbrev-commit
+        la = log --pretty=oneline --graph --abbrev-commit --all
 
-        # View the current working tree status using the short format
+        # Status
         s = status -s
 
-        # Show the diff between the latest commit and the current state
+        # Diff
         d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+        ds = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --staged --patch-with-stat"
 
-        # List aliases
-        aliases = config --get-regexp alias
+        # Push
+        p = push
 
-        # Amend the currently staged files to the latest commit
+        # Pull
+        pl = pull
+
+        # Commit
+        c = commit
+        cm = commit -m
         amend = commit --amend --reuse-message=HEAD
+
+        # Add
+        a = add
+        av = add --verbose
+
+        # Reset
+        r = reset
+
+        # Checkout
+        co = checkout
+        com = checkout master
+        cod = checkout dev
+
+        # Misc
+        aliases = config --get-regexp alias
 
 [apply]
 
@@ -61,5 +83,5 @@
         untracked = cyan
 
 [user]
-	name = jaymody
-	email = jaykmody@gmail.com
+        name = jaymody
+        email = jaykmody@gmail.com

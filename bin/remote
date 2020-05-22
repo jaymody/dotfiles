@@ -1,4 +1,0 @@
-#!/bin/bash
-
-URL="$(git config --get remote.origin.url)"
-open -n "/Applications/Google Chrome.app" --args --new-tab $URL
