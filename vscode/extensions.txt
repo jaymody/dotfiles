@@ -2,13 +2,7 @@ EditorConfig.EditorConfig
 James-Yu.latex-workshop
 ms-python.python
 ms-vscode.sublime-keybindings
-redhat.java
 rickynormandeau.mariana-pro
-shd101wyy.markdown-preview-enhanced
 VisualStudioExptTeam.vscodeintellicode
-vscjava.vscode-java-debug
-vscjava.vscode-java-dependency
-vscjava.vscode-java-pack
-vscjava.vscode-java-test
-vscjava.vscode-maven
 wayou.file-icons-mac
+yzhang.markdown-all-in-one

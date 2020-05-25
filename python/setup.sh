@@ -5,6 +5,7 @@ if [ ! -x "$(command -v pyenv)" ]; then
     fi
     if test "$(uname)" = "Linux"; then
         curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
+        export PATH="${HOME}/.pyenv/bin:$PATH"
         git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
     fi
 fi
