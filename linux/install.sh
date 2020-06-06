@@ -36,7 +36,8 @@ sudo apt install -y \
     ca-certificates \
     gnupg-agent \
     software-properties-common \
-    ubuntu-drivers-common
+    ubuntu-drivers-common \
+    screen
 
 
 # # chrome setup
