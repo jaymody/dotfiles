@@ -1,28 +1,15 @@
 #!/usr/bin/env bash
 
+# exit script if a command fails
+set -e
+
 # get root priveleges
 sudo -v
 
-set -e
-
-# set default dotfiles root and override it with value set in .localrc (if it exists)
+# dotfiles root dir environment variable
 export DOTFILES_ROOT=${HOME}/.dotfiles
-if [[ -a ${HOME}/.localrc ]]; then
-    source ${HOME}/.localrc &> /dev/null
-fi
-
-if [ ! -d "$DOTFILES_ROOT" ] ; then
-    echo "ERROR"
-    echo "-----"
-    echo "dotfiles root directory was not found: $DOTFILES_ROOT"
-    echo "stopping install ..."
-    echo ""
-    echo "if you are not using the default location (${HOME}/.dotfiles), please specify"
-    echo "the location via the DOTFILES_ROOT env variable in ${HOME}/.localrc:"
-    echo "    export DOTFILES_ROOT=\"/custom/path/to/dotfiles\""
-    echo ""
-    return
-fi
+[[ -a ${HOME}/.localrc ]] && source ${HOME}/.localrc &> /dev/null
+[ ! -d "$DOTFILES_ROOT" ] && echo "ERROR: dotfiles root directory ($DOTFILES_ROOT) was not found." && return
 
 cd ${DOTFILES_ROOT}
 
