@@ -1,14 +1,9 @@
 #!/usr/bin/env bash
 
-# check if DOTFILES_ROOT exists
-if [ -z "$DOTFILES_ROOT" ] ; then
-  echo "DOTFILES_ROOT is not set, terminating ..."
-  exit 1
-elif [ ! -d "$DOTFILES_ROOT" ] ; then
-  echo "Directory for DOTFILES_ROOT does not exist: $DOTFILES_ROOT"
-  echo "terminating ..."
-  exit 1
-fi
+# dotfiles root dir environment variable
+export DOTFILES_ROOT=${HOME}/.dotfiles
+[[ -a ${HOME}/.localrc ]] && source ${HOME}/.localrc &> /dev/null
+[ ! -d "$DOTFILES_ROOT" ] && echo "ERROR: dotfiles root directory ($DOTFILES_ROOT) was not found." && return
 
 # iterate updates.sh files
 for file in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name 'update.sh' -not -path '*.git*')
