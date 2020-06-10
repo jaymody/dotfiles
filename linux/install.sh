@@ -40,7 +40,7 @@ sudo apt install -y \
     gnupg-agent \
     software-properties-common \
     ubuntu-drivers-common \
-    python2 \
+    python \
     screen \
     tree \
     direnv
