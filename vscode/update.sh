@@ -5,14 +5,20 @@ if ! [ -x "$(command -v code)" ]; then
     return
 fi
 
-# extensions
+
+# install vscode extensions
+if test "$(uname)" = "Darwin"; then
+    VSCODE_SETTINGS_DIR="$HOME/Library/Application Support/Code/User"
+elif test "$(uname)" = "Linux"; then
+    VSCODE_SETTINGS_DIR="$HOME/.config/Code/User"
+else
+    echo "os must be darwin (macos) or linux to setup vscode."
+    return
+fi
+
+
+# save extensions, settings, keybindings, and snippets
 code --list-extensions > ${DOTFILES_ROOT}/vscode/extensions.txt
-
-# settings.json
-cp ${HOME}/Library/Application\ Support/Code/User/settings.json ${DOTFILES_ROOT}/vscode/settings.json
-
-# keybindings.json
-cp ${HOME}/Library/Application\ Support/Code/User/keybindings.json ${DOTFILES_ROOT}/vscode/keybindings.json
-
-# snippets
-cp -r ${HOME}/Library/Application\ Support/Code/User/snippets ${DOTFILES_ROOT}/vscode/
+cp "${VSCODE_SETTINGS_DIR}/settings.json" ${DOTFILES_ROOT}/vscode/
+cp "${VSCODE_SETTINGS_DIR}/keybindings.json" ${DOTFILES_ROOT}/vscode/
+cp -r "${VSCODE_SETTINGS_DIR}/snippets" ${DOTFILES_ROOT}/vscode/

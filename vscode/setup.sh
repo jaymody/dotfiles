@@ -7,6 +7,18 @@ fi
 
 
 # install vscode extensions
-cat ${DOTFILES_ROOT}/vscode/extensions.txt | xargs -L 1 echo code --install-extension
+if test "$(uname)" = "Darwin"; then
+    VSCODE_SETTINGS_DIR="$HOME/Library/Application Support/Code/User/"
+elif test "$(uname)" = "Linux"; then
+    VSCODE_SETTINGS_DIR="$HOME/.config/Code/User/settings.json"
+else
+    echo "os must be darwin (macos) or linux to setup vscode."
+    return
+fi
 
-echo "NOTE: to finish vscode setup, manually "
+
+# setup extensions, settings, keybindings, and snippets
+cat ${DOTFILES_ROOT}/vscode/extensions.txt | xargs -L 1 code --install-extension
+cp ${DOTFILES_ROOT}/vscode/settings.json "${VSCODE_SETTINGS_DIR}"
+cp ${DOTFILES_ROOT}/vscode/keybindings.json "${VSCODE_SETTINGS_DIR}"
+cp -r ${DOTFILES_ROOT}/vscode/snippets "${VSCODE_SETTINGS_DIR}"

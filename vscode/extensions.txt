@@ -1,7 +1,9 @@
+cssho.vscode-svgviewer
 EditorConfig.EditorConfig
 James-Yu.latex-workshop
 ms-python.python
-ms-vscode.sublime-keybindings
+ms-vscode-remote.remote-ssh
+ms-vscode-remote.remote-ssh-edit
 rickynormandeau.mariana-pro
 VisualStudioExptTeam.vscodeintellicode
 wayou.file-icons-mac
