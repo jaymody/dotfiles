@@ -5,6 +5,10 @@ if test "$(uname)" != "Darwin"; then
 fi
 
 
+# exit script if command fails
+set -e
+
+
 # install xcode command line tools
 xcode-select --install
 

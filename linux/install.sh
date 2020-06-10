@@ -5,6 +5,10 @@ if test "$(uname)" != "Linux"; then
 fi
 
 
+# exit script if command fails
+set -e
+
+
 # this script is built for ubuntu only
 # parts of script taken from:
 # https://github.com/paulkohler/ubuntu-linux-bootstrap/blob/master/bootstrap.sh
@@ -38,11 +42,12 @@ sudo apt install -y \
     ubuntu-drivers-common \
     python2 \
     screen \
-    tree
+    tree \
+    direnv
 
 
 # chrome setup
-function install_chrome() {
+install_chrome() {
     wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
     echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -52,14 +57,13 @@ function install_chrome() {
 
 
 # pyenv setup - https://github.com/pyenv/pyenv-installer
-function install_pyenv() {
+install_pyenv() {
     curl https://pyenv.run | bash
-    git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
 }
 
 # docker setup - https://docs.docker.com/install/linux/docker-ce/ubuntu/
-function install_docker() {
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+install_docker() {
+    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     sudo add-apt-repository \
        "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
     sudo apt update -y
@@ -68,19 +72,19 @@ function install_docker() {
 
 
 # visual studio code setup - https://code.visualstudio.com/docs/setup/linux
-function install_vscode() {
+install_vscode() {
     sudo snap install --classic code
 }
 
 # node setup - https://github.com/nodesource/distributions/blob/master/README.md
-function install_node() {
+install_node() {
     curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
     sudo apt-get install -y nodejs
 }
 
 
 # gcloud sdk - https://cloud.google.com/sdk/docs/downloads-apt-get
-function install_gcloud() {
+install_gcloud() {
     echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
     sudo apt-get update && sudo apt-get install google-cloud-sdk
@@ -88,15 +92,16 @@ function install_gcloud() {
 
 
 # ubuntu-drivers (ie nvidia-drivers, CUDA, etc ...)
-function install_ubuntu_drivers() {
+install_ubuntu_drivers() {
     sudo ubuntu-drivers autoinstall
 }
 
 
-function _install() {
+_install() {
     # first param is message for user, second param is install function to execute
-    printf "\r  [ \033[0;33m??\033[0m ] ${1} [y/n]\n"
-    read -n 1 action
+    printf "\r  [ \033[0;33m??\033[0m ] ${1} [y/n]: "
+    local action=
+    read action
 
     case "$action" in
         y )

@@ -4,10 +4,6 @@ export EDITOR="code"
 # default web browser
 export WEBBROWSER="/Applications/Google Chrome.app"
 
-# lang
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8" &> /dev/null
-
 # dirs
 export CODE_DIR="${HOME}/code"
 export CODE_DIR_ACTIVE="${CODE_DIR}/active"

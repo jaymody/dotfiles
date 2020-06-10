@@ -1,3 +1,8 @@
+# check direnv is installed
+if ! [ -x "$(command -v direnv)" ]; then
+    return
+fi
+
 # initialize direnv (https://direnv.net/docs/hook.html)
 eval "$(direnv hook ${SHELL})"
 
