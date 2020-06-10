@@ -9,6 +9,10 @@ fi
 set -e
 
 
+# set computer name
+sudo scutil --set HostName jays-mbp
+
+
 # install xcode command line tools
 xcode-select --install
 

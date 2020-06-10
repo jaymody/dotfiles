@@ -21,12 +21,10 @@ sudo apt upgrade -y
 
 # essentials
 sudo apt install -y \
-    git \
-    zsh \
-    curl \
-    wget \
-    make \
+    coreutils \
     build-essential \
+    make \
+    openssl \
     libssl-dev \
     zlib1g-dev \
     libbz2-dev \
@@ -34,16 +32,28 @@ sudo apt install -y \
     libsqlite3-dev \
     llvm \
     libncurses5-dev \
-    xclip \
     apt-transport-https \
     ca-certificates \
     gnupg-agent \
     software-properties-common \
+    curl \
+    wget
+
+
+# extras
+sudo apt install -y \
     ubuntu-drivers-common \
+    xclip \
+    vim \
     python \
     screen \
     tree \
-    direnv
+    direnv \
+    zip \
+    unzip \
+    jq \
+    htop \
+    ack
 
 
 # chrome setup
@@ -87,7 +97,7 @@ install_node() {
 install_gcloud() {
     echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-    sudo apt-get update && sudo apt-get install google-cloud-sdk
+    sudo apt-get update -y && sudo apt-get install -y google-cloud-sdk
 }
 
 
