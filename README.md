@@ -6,10 +6,28 @@ Heavily inspired by https://github.com/holman/dotfiles.git, it's a great repo, g
 
 
 ## install
+Before you can install, you'll need the following:
+- macos or linux
+- bash
+- sudo
+- git (or alternatively curl/unzip)
+
 ### via git
 ```sh
 git clone https://github.com/jaymody/dotfiles.git "${HOME}/.dotfiles"
 cd "${HOME}/.dotfiles"
+./bootstrap  # bootstrap system (install/setup apps, os, dotfiles, and other software)
+```
+
+### via curl
+Alternatively, instead of using git, you can use curl (NOTE: this will not download the `.git` folder):
+```sh
+curl -LO https://github.com/jaymody/dotfiles/archive/master.zip
+unzip master.zip
+rm master.zip
+mv dotfiles-master $DOTFILES_ROOT
+
+cd $DOTFILES_ROOT
 ./bootstrap  # bootstrap system (install/setup apps, os, dotfiles, and other software)
 ```
 
@@ -25,21 +43,6 @@ cd $DOTFILES_ROOT
 ./bootstrap  # bootstrap system (install/setup apps, os, dotfiles, and other software)
 ```
 
-### via curl
-Alternatively, instead of using git, you can use curl:
-```sh
-DOTFILES_ROOT="${HOME}/.dotfiles" # replace with your custom location here
-echo "export DOTFILES_ROOT=\"$DOTFILES_ROOT\"" >> ${HOME}/.localrc
-source ${HOME}/.localrc
-
-curl -LO https://github.com/jaymody/dotfiles/archive/master.zip
-unzip master.zip
-rm master.zip
-mv dotfiles-master $DOTFILES_ROOT
-
-cd $DOTFILES_ROOT
-./bootstrap  # bootstrap system (install/setup apps, os, dotfiles, and other software)
-```
 
 ## usage
 

@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 
+#!/bin/bash
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root or with root priveleges (via sudo)"
+   exit 1
+fi
+
 # exit script if a command fails
 set -e
-
-# get root priveleges
-sudo -v
 
 # dotfiles root dir environment variable
 export DOTFILES_ROOT=${HOME}/.dotfiles
@@ -15,9 +18,9 @@ cd ${DOTFILES_ROOT}
 
 # check os and install accordingly
 if test "$(uname)" = "Darwin"; then
-    sudo sh macos/install.sh
+    sh macos/install.sh
 elif test "$(uname)" = "Linux"; then
-    sudo sh linux/install.sh
+    sh linux/install.sh
 else
     echo "os must be darwin (macos) or linux"
     exit 1

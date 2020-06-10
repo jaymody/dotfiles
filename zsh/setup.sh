@@ -5,6 +5,11 @@ if ! [ -x "$(command -v zsh)" ]; then
 fi
 
 
+# change default shell to zsh
+echo "changing default shell to zsh ..."
+chsh -s $(which zsh)
+
+
 # install oh-my-zsh
 export ZSH="$HOME/.oh-my-zsh"
 export KEEP_ZSHRC=yes
@@ -25,8 +30,3 @@ cd fonts
 ./install.sh
 cd ..
 rm -rf fonts
-
-
-# change default shell to zsh
-echo "changing default shell to zsh ..."
-chsh -s $(which zsh)
