@@ -43,7 +43,7 @@
     "BTTTpFourFingerSwipeSensitivity" : 0.40000000000000002,
     "BSTMoveTreshold" : 2,
     "BTTHideFomControlStripWhenOpen" : false,
-    "BTTNumberOfStarts" : 1353,
+    "BTTNumberOfStarts" : 1635,
     "BTTForceNormalClickPressure3F" : 150,
     "showSiriRemoteTab" : true,
     "SIRIScrollSpeed" : 1,
@@ -146,8 +146,16 @@
     "showOtherTriggersTab" : true,
     "BSTSnapAreaDefaultPictoDistanceFromLeft" : 0.10000000149011612
   },
-  "BTTPresetUUID" : "35544D1B-F685-4A60-B006-7EE83DDFD66E",
+  "BTTPresetUUID" : "A286E9A7-B40F-4D0B-8903-E633EAA7982D",
   "BTTPresetContent" : [
+    {
+      "BTTAppBundleIdentifier" : "com.apple.finder",
+      "BTTAppName" : "Finder",
+      "BTTAppAutoInvertIcon" : 1,
+      "BTTTriggers" : [
+
+      ]
+    },
     {
       "BTTAppBundleIdentifier" : "BT.G",
       "BTTAppName" : "Global",
@@ -156,39 +164,6 @@
 
       },
       "BTTTriggers" : [
-        {
-          "BTTTriggerType" : 633,
-          "BTTTriggerTypeDescription" : "Date \/ Time Widget",
-          "BTTTriggerClass" : "BTTTriggerTypeTouchBar",
-          "BTTPredefinedActionType" : -1,
-          "BTTPredefinedActionName" : "No Action",
-          "BTTEnabled2" : 1,
-          "BTTRepeatDelay" : 0,
-          "BTTUUID" : "F1CBCBA4-398F-4E86-9CC9-EB1FCABD8DDA",
-          "BTTNotesInsteadOfDescription" : 0,
-          "BTTEnabled" : 1,
-          "BTTModifierMode" : 0,
-          "BTTOrder" : 2,
-          "BTTDisplayOrder" : 0,
-          "BTTMergeIntoTouchBarGroups" : 0,
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconWidth" : 22,
-            "BTTTouchBarDateFormat" : "E hh:mm a",
-            "BTTTouchBarButtonTextAlignment" : 0,
-            "BTTTouchBarButtonFontSize" : 15,
-            "BTTTouchBarTimeZoneLocation" : "System Time Zone",
-            "BTTTouchBarDateWidgetTimeZone" : 0,
-            "BTTTouchBarButtonColor" : "75.323769, 75.323769, 75.323769, 255.000000",
-            "BTTTouchBarAlwaysShowButton" : false,
-            "BTTTBWidgetWidth" : 400,
-            "BTTTouchBarItemPlacement" : 2,
-            "BTTTouchBarButtonWidth" : 100,
-            "BTTTouchBarOnlyShowIcon" : false,
-            "BTTTouchBarFreeSpaceAfterButton" : 5,
-            "BTTTouchBarItemIconHeight" : 22,
-            "BTTTouchBarItemPadding" : 0
-          }
-        },
         {
           "BTTTriggerType" : 645,
           "BTTTriggerTypeDescription" : "Two Finger Swipe Right",
@@ -216,40 +191,6 @@
             "BTTTouchBarButtonWidth" : 100,
             "BTTTouchBarOnlyShowIcon" : false,
             "BTTTouchBarFreeSpaceAfterButton" : 5,
-            "BTTTouchBarItemIconHeight" : 22,
-            "BTTTouchBarItemPadding" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : 632,
-          "BTTTriggerTypeDescription" : "Remaining Battery Time Widget",
-          "BTTTriggerClass" : "BTTTriggerTypeTouchBar",
-          "BTTPredefinedActionType" : -1,
-          "BTTPredefinedActionName" : "No Action",
-          "BTTEnabled2" : 1,
-          "BTTRepeatDelay" : 0,
-          "BTTUUID" : "30C94324-D1F9-4C7C-B44C-3F356C26979D",
-          "BTTNotesInsteadOfDescription" : 0,
-          "BTTEnabled" : 1,
-          "BTTModifierMode" : 0,
-          "BTTOrder" : 3,
-          "BTTDisplayOrder" : 0,
-          "BTTMergeIntoTouchBarGroups" : 0,
-          "BTTTriggerConfig" : {
-            "BTTTouchBarButtonColor" : "75.323769, 75.323769, 75.323769, 255.000000",
-            "BTTTouchBarItemIconWidth" : 22,
-            "BTTTouchBarButtonTextAlignment" : 0,
-            "BTTTouchBarBatteryHideOnCharging" : false,
-            "BTTTouchBarItemPlacement" : 2,
-            "BTTTouchBarButtonFontSize" : 15,
-            "BTTTouchBarAlwaysShowButton" : false,
-            "BTTTBWidgetWidth" : 400,
-            "BTTTouchBarShowBatteryPercentage" : true,
-            "BTTTouchBarHideBatteryIcon" : 0,
-            "BTTTouchBarButtonWidth" : 100,
-            "BTTTouchBarOnlyShowIcon" : false,
-            "BTTTouchBarFreeSpaceAfterButton" : 5,
-            "BTTTouchBarShowRemainingBatteryTime" : false,
             "BTTTouchBarItemIconHeight" : 22,
             "BTTTouchBarItemPadding" : 0
           }
@@ -356,6 +297,39 @@
           }
         },
         {
+          "BTTTriggerType" : 633,
+          "BTTTriggerTypeDescription" : "Date \/ Time Widget",
+          "BTTTriggerClass" : "BTTTriggerTypeTouchBar",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled2" : 1,
+          "BTTRepeatDelay" : 0,
+          "BTTUUID" : "F1CBCBA4-398F-4E86-9CC9-EB1FCABD8DDA",
+          "BTTNotesInsteadOfDescription" : 0,
+          "BTTEnabled" : 1,
+          "BTTModifierMode" : 0,
+          "BTTOrder" : 2,
+          "BTTDisplayOrder" : 0,
+          "BTTMergeIntoTouchBarGroups" : 0,
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconWidth" : 22,
+            "BTTTouchBarDateFormat" : "E hh:mm a",
+            "BTTTouchBarButtonTextAlignment" : 0,
+            "BTTTouchBarButtonFontSize" : 15,
+            "BTTTouchBarTimeZoneLocation" : "System Time Zone",
+            "BTTTouchBarDateWidgetTimeZone" : 0,
+            "BTTTouchBarButtonColor" : "75.323769, 75.323769, 75.323769, 255.000000",
+            "BTTTouchBarAlwaysShowButton" : false,
+            "BTTTBWidgetWidth" : 400,
+            "BTTTouchBarItemPlacement" : 2,
+            "BTTTouchBarButtonWidth" : 100,
+            "BTTTouchBarOnlyShowIcon" : false,
+            "BTTTouchBarFreeSpaceAfterButton" : 5,
+            "BTTTouchBarItemIconHeight" : 22,
+            "BTTTouchBarItemPadding" : 0
+          }
+        },
+        {
           "BTTTriggerType" : 656,
           "BTTTriggerTypeDescription" : "Dock Widget",
           "BTTTriggerClass" : "BTTTriggerTypeTouchBar",
@@ -384,6 +358,40 @@
             "BTTTouchBarFreeSpaceAfterButton" : 5,
             "BTTTBWidgetDockHideRunning" : 0,
             "BTTTBWidgetDockHideFolders" : 0,
+            "BTTTouchBarItemIconHeight" : 22,
+            "BTTTouchBarItemPadding" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : 632,
+          "BTTTriggerTypeDescription" : "Remaining Battery Time Widget",
+          "BTTTriggerClass" : "BTTTriggerTypeTouchBar",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled2" : 1,
+          "BTTRepeatDelay" : 0,
+          "BTTUUID" : "30C94324-D1F9-4C7C-B44C-3F356C26979D",
+          "BTTNotesInsteadOfDescription" : 0,
+          "BTTEnabled" : 1,
+          "BTTModifierMode" : 0,
+          "BTTOrder" : 3,
+          "BTTDisplayOrder" : 0,
+          "BTTMergeIntoTouchBarGroups" : 0,
+          "BTTTriggerConfig" : {
+            "BTTTouchBarButtonColor" : "75.323769, 75.323769, 75.323769, 255.000000",
+            "BTTTouchBarItemIconWidth" : 22,
+            "BTTTouchBarButtonTextAlignment" : 0,
+            "BTTTouchBarBatteryHideOnCharging" : false,
+            "BTTTouchBarItemPlacement" : 2,
+            "BTTTouchBarButtonFontSize" : 15,
+            "BTTTouchBarAlwaysShowButton" : false,
+            "BTTTBWidgetWidth" : 400,
+            "BTTTouchBarShowBatteryPercentage" : true,
+            "BTTTouchBarHideBatteryIcon" : 0,
+            "BTTTouchBarButtonWidth" : 100,
+            "BTTTouchBarOnlyShowIcon" : false,
+            "BTTTouchBarFreeSpaceAfterButton" : 5,
+            "BTTTouchBarShowRemainingBatteryTime" : false,
             "BTTTouchBarItemIconHeight" : 22,
             "BTTTouchBarItemPadding" : 0
           }
@@ -437,14 +445,6 @@
             "BTTTouchBarItemPadding" : 0
           }
         }
-      ]
-    },
-    {
-      "BTTAppBundleIdentifier" : "com.apple.finder",
-      "BTTAppName" : "Finder",
-      "BTTAppAutoInvertIcon" : 1,
-      "BTTTriggers" : [
-
       ]
     }
   ],
