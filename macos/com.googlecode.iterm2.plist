@@ -848,7 +848,7 @@
 	<key>NoSyncLastTipTime</key>
 	<real>601609378.64239895</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>407</integer>
+	<integer>438</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -1601,6 +1601,7 @@
 	<true/>
 	<key>NoSyncSearchHistory2</key>
 	<array>
+		<string>root</string>
 		<string>chang</string>
 		<string>seabor</string>
 		<string>seba</string>
@@ -1610,7 +1611,6 @@
 		<string>leetcode</string>
 		<string>tensorflow</string>
 		<string>flake8</string>
-		<string>directinoa</string>
 	</array>
 	<key>NoSyncTipOfTheDayEligibilityBeganTime</key>
 	<real>598424548.73763096</real>

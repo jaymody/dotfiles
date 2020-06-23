@@ -9,4 +9,4 @@ fi
 
 
 # nltk
-export NLTK_DATA="${CODE_DIR_RES}/nltk_data"
+export NLTK_DATA="${HOME}/code/res/nltk_data"

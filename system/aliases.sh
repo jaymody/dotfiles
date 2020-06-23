@@ -47,14 +47,18 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 
 # misc
 alias q='exit'
-alias cls='clear'
-alias tsv='function __tsv() { column -t $* | less; unset -f __tsv; }; __tsv'
-alias csv='function __csv() { column -s, -t < $* | less -#2 -N -S; unset -f __csv; }; __csv'
-alias json='function __json() { jq -C . $* | less -R; unset -f __json; }; __json'
+alias cls=' echo "use ctrl + l"'
+alias clear=' echo "use ctrl + l"'
 alias paths='echo -e ${PATH//:/\\n}'
 alias reload="exec ${SHELL} -l"
 alias cleands="find . -type f -name '*.DS_Store' -ls -delete"
 alias closewin="osascript -e 'tell application \"Finder\" to close windows'"
+
+
+# data
+alias tsv='function __tsv() { column -t $* | less; unset -f __tsv; }; __tsv'
+alias csv='function __csv() { column -s, -t < $* | less -#2 -N -S; unset -f __csv; }; __csv'
+alias json='function __json() { jq -C . $* | less -R; unset -f __json; }; __json'
 
 
 # ssh
