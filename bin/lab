@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# setup jlab for chromeapp http://christopherroach.com/articles/jupyterlab-desktop-app/
+# setup firefox profile for app mode https://hummdis.com/projects/2019/firefox-app-mode/
+
 if [ $# -eq 0 ]; then
     echo "Command requires 1 argument: name_of_screen"
     exit 1
