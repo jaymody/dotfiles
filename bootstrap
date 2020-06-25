@@ -1,245 +1,35 @@
 #!/usr/bin/env bash
 
-# todo
-# fix option looping for case/esac
-# git clone repo on bootstrap linux
-# add options at start so user doesn't have to wait (what about timezone ting?)
-
-
 #!/bin/bash
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root or with root priveleges (via sudo)"
    exit 1
 fi
 
-
 # exit script if a command fails
 set -e
 
+# dotfiles root dir environment variable
+export DOTFILES_ROOT=${HOME}/.dotfiles
+[[ -a ${HOME}/.localrc ]] && source ${HOME}/.localrc &> /dev/null
+[ ! -d "$DOTFILES_ROOT" ] && echo "ERROR: dotfiles root directory ($DOTFILES_ROOT) was not found." && return
 
-# user prompt outputs
-info () {
-    printf "\r  [ \033[00;34m..\033[0m ] $1\n"
-}
-user () {
-    printf "\r  [ \033[0;33m??\033[0m ] $1\n"
-}
-success () {
-    printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
-}
-fail () {
-    printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
-}
+cd ${DOTFILES_ROOT}
 
-
-# ask for dotfiles root dir location and create it
-export DOTFILES_ROOT="${HOME}/.dotfiles"
-user "dotfiles root location (press enter for default: $DOTFILES_ROOT): "
-read _dotfiles_root
-if [ -v $_dotfiles_root ]; then
-    DOTFILES_ROOT="$_dotfiles_root"
-    info "appending 'export DOTFILES_ROOT=\"$DOTFILES_ROOT\"' to ~/.localrc"
-    echo 'export DOTFILES_ROOT="$DOTFILES_ROOT"' >> ${HOME}/.localrc
-fi
-mkdir $DOTFILES_ROOT
-
-
-# ask for dotfiles root repo url
-export DOTFILES_REPO="https://github.com/jaymody/dotfiles.git"
-user "dotfiles repo url (press enter for default: $DOTFILES_REPO): "
-read _dotfiles_url
-if [ -v $_dotfiles_url ]; then
-    DOTFILES_REPO="$_dotfiles_url"
-fi
-
-
-##########
-
-
-bootstrap_mac() {
-    # set computer name
-    scutil --set HostName jays-mbp
-
-    # install xcode command line tools
-    xcode-select --install
-
-    # check for brew
-    if test ! $(which brew); then
-        echo "  Installing Homebrew for you."
-        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    fi
-
-    # update brew
-    brew update
-    brew upgrade
-
-    # install git and clone repo
-    brew install git
-    git clone $DOTFILES_REPO $DOTFILES_ROOT
-
-    # install from Brewfile
-    brew bundle --file ${DOTFILES_ROOT}/macos/Brewfile
-
-    # cleanup
-    brew cleanup
-
-    # load defaults
-    bash ${DOTFILES_ROOT}/macos/defaults.sh
-
-    # iterm2
-    info "NOTE: unfortunately, there is no way to import iterm2 settings via \
-    command-line. To import manually, open Preferences > General and set the \
-    custom folder path to the iterm folder in the dotfiles repo."
-
-    # better touch tool
-    info "NOTE: unfortunately, there is no way to import bettertouchtools settings \
-    via command line, you'll have to import the preset manually"
-}
-
-
-##########
-
-
-bootstrap_ubuntu() {
-    # parts of function are taken from:
-    # https://github.com/paulkohler/ubuntu-linux-bootstrap/blob/master/bootstrap.sh
-
-    # update/upgrade
-    apt update -y
-    apt upgrade -y
-
-    # essentials
-    apt install -y \
-        coreutils \
-        build-essential \
-        make \
-        openssl \
-        libssl-dev \
-        zlib1g-dev \
-        libbz2-dev \
-        libreadline-dev \
-        libsqlite3-dev \
-        llvm \
-        libncurses5-dev \
-        apt-transport-https \
-        ca-certificates \
-        gnupg-agent \
-        software-properties-common \
-        curl \
-        wget
-
-
-    # extras
-    apt install -y \
-        ubuntu-drivers-common \
-        xclip \
-        vim \
-        python \
-        screen \
-        tree \
-        direnv \
-        zip \
-        unzip \
-        jq \
-        htop \
-        ack
-
-    # chrome setup
-    install_chrome() {
-        wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
-        echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list
-        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-        dpkg --install google-chrome-stable_current_amd64.deb
-        rm google-chrome-stable_current_amd64.deb
-    }
-
-    # pyenv setup - https://github.com/pyenv/pyenv-installer
-    install_pyenv() {
-        curl https://pyenv.run | bash
-    }
-
-    # docker setup - https://docs.docker.com/install/linux/docker-ce/ubuntu/
-    install_docker() {
-        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-        add-apt-repository \
-        "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-        apt update -y
-        apt-get install -y docker-ce docker-ce-cli containerd.io
-    }
-
-    # visual studio code setup - https://code.visualstudio.com/docs/setup/linux
-    install_vscode() {
-        snap install --classic code
-    }
-
-    # node setup - https://github.com/nodesource/distributions/blob/master/README.md
-    install_node() {
-        curl -sL https://deb.nodesource.com/setup_14.x | -E bash -
-        apt-get install -y nodejs
-    }
-
-    # gcloud sdk - https://cloud.google.com/sdk/docs/downloads-apt-get
-    install_gcloud() {
-        echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-        curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-        apt-get update -y && apt-get install -y google-cloud-sdk
-    }
-
-    # ubuntu-drivers (ie nvidia-drivers, CUDA, etc ...)
-    install_ubuntu_drivers() {
-        ubuntu-drivers autoinstall
-    }
-
-    _install() {
-        # first param is message for user, second param is install function to execute
-        printf "\r  [ \033[0;33m??\033[0m ] ${1} [y/n]: "
-        local action=
-        read action
-
-        case "$action" in
-            y )
-            $1;;
-            n )
-            break;;
-            * )
-            user "invalid choice, try again: "
-            ;;
-        esac
-    }
-
-    # ask for installations
-    _install install_chrome
-    _install install_pyenv
-    _install install_docker
-    _install install_vscode
-    _install install_node
-    _install install_gcloud
-    _install install_ubuntu_drivers
-
-    # cleanup
-    apt autoremove -y
-}
-
-
-##########
-
-
-# check os and bootstrap accordingly
+# check os and install accordingly
 if test "$(uname)" = "Darwin"; then
-    bootstrap_mac
+    sh macos/install.sh
 elif test "$(uname)" = "Linux"; then
-    bootstrap_ubuntu
+    sh linux/install.sh
 else
-    fail "os must be darwin (macos) or linux"
+    echo "os must be darwin (macos) or linux"
     exit 1
 fi
-
 
 # run setup.sh files
 for file in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name 'setup.sh' -not -path '*.git*'); do
     sh $file
 done
 
-
 # symlink dotfiles
-${DOTFILES_ROOT}/dotfiles
+./dotfiles
