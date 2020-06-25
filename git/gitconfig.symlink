@@ -1,88 +1,91 @@
 [alias]
 
-        # Log
-        l = !git --no-pager log --pretty=oneline -n 20 --graph --abbrev-commit
-        la = log --pretty=oneline --graph --abbrev-commit --all
+    # log
+    l = !git --no-pager log --pretty=oneline -n 20 --graph --abbrev-commit
+    la = log --pretty=oneline --graph --abbrev-commit --all
 
-        # Status
-        s = status -s
+    # status
+    s = status -s
 
-        # Diff
-        d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
-        ds = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --staged --patch-with-stat"
+    # diff
+    d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+    ds = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --staged --patch-with-stat"
 
-        # Push
-        p = push
+    # push
+    p = push
 
-        # Pull
-        pl = pull
+    # pull
+    pl = pull
 
-        # Commit
-        c = commit
-        cm = commit -m
-        amend = commit --amend --reuse-message=HEAD
+    # commit
+    c = commit
+    cm = commit -m
+    amend = commit --amend --reuse-message=HEAD
 
-        # Add
-        a = add
-        av = add --verbose
+    # add
+    a = add
+    av = add --verbose
 
-        # Reset
-        r = reset
+    # reset
+    r = reset
 
-        # Checkout
-        co = checkout
-        com = checkout master
-        cod = checkout dev
+    # checkout
+    co = checkout
+    com = checkout master
+    cod = checkout dev
 
-        # Misc
-        aliases = config --get-regexp alias
+    # misc
+    aliases = config --get-regexp alias
+
+    # gitignore cli - https://docs.gitignore.io/
+    ignore = "!gi() { curl -sL https://www.toptal.com/developers/gitignore/api/$@ ;}; gi"
 
 [apply]
 
-        # Detect whitespace errors when applying a patch
-        whitespace = fix
+    # detect whitespace errors when applying a patch
+    whitespace = fix
 
 [core]
 
-        # Use custom `.gitignore` and `.gitattributes`
-        excludesfile = ~/.gitignore
-        attributesfile = ~/.gitattributes
+    # use custom `.gitignore` and `.gitattributes`
+    excludesfile = ~/.gitignore
+    attributesfile = ~/.gitattributes
 
-        # Treat spaces before tabs and all kinds of trailing whitespace as an error
-        # [default] trailing-space: looks for spaces at the end of a line
-        # [default] space-before-tab: looks for spaces before tabs at the beginning of a line
-        whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+    # treat spaces before tabs and all kinds of trailing whitespace as an error
+    # [default] trailing-space: looks for spaces at the end of a line
+    # [default] space-before-tab: looks for spaces before tabs at the beginning of a line
+    whitespace = space-before-tab,-indent-with-non-tab,trailing-space
 
-        # Make `git rebase` safer on macOS
-        # More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
-        trustctime = false
+    # make `git rebase` safer on macOS
+    # more info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
+    trustctime = false
 
 [color]
 
-        # Use colors in Git commands that are capable of colored output when
-        # outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
-        ui = auto
+    # use colors in Git commands that are capable of colored output when
+    # outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
+    ui = auto
 
 [color "branch"]
 
-        current = yellow reverse
-        local = yellow
-        remote = green
+    current = yellow reverse
+    local = yellow
+    remote = green
 
 [color "diff"]
 
-        meta = yellow bold
-        frag = magenta bold # line info
-        old = red # deletions
-        new = green # additions
+    meta = yellow bold
+    frag = magenta bold # line info
+    old = red # deletions
+    new = green # additions
 
 [color "status"]
 
-        added = yellow
-        changed = green
-        untracked = cyan
+    added = yellow
+    changed = green
+    untracked = cyan
 
 [user]
 
-        name = jaymody
-        email = jaykmody@gmail.com
+    name = jaymody
+    email = jaykmody@gmail.com
