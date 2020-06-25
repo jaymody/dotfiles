@@ -1,10 +1,11 @@
 #!/bin/bash
 
 # check if play dir exists
-if [ -d ${CODE_DIR_PLAY} ]; then
-	cd ${CODE_DIR_PLAY}
+PLAY_DIR="${HOME}/code/play"
+if [ -d "$PLAY_DIR" ]; then
+	cd ${PLAY_DIR}
 else
-	echo 'error, could not find ${CODE_DIR_PLAY}'
+	echo 'error, could not find ${PLAY_DIR}'
 	exit 1
 fi
 

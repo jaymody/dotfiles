@@ -1,10 +1,12 @@
 cssho.vscode-svgviewer
 EditorConfig.EditorConfig
 James-Yu.latex-workshop
+jgoday.createtmpfile
 ms-python.python
 ms-vscode-remote.remote-ssh
 ms-vscode-remote.remote-ssh-edit
 rickynormandeau.mariana-pro
+sleistner.vscode-fileutils
 VisualStudioExptTeam.vscodeintellicode
 wayou.file-icons-mac
 yzhang.markdown-all-in-one

@@ -2,7 +2,6 @@
 alias dotfiles='cd $DOTFILES_ROOT'
 alias edotfiles='$EDITOR $DOTFILES_ROOT'
 alias scripts='l $DOTFILES_ROOT/bin'
-alias escripts='$EDITOR $DOTFILES_ROOT/bin'
 
 
 # navigation
@@ -53,19 +52,9 @@ alias clear=' clear'
 alias paths='echo -e ${PATH//:/\\n}'
 alias reload="exec ${SHELL} -l"
 alias cleands="find . -type f -name '*.DS_Store' -ls -delete"
-alias closewin="osascript -e 'tell application \"Finder\" to close windows'"
 
 
 # data
 alias tsv='function __tsv() { column -t $* | less; unset -f __tsv; }; __tsv'
 alias csv='function __csv() { column -s, -t < $* | less -#2 -N -S; unset -f __csv; }; __csv'
 alias json='function __json() { jq -C . $* | less -R; unset -f __json; }; __json'
-
-
-# ssh
-alias mserv='ssh jay@magarveylab-computational.mcmaster.ca'
-alias sesame-vm='gcloud compute ssh --project magarvey-dl --zone us-central1-a sesame-vm'
-alias sesame-vm-openport='gcloud compute ssh --project magarvey-dl --zone us-central1-a sesame-vm -- -L localhost:7001:localhost:7001'
-alias moore='ssh modyj@moore.mcmaster.ca'
-alias mills='ssh modyj@mills.mcmaster.ca'
-alias valerievm='gcloud compute ssh jaykmody@testing-vm'

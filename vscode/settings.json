@@ -29,9 +29,8 @@
         "editor.defaultFormatter": "ms-python.python",
     },
     "python.formatting.provider": "black",
-    "python.jediEnabled": false,
     "python.dataScience.jupyterServerURI": "local",
-    "python.pythonPath": "/Users/jay/.pyenv/shims/python",
+    "python.pythonPath": "~/.pyenv/shims/python",
     "python.terminal.activateEnvironment": false,
     "python.dataScience.disableJupyterAutoStart": true,
     "python.dataScience.sendSelectionToInteractiveWindow": false,
@@ -44,4 +43,13 @@
     "files.associations": {
         "*.symlink": "shellscript"
     },
+    "[markdown]": {
+        "editor.wordWrap": "on"
+    },
+    "[plaintext]": {
+        "editor.wordWrap": "on"
+    },
+    "explorer.autoReveal": false,
+    "createtmpfile.deleteOnExit": true,
+    "createtmpfile.tmpDir": "~/code/play"
 }

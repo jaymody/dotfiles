@@ -1,7 +1,0 @@
-#!/bin/bash
-
-if pgrep openconnect > /dev/null ; then
-    echo "vpn connection active"
-else
-    echo "no active vpn connection"
-fi

@@ -1,6 +1,4 @@
-# check github cli (hub) is installed
-if ! [ -x "$(command -v hub)" ]; then
-    return
+# initialize github cli (hub) if installed
+if [ -x "$(command -v hub)" ]; then
+    eval "$(hub alias -s)"
 fi
-
-eval "$(hub alias -s)"

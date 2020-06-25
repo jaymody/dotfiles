@@ -31,5 +31,6 @@ echo -e "\033];terminal\007"
 # terminal colors
 export TERM=xterm-256color
 
+
 # load zsh config
 source ${DOTFILES_ROOT}/zsh/config.sh
