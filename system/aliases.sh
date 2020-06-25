@@ -1,7 +1,7 @@
 # dotfiles
-alias dotfiles='cd $DOTFILES_ROOT'
-alias edotfiles='$EDITOR $DOTFILES_ROOT'
-alias scripts='l $DOTFILES_ROOT/bin'
+alias dotfiles="cd $DOTFILES_ROOT"
+alias edotfiles="code $DOTFILES_ROOT"
+alias scripts="l $DOTFILES_ROOT/bin"
 
 
 # navigation
@@ -46,15 +46,15 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 
 
 # misc
-alias q='exit'
-alias cls=' clear'
-alias clear=' clear'
-alias paths='echo -e ${PATH//:/\\n}'
+alias q="exit"
+alias cls=" clear"
+alias clear=" clear"
+alias paths="echo -e ${PATH//:/\\n}"
 alias reload="exec ${SHELL} -l"
 alias cleands="find . -type f -name '*.DS_Store' -ls -delete"
 
 
 # data
-alias tsv='function __tsv() { column -t $* | less; unset -f __tsv; }; __tsv'
-alias csv='function __csv() { column -s, -t < $* | less -#2 -N -S; unset -f __csv; }; __csv'
-alias json='function __json() { jq -C . $* | less -R; unset -f __json; }; __json'
+alias tsv="function __tsv() { column -t $* | less; unset -f __tsv; }; __tsv"
+alias csv="function __csv() { column -s, -t < $* | less -#2 -N -S; unset -f __csv; }; __csv"
+alias json="function __json() { jq -C . $* | less -R; unset -f __json; }; __json"
