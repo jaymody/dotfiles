@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ $# -lt 2 ]; then
+    echo "Command requires 2 argument [github username] [title for ssh key]"
+    exit 1
+fi
+
+if [ ! -f "$HOME/.ssh/id_rsa.pub" ]; then
+    echo "public key was not found at $HOME/.ssh/id_rsa.pub"
+    echo "please generate one with:"
+    echo "ssh-keygen -t rsa -b 4096"
+    exit 1
+fi
+
+pub_key=$(cat "$HOME/.ssh/id_rsa.pub")
+
+curl -u "$1" --data "{\"title\":\"$2\",\"key\":\"$pub_key\"}" https://api.github.com/user/keys

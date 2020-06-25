@@ -7,8 +7,11 @@ fi
 
 cd ${HOME}
 
-if [ ! -f ".ssh/id_rsa" ]; then
-    ssh-keygen -t rsa
+if [ ! -f ".ssh/id_rsa.pub" ]; then
+    echo "public key was not found at $HOME/.ssh/id_rsa.pub"
+    echo "please generate one with:"
+    echo "ssh-keygen -t rsa -b 4096"
+    exit 1
 fi
 
 ssh $1 mkdir -p .ssh
