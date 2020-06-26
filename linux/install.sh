@@ -86,10 +86,18 @@ install_vscode() {
     sudo snap install --classic code
 }
 
+
 # node setup - https://github.com/nodesource/distributions/blob/master/README.md
 install_node() {
     curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
     sudo apt-get install -y nodejs
+}
+
+
+# nvm setup - https://github.com/nvm-sh/nvm
+install_nvm() {
+    PROFILE="/dev/null/" # disable editing of .zshrc, .bashrc, or equivalent
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 }
 
 
@@ -130,6 +138,7 @@ _install install_pyenv
 _install install_docker
 _install install_vscode
 _install install_node
+_install install_nvm
 _install install_gcloud
 _install install_ubuntu_drivers
 

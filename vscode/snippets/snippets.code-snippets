@@ -20,8 +20,78 @@
         "prefix": "jsonload",
         "body": [
             "with open(${1:filepath}) as fi:",
-            "\t${2:varname} = json.load(fi)"
+            "\t${2:data} = json.load(fi)"
         ],
-        "description": "Load json using inbuilt python json module."
+        "description": "load json"
+    },
+    "jsonloads": {
+        "scope": "python",
+        "prefix": "jsonloads",
+        "body": [
+            "${1:data} = json.loads(${2:res})"
+        ],
+        "description": "load string json"
+    },
+    "jsondump": {
+        "scope": "python",
+        "prefix": "jsondump",
+        "body": [
+            "with open(${1:filepath}, \"w\") as fo:",
+            "\tjson.dump(${2:data}, fo, indent=2)"
+        ],
+        "description": "dump json"
+    },
+    "jsondumps": {
+        "scope": "python",
+        "prefix": "jsondumps",
+        "body": [
+            "json.dumps(${1:data}, indent=2)"
+        ],
+        "description": "dump string json"
+    },
+    "argparse": {
+        "scope": "python",
+        "prefix": "parser",
+        "body": [
+            "parser = argparse.ArgumentParser(${1:desc})",
+            "parser.add_argument(\"${2:--arg}\", type=${3:str}, default=${4:val})"
+        ],
+        "description": "setup argparse parser."
+    },
+    "add_argument": {
+        "scope": "python",
+        "prefix": "add_argument",
+        "body": [
+            "parser.add_argument(\"${1:--arg}\", type=${2:str}, default=${3:val})"
+        ],
+        "description": "add argument for argparse parser."
+    },
+    "__init__": {
+        "scope": "python",
+        "prefix": "__init__",
+        "body": [
+            "def __init__(self, ${1:var1}):",
+            "\tself.${1:var1} = ${1:var1}",
+        ],
+        "description": "__init__ method"
+    },
+    "imap_unordered": {
+        "scope": "python",
+        "prefix": "imap_unordered",
+        "body": [
+            "pool = multiprocessing.Pool(${1:nproc})",
+            "for result in pool.imap_unordered(${2:func}, ${3:iterable}):",
+            "\t${4:pass}"
+        ],
+        "description": "imap_unordered loop"
+    },
+    "tqdm": {
+        "scope": "python",
+        "prefix": "tqdm",
+        "body": [
+            "for ${1:result} in tqdm(${2:iterable}, desc=\"${3:desc}\"):",
+            "\t${4:pass}"
+        ],
+        "description": "tqdm loop"
     }
 }
