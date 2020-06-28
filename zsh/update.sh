@@ -14,3 +14,7 @@ git pull
 echo "updating powerlevel10k"
 cd ${ZSH}/custom/themes/powerlevel10k
 git pull
+
+echo "updating zsh-syntax-highlighting"
+cd ${ZSH}/custom/plugins/zsh-syntax-highlighting
+git pull
