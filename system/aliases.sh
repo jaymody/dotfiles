@@ -54,6 +54,10 @@ alias reload="exec ${SHELL} -l"
 alias cleands="find . -type f -name '*.DS_Store' -ls -delete"
 
 
+# pid
+alias psup="ps -u -p"
+
+
 # data
 alias tsv="function __tsv() { column -t $* | less; unset -f __tsv; }; __tsv"
 alias csv="function __csv() { column -s, -t < $* | less -#2 -N -S; unset -f __csv; }; __csv"
