@@ -49,7 +49,7 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 alias q="exit"
 alias cls=" clear"
 alias clear=" clear"
-alias paths="echo -e ${PATH//:/\\n}"
+alias paths="echo -e ${PATH//:/'\n'}"
 alias reload="exec ${SHELL} -l"
 alias cleands="find . -type f -name '*.DS_Store' -ls -delete"
 
