@@ -51,5 +51,7 @@
     },
     "explorer.autoReveal": false,
     "createtmpfile.deleteOnExit": true,
-    "createtmpfile.tmpDir": "~/code/play"
+    "createtmpfile.tmpDir": "~/.cache/vscode-tempdir",
+    "gitlens.currentLine.enabled": false,
+    "gitlens.mode.active": "zen",
 }

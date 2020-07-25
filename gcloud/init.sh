@@ -3,6 +3,5 @@ if ! [ -x "$(command -v gcloud)" ]; then
     return
 fi
 
-# use system python (which is likely python 2.7) so we don't
-# need backup python2 in pyenv
+# use system python2 for gcloud since active python will probably be python3
 export CLOUDSDK_PYTHON="/usr/bin/python2"

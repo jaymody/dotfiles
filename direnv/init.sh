@@ -10,6 +10,5 @@ elif test -n "$BASH_VERSION"; then
     eval "$(direnv hook bash)"
 fi
 
-
 # silence the annoying direnv logs (we already have the p10k direnv segment)
 export DIRENV_LOG_FORMAT=

@@ -36,6 +36,7 @@
 
     # misc
     aliases = config --get-regexp alias
+    url = config --get remote.origin.url
 
     # gitignore cli from scritps bin
     ignore = "!github-ignore"

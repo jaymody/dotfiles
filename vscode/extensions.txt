@@ -1,4 +1,5 @@
 cssho.vscode-svgviewer
+eamodio.gitlens
 EditorConfig.EditorConfig
 James-Yu.latex-workshop
 jgoday.createtmpfile
