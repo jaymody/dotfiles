@@ -25,7 +25,7 @@ source ${HOME}/.p10k.zsh
 
 # terminal title
 export DISABLE_AUTO_TITLE="true"
-echo -e "\033];terminal\007"
+echo -ne "\033];terminal\007"
 
 
 # terminal colors
