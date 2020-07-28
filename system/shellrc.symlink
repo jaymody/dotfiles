@@ -9,12 +9,12 @@ export PATH=$PATH:${HOME}/bin
 export PATH=$PATH:${HOME}/.bin
 export PATH=$PATH:${HOME}/.local/bin
 
-# source all init files
-for file in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name 'init.sh' -not -path '*.git*'); do
+# source all aliases files
+for file in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name 'aliases.sh' -not -path '*.git*'); do
     source $file
 done
 
-# source all aliases files
-for file in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name 'aliases.sh' -not -path '*.git*'); do
+# source all init files
+for file in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name 'init.sh' -not -path '*.git*'); do
     source $file
 done
