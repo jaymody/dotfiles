@@ -1,7 +1,7 @@
 # pyenv
 alias pyv="pyenv versions"
 alias act="pyenv shell "
-alias dact="pyenv shell $(pyenv global)"
+alias dact='pyenv shell $(pyenv global)'
 
 # pip
 alias pip-uninstall-all="pip uninstall -y -r <(pip freeze)"
