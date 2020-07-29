@@ -52,12 +52,34 @@ autoload -Uz is-at-least && is-at-least 5.1 || return
 typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # os_icon                 # os identifier
     context                 # user@hostname
-    gcloud                  # google cloud acccount and project (https://cloud.google.com/)
-    google_app_cred         # google application credentials (https://cloud.google.com/docs/authentication/production)
+
+    # asdf                    # asdf version manager (https://github.com/asdf-vm/asdf)
+    # goenv                   # go environment (https://github.com/syndbg/goenv)
+    # jenv                    # java version from jenv (https://github.com/jenv/jenv)
+    # luaenv                  # lua version from luaenv (https://github.com/cehoffman/luaenv)
+    # nodenv                  # node.js version from nodenv (https://github.com/nodenv/nodenv)
+    # nodeenv                 # node.js environment (https://github.com/ekalinin/nodeenv)
+    # plenv                   # perl version from plenv (https://github.com/tokuhirom/plenv)
+    # phpenv                  # php version from phpenv (https://github.com/phpenv/phpenv)
+    # rbenv                   # ruby version from rbenv (https://github.com/rbenv/rbenv)
+    pyenv                   # python environment (https://github.com/pyenv/pyenv)
     # virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
     # anaconda                # conda environment (https://conda.io/)
+
     nvm                     # node.js version from nvm (https://github.com/nvm-sh/nvm)
-    pyenv                   # python environment (https://github.com/pyenv/pyenv)
+    # rvm                     # ruby version from rvm (https://rvm.io)
+    # fvm                     # flutter version management (https://github.com/leoafarias/fvm)
+
+    # haskell_stack           # haskell version from stack (https://haskellstack.org/)
+    # node_version            # node.js version
+    # go_version              # go version (https://golang.org)
+    # rust_version            # rustc version (https://www.rust-lang.org)
+    # dotnet_version          # .NET version (https://dotnet.microsoft.com)
+    # php_version             # php version (https://www.php.net/)
+    # laravel_version         # laravel php framework version (https://laravel.com/)
+    # java_version            # java version (https://www.java.com/)
+    # package                 # name@version from package.json (https://docs.npmjs.com/files/package.json)
+
     dir                     # current directory
     status                  # exit code of the last command
     # newline                 # \n
@@ -69,49 +91,35 @@ typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
 ######## right ########
 typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
     command_execution_time  # duration of the last command
+
+    gcloud                  # google cloud acccount and project (https://cloud.google.com/)
+    google_app_cred         # google application credentials (https://cloud.google.com/docs/authentication/production)
+    # aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
+    # aws_eb_env              # aws elastic beanstalk environment (https://aws.amazon.com/elasticbeanstalk/)
+    # azure                   # azure account name (https://docs.microsoft.com/en-us/cli/azure)
+    # kubecontext             # current kubernetes context (https://kubernetes.io/)
+    # terraform               # terraform workspace (https://www.terraform.io)
+
     vcs                     # git status
     background_jobs         # presence of background jobs
-    asdf                    # asdf version manager (https://github.com/asdf-vm/asdf)
     direnv                  # direnv status (https://direnv.net/)
-    goenv                   # go environment (https://github.com/syndbg/goenv)
-    nodenv                  # node.js version from nodenv (https://github.com/nodenv/nodenv)
-    nodeenv                 # node.js environment (https://github.com/ekalinin/nodeenv)
-    # node_version            # node.js version
-    # go_version              # go version (https://golang.org)
-    # rust_version            # rustc version (https://www.rust-lang.org)
-    # dotnet_version          # .NET version (https://dotnet.microsoft.com)
-    # php_version             # php version (https://www.php.net/)
-    # laravel_version         # laravel php framework version (https://laravel.com/)
-    # java_version            # java version (https://www.java.com/)
-    # package                 # name@version from package.json (https://docs.npmjs.com/files/package.json)
-    rbenv                   # ruby version from rbenv (https://github.com/rbenv/rbenv)
-    rvm                     # ruby version from rvm (https://rvm.io)
-    fvm                     # flutter version management (https://github.com/leoafarias/fvm)
-    luaenv                  # lua version from luaenv (https://github.com/cehoffman/luaenv)
-    jenv                    # java version from jenv (https://github.com/jenv/jenv)
-    plenv                   # perl version from plenv (https://github.com/tokuhirom/plenv)
-    phpenv                  # php version from phpenv (https://github.com/phpenv/phpenv)
-    haskell_stack           # haskell version from stack (https://haskellstack.org/)
-    kubecontext             # current kubernetes context (https://kubernetes.io/)
-    terraform               # terraform workspace (https://www.terraform.io)
-    aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
-    aws_eb_env              # aws elastic beanstalk environment (https://aws.amazon.com/elasticbeanstalk/)
-    azure                   # azure account name (https://docs.microsoft.com/en-us/cli/azure)
-    nordvpn                 # nordvpn connection status, linux only (https://nordvpn.com/)
-    ranger                  # ranger shell (https://github.com/ranger/ranger)
-    nnn                     # nnn shell (https://github.com/jarun/nnn)
-    vim_shell               # vim shell indicator (:sh)
-    midnight_commander      # midnight commander shell (https://midnight-commander.org/)
-    nix_shell               # nix shell (https://nixos.org/nixos/nix-pills/developing-with-nix-shell.html)
+
+    # nordvpn                 # nordvpn connection status, linux only (https://nordvpn.com/)
+    # ranger                  # ranger shell (https://github.com/ranger/ranger)
+    # nnn                     # nnn shell (https://github.com/jarun/nnn)
+    # vim_shell               # vim shell indicator (:sh)
+    # midnight_commander      # midnight commander shell (https://midnight-commander.org/)
+    # nix_shell               # nix shell (https://nixos.org/nixos/nix-pills/developing-with-nix-shell.html)
     # vi_mode                 # vi mode (you don't need this if you've enabled prompt_char)
+
     vpn_ip                  # virtual private network indicator
     # load                    # CPU load
     # disk_usage              # disk usage
     # ram                     # free RAM
     # swap                    # used swap
-    todo                    # todo items (https://github.com/todotxt/todo.txt-cli)
-    timewarrior             # timewarrior tracking status (https://timewarrior.net/)
-    taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
+    # todo                    # todo items (https://github.com/todotxt/todo.txt-cli)
+    # timewarrior             # timewarrior tracking status (https://timewarrior.net/)
+    # taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
     # time                    # current time
     # ip                      # ip address and bandwidth usage for a specified network interface
     # public_ip               # public IP address
@@ -981,7 +989,7 @@ typeset -g POWERLEVEL9K_NODENV_PROMPT_ALWAYS_SHOW=false
 # foreground
 typeset -g POWERLEVEL9K_NVM_FOREGROUND=${TEXT_COLOR}
 # background
-typeset -g POWERLEVEL9K_NVM_BACKGROUND=${ENV_GREEN}
+typeset -g POWERLEVEL9K_NVM_BACKGROUND=${CLOUD_PROFILE_ORANGE}
 
 
 
