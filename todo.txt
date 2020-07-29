@@ -1,17 +1,35 @@
 - redesign the way setup/install works (add options, modularity, seperation of concerns)
 - linux
-- add install option on linux when sudo priveleges are absent
+- add install option on linux when sudo priveleges are absent (hub, tree, etc ...)
 - add install option on linux when gui is not avaliable (server environment)
-
+- fix nltk path
 - macos defaults/settings (https://github.com/mathiasbynens/dotfiles/blob/master/.macos)
 - figure out a way to automatically save and load iterm2 settings
 - figure out a way to automatically save and load btt settings
 - automate the calling of "./update" every couple days
 - vscode autosetup
-- vscode update only works on mac
+- vscode update for both mac and linux
 - centralize tree command ignores (.git, .ipynb_checkpoints, etc ...)
 
 non-portable commands:
 - open vs xdg-open
 - pbcopy vs xclip
 - gls --group-directories-first vs ls --group-directories-first
+
+
+# startup time profiling
+time in seconds (total time for starting up 10 times)
+```
+time (repeat 10 zsh -dfis <<< 'source ~/.zshrc')
+```
+with no init or aliases:              0.08
+with no init files:                   0.55
+with all init/alias files             14.6
+
+source ~/.dotfiles/zsh/init.sh        2.15
+source ~/.dotfiles/system/init.sh     0.08
+source ~/.dotfiles/python/init.sh     4.73
+source ~/.dotfiles/node/init.sh       6.97
+source ~/.dotfiles/git/init.sh        0.18
+source ~/.dotfiles/gcloud/init.sh     0.09
+source ~/.dotfiles/direnv/init.sh     0.19
