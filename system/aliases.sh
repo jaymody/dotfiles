@@ -59,6 +59,6 @@ alias psup="ps -u -p"
 
 
 # data
-alias tsv="function __tsv() { column -t $* | less; unset -f __tsv; }; __tsv"
-alias csv="function __csv() { column -s, -t < $* | less -#2 -N -S; unset -f __csv; }; __csv"
-alias json="function __json() { jq -C . $* | less -R; unset -f __json; }; __json"
+alias tsv='function __tsv() { column -t $* | less; unset -f __tsv; }; __tsv'
+alias csv='function __csv() { column -s, -t < $* | less -#2 -N -S; unset -f __csv; }; __csv'
+alias json='function __json() { jq -C . $* | less -R; unset -f __json; }; __json'
