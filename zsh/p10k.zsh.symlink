@@ -127,6 +127,8 @@ typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
     # battery                 # internal battery
     # wifi                    # wifi speed
     # example                 # example user-defined segment (see prompt_example function below)
+
+    screen                  # GNU screen
 )
 
 
@@ -1284,6 +1286,18 @@ typeset -g POWERLEVEL9K_TIME_VISUAL_IDENTIFIER_EXPANSION=
 # This works even with POWERLEVEL9K_DISABLE_HOT_RELOAD=true.
 (( ! $+functions[p10k] )) || p10k reload
 }
+
+
+
+##################################[ screen: screen name ]##################################
+function prompt_screen() {
+    p10k segment -t "${STY#*.}"
+}
+# for some reason we need to use the actual numbers and not the vars
+typeset -g POWERLEVEL9K_SCREEN_FOREGROUND=255
+typeset -g POWERLEVEL9K_SCREEN_BACKGROUND=28
+
+
 
 ######## end ########
 (( ${#p10k_config_opts} )) && setopt ${p10k_config_opts[@]}
