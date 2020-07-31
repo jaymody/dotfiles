@@ -350,33 +350,31 @@ typeset -g POWERLEVEL9K_DIR_SHOW_WRITABLE=true
 ##################################[ context: user@hostname ]##################################
 # bold username@machine = '%B%n@%m'
 
+# template
+local CONTEXT_TEMPLATE='%n'
+if [ "$(hostname)" = "jays-mbp" ]; then
+    CONTEXT_TEMPLATE="${CONTEXT_TEMPLATE}@%m"
+fi
+
 # default
 typeset -g POWERLEVEL9K_CONTEXT_FOREGROUND=${TEXT_COLOR}
 typeset -g POWERLEVEL9K_CONTEXT_BACKGROUND=${CONTEXT_BLUE}
-if [ "$(hostname)" = "jays-mbp" ]; then
-    typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='%n'
-else
-    typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='%n@%m'
-fi
+typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE=${CONTEXT_TEMPLATE}
 
 # root
 typeset -g POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND=${TEXT_COLOR}
 typeset -g POWERLEVEL9K_CONTEXT_ROOT_BACKGROUND=${BATTERY_RED}
-if [ "$(hostname)" = "jays-mbp" ]; then
-    typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='%n'
-else
-    typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='%n@%m'
-fi
+typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE="%B${CONTEXT_TEMPLATE}"
 
 # remote
 typeset -g POWERLEVEL9K_CONTEXT_REMOTE_FOREGROUND=${TEXT_COLOR}
 typeset -g POWERLEVEL9K_CONTEXT_REMOTE_BACKGROUND=${CONTEXT_REMOTE_PURPLE}
-typeset -g POWERLEVEL9K_CONTEXT_REMOTE_TEMPLATE='%n@%m'
+typeset -g POWERLEVEL9K_CONTEXT_REMOTE_TEMPLATE=${CONTEXT_TEMPLATE}
 
 # remote root
 typeset -g POWERLEVEL9K_CONTEXT_REMOTE_SUDO_FOREGROUND=${TEXT_COLOR}
 typeset -g POWERLEVEL9K_CONTEXT_REMOTE_SUDO_BACKGROUND=${CONTEXT_SUDO_ORANGE}
-typeset -g POWERLEVEL9K_CONTEXT_REMOTE_SUDO_TEMPLATE='%B%n@%m'
+typeset -g POWERLEVEL9K_CONTEXT_REMOTE_SUDO_TEMPLATE="%B${CONTEXT_TEMPLATE}"
 
 # Don't show context unless running with privileges or in SSH.
 # Tip: Remove the next line to always show context.
@@ -384,8 +382,6 @@ typeset -g POWERLEVEL9K_CONTEXT_REMOTE_SUDO_TEMPLATE='%B%n@%m'
 
 # Custom prefix.
 # typeset -g POWERLEVEL9K_CONTEXT_PREFIX='%250Fwith '
-
-
 
 
 
@@ -406,8 +402,6 @@ typeset -g POWERLEVEL9K_GCLOUD_SHOW_ON_COMMAND='gcloud|gcs'
 #
 # typeset -g POWERLEVEL9K_GCLOUD_CONTENT_EXPANSION='${P9K_GCLOUD_ACCOUNT//\%/%%}:${P9K_GCLOUD_PROJECT//\%/%%}'
 typeset -g POWERLEVEL9K_GCLOUD_CONTENT_EXPANSION='${P9K_GCLOUD_PROJECT//\%/%%}'
-
-
 
 
 
