@@ -354,7 +354,7 @@ typeset -g POWERLEVEL9K_DIR_SHOW_WRITABLE=true
 
 # template
 local CONTEXT_TEMPLATE='%n'
-if [ "$(hostname)" = "jays-mbp" ]; then
+if [ "$(hostname)" != "jays-mbp" ]; then
     CONTEXT_TEMPLATE="${CONTEXT_TEMPLATE}@%m"
 fi
 
