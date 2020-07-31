@@ -30,7 +30,7 @@ alias lst="tree --dirsfirst -L 2 -I '.git|.ipynb_checkpoints' --filelimit 64"
 # screen
 alias s="screen"
 alias sls="screen -ls"
-alias sdr="screen -D -R -S"
+alias sdr="screen -q -D -R -S"
 
 
 # network
