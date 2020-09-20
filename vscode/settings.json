@@ -4,9 +4,7 @@
     "window.restoreWindows": "none",
     "window.closeWhenEmpty": true,
     "editor.minimap.enabled": false,
-    "editor.rulers": [
-        80
-    ],
+    "editor.rulers": [80],
     "editor.formatOnSave": true,
     "editor.suggestSelection": "first",
     "editor.renderControlCharacters": false,
@@ -22,11 +20,11 @@
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.macOptionIsMeta": true,
     "files.exclude": {
-        ".ipynb_checkpoints": true,
+        ".ipynb_checkpoints": true
     },
     "search.exclude": {},
     "[python]": {
-        "editor.defaultFormatter": "ms-python.python",
+        "editor.defaultFormatter": "ms-python.python"
     },
     "python.formatting.provider": "black",
     "python.dataScience.jupyterServerURI": "local",
@@ -35,6 +33,9 @@
     "python.dataScience.disableJupyterAutoStart": true,
     "python.dataScience.sendSelectionToInteractiveWindow": false,
     "python.dataScience.askForKernelRestart": false,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
     "[json]": {
         "editor.formatOnSave": false
     },
@@ -54,4 +55,6 @@
     "createtmpfile.tmpDir": "~/.cache/vscode-tempdir",
     "gitlens.currentLine.enabled": false,
     "gitlens.mode.active": "zen",
+    "python.showStartPage": false,
+    "codespaces.accountProvider": "GitHub"
 }

@@ -2,6 +2,8 @@
 HISTSIZE=64000
 SAVEHIST=64000
 
+unsetopt BEEP
+
 # zsh options
 # type setopt in terminal for active settings
 # (https://linux.die.net/man/1/zshoptions)
