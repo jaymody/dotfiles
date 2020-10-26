@@ -1,3 +1,6 @@
+x means done in defaults
+- means needs to be done manually
+
 General
 - dark mode
 - blue accent
@@ -6,20 +9,20 @@ General
 - autohide menu bar
 
 Dock
-- scale effect
-- autohide
-- no show recent applications in dock
+x scale effect
+x autohide
+x no show recent applications in dock
 - turn off double click to X
 
 Mission Control
-- group windows by application
-- disable automatically rearrange spaces based on most recent use
+x group windows by application
+x disable automatically rearrange spaces based on most recent use
 
 Extensions
-- today, now playing
+- today -> now playing
 
 Security and Preferences
-- require password immediately
+x require password immediately
 
 Sound
 - show volume in menu bar

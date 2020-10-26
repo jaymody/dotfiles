@@ -27,6 +27,9 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # Screen                                                                      #
 ###############################################################################
 
+# Require password immediately after sleep or screen saver begins
+defaults write com.apple.screensaver askForPassword -int 1
+defaults write com.apple.screensaver askForPasswordDelay -int 0
 
 ###############################################################################
 # Finder                                                                      #
@@ -79,6 +82,21 @@ defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 # Dock, Dashboard, and hot corners                                            #
 ###############################################################################
 
+# Change minimize/maximize window effect
+defaults write com.apple.dock mineffect -string "scale"
+
+# Automatically hide and show the Dock
+defaults write com.apple.dock autohide -bool true
+
+# Don’t show recent applications in Dock
+defaults write com.apple.dock show-recents -bool false
+
+# Don’t group windows by application in Mission Control
+# (i.e. use the old Exposé behavior instead)
+defaults write com.apple.dock expose-group-by-app -bool false
+
+# Don’t automatically rearrange Spaces based on most recent use
+defaults write com.apple.dock mru-spaces -bool false
 
 ###############################################################################
 # Mail                                                                        #
@@ -113,7 +131,6 @@ defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 ###############################################################################
 # Mac App Store                                                               #
 ###############################################################################
-
 
 
 ###############################################################################
