@@ -1,31 +1,53 @@
 // Place your key bindings in this file to override the defaults
 [
+    // open integrated terminal
     {
         "key": "cmd+j",
         "command": "workbench.action.terminal.toggleTerminal"
-    },
-    {
-        "key": "ctrl+`",
-        "command": "-workbench.action.terminal.toggleTerminal"
-    },
-    {
-        "key": "ctrl+`",
-        "command": "editor.action.joinLines",
-        "when": "editorTextFocus"
     },
     {
         "key": "cmd+j",
         "command": "-editor.action.joinLines",
         "when": "editorTextFocus"
     },
+    // navigate and create new integrated terminal tabs
     {
-        "key": "cmd+j",
-        "command": "workbench.action.togglePanel"
+        "key": "shift+cmd+[",
+        "command": "workbench.action.terminal.focusPrevious",
+        "when": "terminalFocus"
     },
     {
-        "key": "cmd+j",
-        "command": "-workbench.action.togglePanel"
+        "key": "shift+cmd+]",
+        "command": "workbench.action.terminal.focusNext",
+        "when": "terminalFocus"
     },
+    {
+        "key": "cmd+n",
+        "command": "workbench.action.terminal.newInActiveWorkspace",
+        "when": "terminalFocus"
+    },
+    // insert cursor above/below (default bindings interfere with spectacle.app)
+    {
+        "key": "alt+cmd+up",
+        "command": "-editor.action.insertCursorAbove",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+alt+p",
+        "command": "editor.action.insertCursorAbove",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+cmd+down",
+        "command": "-editor.action.insertCursorBelow",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+alt+n",
+        "command": "editor.action.insertCursorBelow",
+        "when": "editorTextFocus"
+    },
+    // cursor/select/delete by word (left and right)
     {
         "key": "alt+right",
         "command": "cursorWordEndRight",
@@ -77,31 +99,6 @@
         "when": "textInputFocus && !editorReadonly"
     },
     {
-        "key": "shift+cmd+l",
-        "command": "-editor.action.insertCursorAtEndOfEachLineSelected",
-        "when": "editorTextFocus"
-    },
-    {
-        "key": "shift+alt+p",
-        "command": "editor.action.insertCursorAbove",
-        "when": "editorTextFocus"
-    },
-    {
-        "key": "alt+cmd+up",
-        "command": "-editor.action.insertCursorAbove",
-        "when": "editorTextFocus"
-    },
-    {
-        "key": "shift+alt+n",
-        "command": "editor.action.insertCursorBelow",
-        "when": "editorTextFocus"
-    },
-    {
-        "key": "alt+cmd+down",
-        "command": "-editor.action.insertCursorBelow",
-        "when": "editorTextFocus"
-    },
-    {
         "key": "shift+alt+f",
         "command": "cursorWordPartRightSelect",
         "when": "textInputFocus"
@@ -141,6 +138,7 @@
         "command": "-filesExplorer.findInFolder",
         "when": "explorerResourceIsFolder && explorerViewletVisible && filesExplorerFocus && !inputFocus"
     },
+    // smart select (expand selection to current word/inside qoutes/brackets)
     {
         "key": "shift+cmd+space",
         "command": "-editor.action.triggerParameterHints",
@@ -156,6 +154,7 @@
         "command": "-editor.action.smartSelect.expand",
         "when": "editorTextFocus"
     },
+    // navigate back and forwards through time
     {
         "key": "ctrl+[",
         "command": "workbench.action.navigateBack"
@@ -172,14 +171,13 @@
         "key": "ctrl+shift+-",
         "command": "-workbench.action.navigateForward"
     },
+    // activity bar toggle
     {
-        "key": "shift+cmd+]",
-        "command": "workbench.action.terminal.focusPrevious",
-        "when": "terminalFocus"
+        "key": "shift+cmd+b",
+        "command": "-workbench.action.tasks.build"
     },
     {
-        "key": "shift+cmd+]",
-        "command": "workbench.action.terminal.focusNext",
-        "when": "terminalFocus"
+        "key": "shift+cmd+b",
+        "command": "workbench.action.toggleActivityBarVisibility"
     }
 ]

@@ -8,9 +8,8 @@ jgoday.createtmpfile
 ms-python.python
 ms-vscode-remote.remote-ssh
 ms-vscode-remote.remote-ssh-edit
-ms-vsonline.vsonline
+ms-vscode.cpptools
 rickynormandeau.mariana-pro
 sleistner.vscode-fileutils
-VisualStudioExptTeam.vscodeintellicode
 wayou.file-icons-mac
 yzhang.markdown-all-in-one

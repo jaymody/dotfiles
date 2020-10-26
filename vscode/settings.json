@@ -14,7 +14,6 @@
     "workbench.startupEditor": "welcomePageInEmptyWorkbench",
     "workbench.colorTheme": "Mariana Pro (Cool)",
     "breadcrumbs.enabled": false,
-    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     "extensions.ignoreRecommendations": true,
     "terminal.external.osxExec": "iTerm.app",
     "terminal.integrated.cursorStyle": "line",
@@ -37,7 +36,8 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[json]": {
-        "editor.formatOnSave": false
+        "editor.formatOnSave": false,
+        "editor.defaultFormatter": "vscode.json-language-features"
     },
     "latex-workshop.view.pdf.viewer": "tab",
     "latex-workshop.message.update.show": false,
@@ -56,5 +56,6 @@
     "gitlens.currentLine.enabled": false,
     "gitlens.mode.active": "zen",
     "python.showStartPage": false,
-    "codespaces.accountProvider": "GitHub"
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "python.languageServer": "Microsoft"
 }

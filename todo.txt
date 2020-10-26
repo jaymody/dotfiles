@@ -1,3 +1,5 @@
+- firefox jupyter notebook setup
+- word/office fonts/color palletes
 - redesign the way setup/install works (add options, modularity, seperation of concerns)
 - linux
 - add install option on linux when sudo priveleges are absent (hub, tree, etc ...)
