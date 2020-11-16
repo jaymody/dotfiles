@@ -26,12 +26,8 @@
         "editor.defaultFormatter": "ms-python.python"
     },
     "python.formatting.provider": "black",
-    "python.dataScience.jupyterServerURI": "local",
     "python.pythonPath": "~/.pyenv/shims/python",
     "python.terminal.activateEnvironment": false,
-    "python.dataScience.disableJupyterAutoStart": true,
-    "python.dataScience.sendSelectionToInteractiveWindow": false,
-    "python.dataScience.askForKernelRestart": false,
     "[javascript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
@@ -57,5 +53,11 @@
     "gitlens.mode.active": "zen",
     "python.showStartPage": false,
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-    "python.languageServer": "Microsoft"
+    "python.languageServer": "Microsoft",
+    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}",
+    "java.configuration.checkProjectSettingsExclusions": false,
+    "jupyter.jupyterServerType": "local",
+    "jupyter.disableJupyterAutoStart": true,
+    "jupyter.sendSelectionToInteractiveWindow": false,
+    "jupyter.askForKernelRestart": false
 }

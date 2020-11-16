@@ -7,6 +7,10 @@
     },
     {
         "key": "cmd+j",
+        "command": "-workbench.action.togglePanel"
+    },
+    {
+        "key": "cmd+j",
         "command": "-editor.action.joinLines",
         "when": "editorTextFocus"
     },
@@ -179,5 +183,5 @@
     {
         "key": "shift+cmd+b",
         "command": "workbench.action.toggleActivityBarVisibility"
-    }
+    },
 ]
