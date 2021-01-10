@@ -22,6 +22,7 @@ sudo apt upgrade -y
 # essentials
 sudo apt install -y \
     coreutils \
+    net-tools \
     build-essential \
     make \
     openssl \
@@ -36,6 +37,7 @@ sudo apt install -y \
     ca-certificates \
     gnupg-agent \
     software-properties-common \
+    git \
     curl \
     wget
 
@@ -43,10 +45,12 @@ sudo apt install -y \
 # extras
 sudo apt install -y \
     ubuntu-drivers-common \
+    zsh \
     xclip \
     vim \
     python \
     screen \
+    tmux \
     tree \
     direnv \
     zip \
