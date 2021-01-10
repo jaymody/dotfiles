@@ -120,7 +120,6 @@ install_ubuntu_drivers() {
 
 
 _install() {
-    # first param is message for user, second param is install function to execute
     printf "\r  [ \033[0;33m??\033[0m ] ${1} [y/n]: "
     local action=
     read action
