@@ -147,4 +147,4 @@ _install install_ubuntu_drivers
 
 
 # cleanup
-sudo apt autoremove -y
+sudo apt autoremove -y && sudo apt autoclean -y
