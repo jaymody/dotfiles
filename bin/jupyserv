@@ -1,11 +1,12 @@
 #!/bin/bash
 
-# first argument is port number, defaults to 9024 if not set
-port=${1:-9024}
+# second argument is port number, defaults to 8888 if not set
+port=${2:-8888}
 
-# second argument is ip address, defaults to inferred local ip if not set
+# third argument is ip address, defaults to inferred local ip if not set
 localip="$(ip route get 8.8.8.8 | sed -n 's/.*src \([0-9.]\+\).*/\1/p')"
-localip=${2:-$localip}
+localip=${3:-$localip}
 
+# first argument is the folder to start the server (default is empty, ie HOME)
 source "${HOME}/.shellrc"
-jupyter lab --ip $localip --port $port --no-browser
+jupyter lab --ip $localip --port $port --no-browser $1
