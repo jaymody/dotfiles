@@ -44,7 +44,6 @@ sudo apt install -y \
 
 # extras
 sudo apt install -y \
-    ubuntu-drivers-common \
     zsh \
     xclip \
     vim \
@@ -115,6 +114,7 @@ install_gcloud() {
 
 # ubuntu-drivers (ie nvidia-drivers, CUDA, etc ...)
 install_ubuntu_drivers() {
+    sudo apt install ubuntu-drivers-common
     sudo ubuntu-drivers autoinstall
 }
 
