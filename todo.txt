@@ -1,16 +1,10 @@
-- firefox jupyter notebook setup
-- word/office fonts/color palletes
 - redesign the way setup/install works (add options, modularity, seperation of concerns)
-- linux
-- add install option on linux when sudo priveleges are absent (hub, tree, etc ...)
-- add install option on linux when gui is not avaliable (server environment)
+- word/office fonts/color palletes
 - fix nltk path
 - macos defaults/settings (https://github.com/mathiasbynens/dotfiles/blob/master/.macos)
 - figure out a way to automatically save and load iterm2 settings
 - figure out a way to automatically save and load btt settings
-- automate the calling of "./update" every couple days
-- vscode autosetup
-- vscode update for both mac and linux
+- create cronjob for "./update" + git add + commit + push every month
 - centralize tree command ignores (.git, .ipynb_checkpoints, etc ...)
 
 non-portable commands:

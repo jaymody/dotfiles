@@ -1,4 +1,6 @@
 {
+    "workbench.settings.useSplitJSON": true,
+    "workbench.settings.editor": "json",
     "window.title": "${remoteName}",
     "window.zoomLevel": 2,
     "window.restoreWindows": "none",
@@ -22,10 +24,11 @@
         ".ipynb_checkpoints": true
     },
     "search.exclude": {},
-    "[python]": {
-        "editor.defaultFormatter": "ms-python.python"
-    },
     "python.formatting.provider": "black",
+    "python.linting.pylintArgs": [
+        "--disable=R,C",
+        "--extension-pkg-whitelist=cv2,torch"
+    ],
     "python.pythonPath": "~/.pyenv/shims/python",
     "python.terminal.activateEnvironment": false,
     "[javascript]": {
@@ -35,8 +38,6 @@
         "editor.formatOnSave": false,
         "editor.defaultFormatter": "vscode.json-language-features"
     },
-    "latex-workshop.view.pdf.viewer": "tab",
-    "latex-workshop.message.update.show": false,
     "files.associations": {
         "*.symlink": "shellscript"
     },
@@ -52,12 +53,44 @@
     "gitlens.currentLine.enabled": false,
     "gitlens.mode.active": "zen",
     "python.showStartPage": false,
-    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-    "python.languageServer": "Microsoft",
     "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}",
     "java.configuration.checkProjectSettingsExclusions": false,
     "jupyter.jupyterServerType": "local",
     "jupyter.disableJupyterAutoStart": true,
     "jupyter.sendSelectionToInteractiveWindow": false,
-    "jupyter.askForKernelRestart": false
+    "jupyter.askForKernelRestart": false,
+    "jupyter.alwaysTrustNotebooks": true,
+    "latex-workshop.view.pdf.viewer": "tab",
+    "latex-workshop.message.update.show": false,
+    "latex-workshop.message.error.show": false,
+    "latex-workshop.latex.autoClean.run": "onBuilt",
+    "latex-workshop.latex.clean.fileTypes": [
+        "__latexindent_temp.tex",
+        "*.bcf",
+        "*.fls",
+        "*.run.xml",
+        "*.synctex.gz",
+        "*.aux",
+        "*.bbl",
+        "*.blg",
+        "*.idx",
+        "*.ind",
+        "*.lof",
+        "*.lot",
+        "*.out",
+        "*.toc",
+        "*.acn",
+        "*.acr",
+        "*.alg",
+        "*.glg",
+        "*.glo",
+        "*.gls",
+        "*.fls",
+        "*.log",
+        "*.fdb_latexmk",
+        "*.snm",
+        "*.synctex(busy)",
+        "*.synctex.gz(busy)",
+        "*.nav"
+    ]
 }

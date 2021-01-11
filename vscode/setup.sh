@@ -5,8 +5,7 @@ if ! [ -x "$(command -v code)" ]; then
     return
 fi
 
-
-# install vscode extensions
+# setup extensions, settings, keybindings, and snippets
 if test "$(uname)" = "Darwin"; then
     VSCODE_SETTINGS_DIR="$HOME/Library/Application Support/Code/User/"
 elif test "$(uname)" = "Linux"; then
@@ -16,8 +15,6 @@ else
     return
 fi
 
-
-# setup extensions, settings, keybindings, and snippets
 cat ${DOTFILES_ROOT}/vscode/extensions.txt | xargs -L 1 code --install-extension
 cp ${DOTFILES_ROOT}/vscode/settings.json "${VSCODE_SETTINGS_DIR}"
 cp ${DOTFILES_ROOT}/vscode/keybindings.json "${VSCODE_SETTINGS_DIR}"
