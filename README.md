@@ -43,13 +43,13 @@ Link dotfiles to home directory:
 ```
 Run macos or linux install scripts:
 ```sh
-sh linux/install.sh
-sh macos/install.sh
+bash linux/install.sh
+bash macos/install.sh
 ```
 Run setup script for a given tool:
 ```sh
-sh zsh/setup.sh
-sh vscode/setup.sh
+bash zsh/setup.sh
+bash vscode/setup.sh
 ...
 ```
 
