@@ -1,3 +1,7 @@
+# langs
+export LANG=en_US.utf-8
+export LC_ALL=en_US.utf-8
+
 # default text editor
 export EDITOR="vim"
 
