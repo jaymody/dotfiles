@@ -1,0 +1,27 @@
+# dotfiles root dir environment variable
+export DOTFILES_ROOT=${HOME}/.dotfiles
+[[ -a ${HOME}/.localrc ]] && source ${HOME}/.localrc &> /dev/null
+[ ! -d "$DOTFILES_ROOT" ] && echo "ERROR: dotfiles root directory ($DOTFILES_ROOT) was not found." && return
+
+# path
+export PATH=$PATH:${DOTFILES_ROOT}/bin
+export PATH=$PATH:${HOME}/bin
+export PATH=$PATH:${HOME}/.bin
+export PATH=$PATH:${HOME}/.local/bin
+
+# langs
+export LANG=en_US.utf-8
+export LC_ALL=en_US.utf-8
+
+# default text editor
+export EDITOR="vim"
+
+# ls colors
+export LS_COLORS="di=1;36:ln=0;44:so=32:pi=31:ex=35:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
+
+### fixes
+# silence the annoying direnv logs (we already have the p10k direnv segment)
+export DIRENV_LOG_FORMAT=
+
+# use system python2 for gcloud since active python will probably be python3
+export CLOUDSDK_PYTHON="/usr/bin/python2"

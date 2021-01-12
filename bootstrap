@@ -1,35 +1,44 @@
 #!/usr/bin/env bash
 
-#!/bin/bash
-if [[ $EUID -ne 0 ]]; then
-   echo "This script must be run as root or with root priveleges (via sudo)"
-   exit 1
-fi
+## TODO: finish bootstrap script, which should:
+# - ask for install location and clone the repo to that correct location
+# - run install script for the given os (if linux ask for installation type (ie sudo vs no sudo, os type, etc ...)
+# - ask options for which setup scripts to run (ie zsh, vscode) and run them
+# - run dotfiles symlinking
 
-# exit script if a command fails
-set -e
 
-# dotfiles root dir environment variable
-export DOTFILES_ROOT=${HOME}/.dotfiles
-[[ -a ${HOME}/.localrc ]] && source ${HOME}/.localrc &> /dev/null
-[ ! -d "$DOTFILES_ROOT" ] && echo "ERROR: dotfiles root directory ($DOTFILES_ROOT) was not found." && return
 
-cd ${DOTFILES_ROOT}
+# # exit script if a command fails
+# set -e
 
-# check os and install accordingly
-if test "$(uname)" = "Darwin"; then
-    sh macos/install.sh
-elif test "$(uname)" = "Linux"; then
-    sh linux/install.sh
-else
-    echo "os must be darwin (macos) or linux"
-    exit 1
-fi
 
-# run setup.sh files
-for file in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name 'setup.sh' -not -path '*.git*'); do
-    sh $file
-done
+# # check for root priveleges
+# if [[ $(id -u) -ne 0 ]] ; then
+#     echo "Please run as root or with root priveleges"
+#     exit 1
+# fi
 
-# symlink dotfiles
-./dotfiles
+# # dotfiles root path
+# export DOTFILES_ROOT=${HOME}/.dotfiles
+# [[ -a ${HOME}/.localrc ]] && source ${HOME}/.localrc &> /dev/null
+# [ ! -d "$DOTFILES_ROOT" ] && echo "ERROR: dotfiles root directory ($DOTFILES_ROOT) was not found." && return
+
+# cd ${DOTFILES_ROOT}
+
+# # check os and install accordingly
+# if test "$(uname)" = "Darwin"; then
+#     sh macos/install.sh
+# elif test "$(uname)" = "Linux"; then
+#     sh linux/install.sh
+# else
+#     echo "os must be darwin (macos) or linux"
+#     exit 1
+# fi
+
+# # run setup.sh files
+# for file in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name 'setup.sh' -not -path '*.git*'); do
+#     sh $file
+# done
+
+# # symlink dotfiles
+# ./dotfiles

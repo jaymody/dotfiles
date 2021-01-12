@@ -1,3 +1,8 @@
+# check os is darwin (macos)
+if test "$(uname)" != "Darwin"; then
+    return
+fi
+
 # save/update Brewfile
 cd ${DOTFILES_ROOT}/macos
 brew bundle dump --force

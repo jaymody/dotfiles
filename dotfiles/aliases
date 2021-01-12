@@ -1,10 +1,10 @@
-# dotfiles
+### dotfiles
 alias dotfiles="cd $DOTFILES_ROOT"
 alias edotfiles="code $DOTFILES_ROOT"
 alias scripts="l $DOTFILES_ROOT/bin"
 
 
-# navigation
+### navigation
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
@@ -13,7 +13,7 @@ alias -- -="cd -"
 alias ~="cd ~"
 
 
-# ls
+### ls
 if ls --color > /dev/null 2>&1; then
     lsflag="ls"
 else
@@ -27,25 +27,25 @@ alias ll="$lsflag -Ahl --color --group-directories-first"
 alias lst="tree --dirsfirst -L 2 -I '.git|.ipynb_checkpoints' --filelimit 64"
 
 
-# screen
+### screen
 alias s="screen"
 alias sls="screen -ls"
 alias sdr="screen -q -D -R -S"
 
 
-# network
+### network
 alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias privateip="ipconfig getifaddr en0"
 alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
 
 
-# show/hide desktop
+### show/hide desktop
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
 
-# misc
+### misc
 alias q="exit"
 alias cls=" clear"
 alias clear=" clear"
@@ -54,11 +54,40 @@ alias reload="exec ${SHELL} -l"
 alias cleands="find . -type f -name '*.DS_Store' -ls -delete"
 
 
-# pid
+### pid
 alias psup="ps -u -p"
 
 
-# data
+### data
 alias tsv='function __tsv() { column -t $* | less; unset -f __tsv; }; __tsv'
 alias csv='function __csv() { column -s, -t < $* | less -#2 -N -S; unset -f __csv; }; __csv'
 alias json='function __json() { jq -C . $* | less -R; unset -f __json; }; __json'
+
+
+### python
+# pyenv
+alias pyv="pyenv versions"
+alias act="pyenv shell "
+alias dact='pyenv shell $(pyenv global)'
+
+# pip
+alias pip-uninstall-all="pip uninstall -y -r <(pip freeze)"
+
+# shell
+alias py="python"
+alias ipy="ipython"
+
+# jupyter
+alias jupy="jupyter notebook"
+alias jlab="jupyter lab"
+
+
+### docker
+alias dockerpsa="docker ps -a"
+alias dockerpse='docker ps --filter "status=exited"'
+alias dockerent="docker exec -it "
+alias dockerents="docker run -it "
+
+
+### vscode
+alias code.="code ."

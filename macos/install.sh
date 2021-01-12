@@ -9,6 +9,12 @@ fi
 set -e
 
 
+# dotfiles root path
+export DOTFILES_ROOT=${HOME}/.dotfiles
+[[ -a ${HOME}/.localrc ]] && source ${HOME}/.localrc &> /dev/null
+
+
+## TODO: get input to set host name
 # set computer name
 sudo scutil --set HostName jays-mbp
 
@@ -17,6 +23,7 @@ sudo scutil --set HostName jays-mbp
 xcode-select --install
 
 
+## TODO: better defaults
 # load defaults
 bash ${DOTFILES_ROOT}/macos/defaults.sh
 
@@ -39,7 +46,7 @@ brew cleanup
 # iterm2
 echo "NOTE: unfortunately, there is no way to import iterm2 settings via \
 command-line. To import manually, open Preferences > General and set the \
-custom folder path to the iterm folder in the dotfiles repo."
+custom folder path to the macos folder in the dotfiles repo."
 
 
 # better touch tool

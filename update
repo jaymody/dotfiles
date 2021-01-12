@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
 
-# dotfiles root dir environment variable
-export DOTFILES_ROOT=${HOME}/.dotfiles
-[[ -a ${HOME}/.localrc ]] && source ${HOME}/.localrc &> /dev/null
-[ ! -d "$DOTFILES_ROOT" ] && echo "ERROR: dotfiles root directory ($DOTFILES_ROOT) was not found." && return
-
 # iterate updates.sh files
-for file in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name 'update.sh' -not -path '*.git*')
+for file in $(find -H "." -maxdepth 2 -name 'update.sh' -not -path '*.git*')
 do
-    sh $file
+    echo $file
 done

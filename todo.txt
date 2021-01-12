@@ -1,11 +1,12 @@
-- redesign the way setup/install works (add options, modularity, seperation of concerns)
+- finish bootstrap script
+- non sudo installation of linux
+- more modular/configurable install scripts
+- create cronjob for "./update" + git add + commit + push every month
 - word/office fonts/color palletes
-- fix nltk path
-- macos defaults/settings (https://github.com/mathiasbynens/dotfiles/blob/master/.macos)
+- finish macos defaults/settings (https://github.com/mathiasbynens/dotfiles/blob/master/.macos)
 - figure out a way to automatically save and load iterm2 settings
 - figure out a way to automatically save and load btt settings
-- create cronjob for "./update" + git add + commit + push every month
-- centralize tree command ignores (.git, .ipynb_checkpoints, etc ...)
+- centralize tree command ignores (.git, .ipynb_checkpoints, etc ...)?
 
 non-portable commands:
 - open vs xdg-open
@@ -13,7 +14,7 @@ non-portable commands:
 - gls --group-directories-first vs ls --group-directories-first
 
 
-# startup time profiling
+# startup time profiling (old)
 time in seconds (total time for starting up 10 times)
 ```
 time (repeat 10 zsh -dfis <<< 'source ~/.zshrc')

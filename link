@@ -3,11 +3,6 @@
 # exit script if command fails
 set -e
 
-# dotfiles root dir environment variable
-export DOTFILES_ROOT=${HOME}/.dotfiles
-[[ -a ${HOME}/.localrc ]] && source ${HOME}/.localrc &> /dev/null
-[ ! -d "$DOTFILES_ROOT" ] && echo "ERROR: dotfiles root directory ($DOTFILES_ROOT) was not found." && return
-
 echo ''
 
 info () {
@@ -108,8 +103,8 @@ install_dotfiles () {
 
   local overwrite_all=false backup_all=false skip_all=false
 
-  for src in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink' -not -path '*.git*'); do
-    dst="$HOME/.$(basename "${src%.*}")"
+  for src in $(find -H "$(pwd -P)/dotfiles" -maxdepth 1 -type f -name '*' -not -name '.*'); do
+    dst="$HOME/.$(basename $src)"
     link_file "$src" "$dst"
   done
 }

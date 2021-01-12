@@ -1,7 +1,7 @@
 # check zsh is installed
 if ! [ -x "$(command -v zsh)" ]; then
-    echo "zsh is not installed, skipping zsh setup ..."
-    exit 1
+    echo "zsh is not installed"
+    return
 fi
 
 
