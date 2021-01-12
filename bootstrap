@@ -1,44 +1,38 @@
 #!/usr/bin/env bash
 
-## TODO: finish bootstrap script, which should:
-# - ask for install location and clone the repo to that correct location
-# - run install script for the given os (if linux ask for installation type (ie sudo vs no sudo, os type, etc ...)
-# - ask options for which setup scripts to run (ie zsh, vscode) and run them
-# - run dotfiles symlinking
+# exit script if a command fails
+set -e
 
+### dotfiles root path
+export DOTFILES_ROOT=${HOME}/.dotfiles
+[[ -a ${HOME}/.localrc ]] && source ${HOME}/.localrc &> /dev/null
+[ ! -d "$DOTFILES_ROOT" ] && echo "ERROR: dotfiles root directory ($DOTFILES_ROOT) was not found." && return
+cd ${DOTFILES_ROOT}
 
+### check os and install accordingly
+echo "    Would you like to run the operating system install script? (y/n): "
+read input
+input="${input:0:1}"
+if [ "$input" = "y" ]; then
+    if test "$(uname)" = "Darwin"; then
+        sudo bash macos/install.sh
+    elif test "$(uname)" = "Linux"; then
+        sudo bash linux/install.sh
+    else
+        echo "os must be darwin (macos) or linux"
+        exit 1
+    fi
+fi
 
-# # exit script if a command fails
-# set -e
+### run setup.sh files
+for file in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name 'setup.sh' -not -path '*.git*'); do
+    echo "    Would you like to run $file? (y/n): "
+    read input
+    input="${input:0:1}"
+    if [ "$input" = "y" ]; then
+        bash $file
+    fi
+done
 
-
-# # check for root priveleges
-# if [[ $(id -u) -ne 0 ]] ; then
-#     echo "Please run as root or with root priveleges"
-#     exit 1
-# fi
-
-# # dotfiles root path
-# export DOTFILES_ROOT=${HOME}/.dotfiles
-# [[ -a ${HOME}/.localrc ]] && source ${HOME}/.localrc &> /dev/null
-# [ ! -d "$DOTFILES_ROOT" ] && echo "ERROR: dotfiles root directory ($DOTFILES_ROOT) was not found." && return
-
-# cd ${DOTFILES_ROOT}
-
-# # check os and install accordingly
-# if test "$(uname)" = "Darwin"; then
-#     sh macos/install.sh
-# elif test "$(uname)" = "Linux"; then
-#     sh linux/install.sh
-# else
-#     echo "os must be darwin (macos) or linux"
-#     exit 1
-# fi
-
-# # run setup.sh files
-# for file in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name 'setup.sh' -not -path '*.git*'); do
-#     sh $file
-# done
-
-# # symlink dotfiles
-# ./dotfiles
+### symlink dotfiles
+./link
