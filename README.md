@@ -7,7 +7,7 @@ You'll need to following before you can install:
 * macos or linux
 * bash
 * git or curl
-* sudo priveleges (optional, only needed if using one of the setup scripts or bootstrap script)
+* sudo privileges (optional, only needed if using one of the setup scripts or bootstrap script)
 
 ### manual
 Download the repo to `~/.dotfiles`:
