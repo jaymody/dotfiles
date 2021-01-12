@@ -99,7 +99,7 @@ install_node() {
 
 # nvm setup - https://github.com/nvm-sh/nvm
 install_nvm() {
-    PROFILE="/dev/null/" # disable editing of .zshrc, .bashrc, or equivalent
+    export PROFILE="/dev/null/" # disable editing of .zshrc, .bashrc, or equivalent
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 }
 
