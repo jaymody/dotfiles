@@ -15,16 +15,16 @@ export DOTFILES_ROOT=${HOME}/.dotfiles
 ### symlink dotfiles
 prompt "Would you link dotfiles to your home directory? (y/n): "
 if [ $(read_input) = "y" ]; then
-    bash ${DOTFILES_ROOT}/link
+    bash "${DOTFILES_ROOT}/link" "${DOTFILES_ROOT}/dotfiles"
 fi
 
 ### check os and install accordingly
 prompt "Would you like to run the operating system install script? (y/n): "
 if [ $(read_input) = "y" ]; then
     if test "$(uname)" = "Darwin"; then
-        sudo bash ${DOTFILES_ROOT}/macos/install.sh
+        sudo bash "${DOTFILES_ROOT}/macos/install.sh"
     elif test "$(uname)" = "Linux"; then
-        sudo bash ${DOTFILES_ROOT}/linux/install.sh
+        sudo bash "${DOTFILES_ROOT}/linux/install.sh"
     else
         echo "os must be darwin (macos) or linux"
         exit 1
@@ -35,6 +35,6 @@ fi
 for file in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name 'setup.sh' -not -path '*.git*'); do
 prompt "Would you like to run setup for $(basename $(dirname $file))? (y/n): "
     if [ $(read_input) = "y" ]; then
-        bash $file
+        bash "$file"
     fi
 done
