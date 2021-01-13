@@ -12,7 +12,7 @@ elif test "$(uname)" = "Linux"; then
     VSCODE_SETTINGS_DIR="$HOME/.config/Code/User"
 else
     echo "os must be darwin (macos) or linux to setup vscode."
-    return
+    exit
 fi
 
 
