@@ -7,25 +7,24 @@ set -e
 prompt () { printf "\033[0;33m$1\033[0m"; }
 read_input () { local input; read input; echo "${input:0:1}"; }
 
-### symlink dotfiles
-prompt "Would you link dotfiles to your home directory? (y/n): "
-if [ $(read_input) = "y" ]; then
-    ./link
-fi
-
 ### dotfiles root path
 export DOTFILES_ROOT=${HOME}/.dotfiles
 [[ -a ${HOME}/.localrc ]] && source ${HOME}/.localrc &> /dev/null
-[ ! -d "$DOTFILES_ROOT" ] && echo "ERROR: dotfiles root directory ($DOTFILES_ROOT) was not found." && return
-cd ${DOTFILES_ROOT}
+[ ! -d "$DOTFILES_ROOT" ] && echo "ERROR: dotfiles root directory ($DOTFILES_ROOT) was not found." && exit 1
+
+### symlink dotfiles
+prompt "Would you link dotfiles to your home directory? (y/n): "
+if [ $(read_input) = "y" ]; then
+    bash ${DOTFILES_ROOT}/link
+fi
 
 ### check os and install accordingly
 prompt "Would you like to run the operating system install script? (y/n): "
 if [ $(read_input) = "y" ]; then
     if test "$(uname)" = "Darwin"; then
-        sudo bash macos/install.sh
+        sudo bash ${DOTFILES_ROOT}/macos/install.sh
     elif test "$(uname)" = "Linux"; then
-        sudo bash linux/install.sh
+        sudo bash ${DOTFILES_ROOT}/linux/install.sh
     else
         echo "os must be darwin (macos) or linux"
         exit 1
