@@ -1,7 +1,17 @@
 #!/usr/bin/env bash
 
-# exit script if a command fails
+### exit script if a command fails
 set -e
+
+### prompt and read input helper functions
+prompt () { printf "\033[0;33m$1\033[0m"; }
+read_input () { local input; read input; echo "${input:0:1}"; }
+
+### symlink dotfiles
+prompt "Would you link dotfiles to your home directory? (y/n): "
+if [ $(read_input) = "y" ]; then
+    ./link
+fi
 
 ### dotfiles root path
 export DOTFILES_ROOT=${HOME}/.dotfiles
@@ -10,10 +20,8 @@ export DOTFILES_ROOT=${HOME}/.dotfiles
 cd ${DOTFILES_ROOT}
 
 ### check os and install accordingly
-echo "    Would you like to run the operating system install script? (y/n): "
-read input
-input="${input:0:1}"
-if [ "$input" = "y" ]; then
+prompt "Would you like to run the operating system install script? (y/n): "
+if [ $(read_input) = "y" ]; then
     if test "$(uname)" = "Darwin"; then
         sudo bash macos/install.sh
     elif test "$(uname)" = "Linux"; then
@@ -26,13 +34,8 @@ fi
 
 ### run setup.sh files
 for file in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name 'setup.sh' -not -path '*.git*'); do
-    echo "    Would you like to run $file? (y/n): "
-    read input
-    input="${input:0:1}"
-    if [ "$input" = "y" ]; then
+prompt "Would you like to run setup for $(basename $(dirname $file))? (y/n): "
+    if [ $(read_input) = "y" ]; then
         bash $file
     fi
 done
-
-### symlink dotfiles
-./link
