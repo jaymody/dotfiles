@@ -1,17 +1,12 @@
 # check os is darwin (macos)
 if test "$(uname)" != "Darwin"; then
   	echo "os must be darwin (macos)"
-    return
+    exit
 fi
 
 
 # exit script if command fails
 set -e
-
-
-# dotfiles root path
-export DOTFILES_ROOT=${HOME}/.dotfiles
-[[ -a ${HOME}/.localrc ]] && source ${HOME}/.localrc &> /dev/null
 
 
 ## TODO: get input to set host name

@@ -2,7 +2,7 @@
 # assumes existent of code command means vscode is installed (yes, this is hacky)
 if ! [ -x "$(command -v code)" ]; then
     echo "vscode is not installed or code command is not in path, skipping vscode setup ..."
-    return
+    exit
 fi
 
 # setup extensions, settings, keybindings, and snippets

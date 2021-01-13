@@ -1,6 +1,6 @@
 # check zsh is installed
 if ! [ -x "$(command -v zsh)" ]; then
-    exit 1
+    exit
 fi
 
 echo "updating oh-my-zsh"

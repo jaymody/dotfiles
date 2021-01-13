@@ -1,7 +1,7 @@
 # check vscode is installed
 # assumes existent of code command means vscode is installed (yes, this is hacky)
 if ! [ -x "$(command -v code)" ]; then
-    return
+    exit
 fi
 
 

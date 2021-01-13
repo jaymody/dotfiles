@@ -1,6 +1,6 @@
 # check os is darwin (macos)
 if test "$(uname)" != "Darwin"; then
-    return
+    exit
 fi
 
 # save/update Brewfile
