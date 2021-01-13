@@ -2,16 +2,11 @@
 
 ~ sweet ~
 
-## installation
-### requirements
-* macos or linux
-* bash
-* git or curl
-* sudo privileges (optional, only needed if using one of the setup scripts or bootstrap script)
-
-### download
+## install
 ```shell
-git clone https://github.com/jaymody/dotfiles.git "${HOME}/.dotfiles"
+git clone https://github.com/jaymody/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
+./bootstrap
 ```
 
 **Note**: If you want to use a custom install location, you'll need to specify it as env variable in `~/.localrc`:
@@ -19,14 +14,6 @@ git clone https://github.com/jaymody/dotfiles.git "${HOME}/.dotfiles"
 DOTFILES_ROOT="/path/to/dotfiles"
 echo "export DOTFILES_ROOT=\"$DOTFILES_ROOT\"" >> ${HOME}/.localrc
 git clone https://github.com/jaymody/dotfiles.git $DOTFILES_ROOT
-```
-
-### install
-```shell
+cd $DOTFILES_ROOT
 ./bootstrap
-```
-
-### update
-```shell
-./update
 ```
