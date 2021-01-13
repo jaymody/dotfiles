@@ -19,20 +19,20 @@ cd $DOTFILES_ROOT
 ```
 
 ## docs
-`dotfiles/`: Contains, well, dotfiles. Files in this directory get symlinked to your home directory (ie `dotfiles/bashrc` is sent to `~/.bashrc`)
+**`dotfiles/`:** Contains, well, dotfiles. Files in this directory get symlinked to your home directory (ie `dotfiles/bashrc` is sent to `~/.bashrc`)
 
-`linux/`: Contains install scripts, settings, and configs for Linux.
+**`linux/`:** Contains install scripts, settings, and configs for Linux.
 
-`macos/` Contains install scripts, settings, and configs for MacOS.
+**`macos/`:** Contains install scripts, settings, and configs for MacOS.
 
-`scripts/`: Utility scripts (this directory is added to `PATH`).
+**`scripts/`:** Utility scripts (this directory is added to `PATH`).
 
-`<something>/setup.sh`: Setup script for `<something>`. These scripts are run at the end of `./bootstrap`.
+**`<something>/setup.sh`:** Setup script for `<something>`. These scripts are run at the end of `./bootstrap`.
 
-`<something>/update.sh`: Update script for `<something>`. This script is run when `./update` is called. Can be used to keep your dotfiles repo updated with latest configs files (ie copy latest vscode `settings.json`) and/or to update software (ie pull the latest version of `oh-my-zsh`).
+**`<something>/update.sh`:** Update script for `<something>`. This script is run when `./update` is called. Can be used to keep your dotfiles repo updated with latest configs files (ie copy latest vscode `settings.json`) and/or to update software (ie pull the latest version of `oh-my-zsh`).
 
-`link`: Script that links files in `dotfiles` to your home directory.
+**`link`:** Script that links files in `dotfiles/` to your home directory.
 
-`update`: Script that finds and runs `<something>/update.sh` scripts.
+**`update`:** Script that finds and runs `<something>/update.sh` scripts.
 
-`bootstrap`: All-in-one installation script.
+**`bootstrap`:** All-in-one installation script.
