@@ -1,19 +1,7 @@
 #!/bin/bash
 
-if [ ! -f "$HOME/.ssh/id_rsa.pub" ]; then
-    echo "public key was not found at $HOME/.ssh/id_rsa.pub"
-    echo "please generate one with:"
-    echo "ssh-keygen -t rsa -b 4096"
-    exit 1
-fi
-
-printf "Enter github username: "
-read username
-
-printf "Enter personal token (https://github.com/settings/tokens/new): "
-read token
-
-title=${1:"$(whoami)@$(hostname -s)"}
-pub_key=${2:-$(cat "$HOME/.ssh/id_rsa.pub")}
-
-curl -u "$username:$token" --data "{\"title\":\"$title\",\"key\":\"$pub_key\"}" https://api.github.com/user/keys
+echo "https://github.com/settings/ssh/new"
+echo ""
+echo "$(whoami)@$(hostname)"
+echo ""
+cat "${1:-$HOME/.ssh/id_rsa.pub}"
