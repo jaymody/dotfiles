@@ -1,18 +1,19 @@
 #!/bin/bash
 
-echo "github removed api authentication via username/password, gonna need to make a workaround :("
+if [ ! -f "$HOME/.ssh/id_rsa.pub" ]; then
+    echo "public key was not found at $HOME/.ssh/id_rsa.pub"
+    echo "please generate one with:"
+    echo "ssh-keygen -t rsa -b 4096"
+    exit 1
+fi
 
-# if [ ! -f "$HOME/.ssh/id_rsa.pub" ]; then
-#     echo "public key was not found at $HOME/.ssh/id_rsa.pub"
-#     echo "please generate one with:"
-#     echo "ssh-keygen -t rsa -b 4096"
-#     exit 1
-# fi
+printf "Enter github username: "
+read username
 
-# printf "Enter github username: $hostname"
-# read username
+printf "Enter personal token (https://github.com/settings/tokens/new): "
+read token
 
-# title="$(whoami)@$(hostname)"
-# pub_key=$(cat "$HOME/.ssh/id_rsa.pub")
+title=${1:"$(whoami)@$(hostname -s)"}
+pub_key=${2:-$(cat "$HOME/.ssh/id_rsa.pub")}
 
-# curl -u "$username" --data "{\"title\":\"$title\",\"key\":\"$pub_key\"}" https://api.github.com/user/keys
+curl -u "$username:$token" --data "{\"title\":\"$title\",\"key\":\"$pub_key\"}" https://api.github.com/user/keys
