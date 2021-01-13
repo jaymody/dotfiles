@@ -21,3 +21,6 @@ export DIRENV_LOG_FORMAT=
 
 # use system python2 for gcloud since active python will probably be python3
 export CLOUDSDK_PYTHON="/usr/bin/python2"
+
+# remove annoying pyenv virtualenv message
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
