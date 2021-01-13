@@ -1,20 +1,14 @@
 #!/bin/bash
 
-if [ $# -eq 0 ]; then
-    echo "Command requires 1 argument [ssh host]"
-    exit 1
-fi
+[ $# -eq 0 ] && echo "Command requires 1 argument [ssh host]" && exit 1
 
-response=$(ssh $1 'source ~/.shellrc 2>&1 /dev/null && jupyter server list')
+response=$(ssh $1 'source ~/.zshrc 2>&1 /dev/null && jupyter server list')
 
 # if second argument (port number) is supplied, look for server running on that
 # specific port number
 if [ $# -eq 2 ]; then
     response=$(echo $response | grep -o "http.*:$2/?token=[a-z0-9]*")
-    if [ -z "$response" ]; then
-        echo "no server not running on port $2"
-        exit 1
-    fi
+    [ -z "$response" ] && echo "no server not running on port $2" && exit 1
 fi
 
 echo $response
