@@ -4,7 +4,7 @@ export DOTFILES_ROOT=${HOME}/.dotfiles
 [ ! -d "$DOTFILES_ROOT" ] && echo "ERROR: dotfiles root directory ($DOTFILES_ROOT) was not found." && return
 
 # path
-export PATH=$PATH:${DOTFILES_ROOT}/bin
+export PATH=$PATH:${DOTFILES_ROOT}/scripts
 export PATH=$PATH:${HOME}/bin
 export PATH=$PATH:${HOME}/.bin
 export PATH=$PATH:${HOME}/.local/bin
