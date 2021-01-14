@@ -34,7 +34,7 @@ fi
 echo " Installing from Brewfile"
 brew update
 brew upgrade
-brew bundle --file ${DOTFILES_ROOT}/macos/Brewfile
+bash ${DOTFILES_ROOT}/macos/brewfile.sh
 brew cleanup
 
 
