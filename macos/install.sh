@@ -39,11 +39,41 @@ brew cleanup
 
 
 # iterm2
-echo "NOTE: unfortunately, there is no way to import iterm2 settings via \
+# TODO: come up with a better way to update and load iterm preferences
+echo "-------- iterm2 --------
+
+Unfortunately, there is no way to import iterm2 settings via \
 command-line. To import manually, open Preferences > General and set the \
-custom folder path to the macos folder in the dotfiles repo."
+custom folder path to the macos folder in the dotfiles repo.
+
+
+
+"
 
 
 # better touch tool
-echo "NOTE: unfortunately, there is no way to import bettertouchtools settings \
-via command line, you'll have to import the preset manually"
+echo "-------- better touch tool --------
+
+Unfortunately, there is no way to import bettertouchtools settings \
+via command line, you'll have to import the preset manually.
+
+
+
+"
+
+
+# alfred
+# TODO: come up with a better way to load alfred preferences
+echo "-------- alfred --------
+
+Please manually copy alfred preferences from:
+${DOTFILES_ROOT}/macos/alfred
+to
+${HOME}/Library/Application Support/Alfred/Alfred.alfredpreferences/preferences
+
+You might need to change dotfiles/macos/local/######### to match the one found \
+in the alfred preferences folder
+
+
+
+"
