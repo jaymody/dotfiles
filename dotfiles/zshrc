@@ -18,11 +18,11 @@ plugins=(
     zsh-syntax-highlighting
     colored-man-pages
     gitignore
-    github
     pyenv
     direnv
     gcloud
     docker
+    github
 )
 
 
@@ -32,7 +32,10 @@ source $ZSH/oh-my-zsh.sh
 unalias -m '*'
 eval $save_aliases
 unset save_aliases
+
+# readd aliases that I actually do want
 alias ${_Z_CMD:-z}='_z 2>&1'
+alias git=hub
 
 
 # load powerlevel10k config
