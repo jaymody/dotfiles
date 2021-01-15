@@ -9,7 +9,7 @@ fi
 set -e
 
 
-# this script is built for ubuntu only
+# ---- THIS SCRIPT IS BUILT FOR UBUNTU 20.04 ONLY ----
 # parts of script taken from:
 # https://github.com/paulkohler/ubuntu-linux-bootstrap/blob/master/bootstrap.sh
 
