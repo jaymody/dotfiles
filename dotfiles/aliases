@@ -1,7 +1,7 @@
 ### dotfiles
 alias dotfiles="cd $DOTFILES_ROOT"
 alias edotfiles="code $DOTFILES_ROOT"
-alias scripts="l $DOTFILES_ROOT/bin"
+alias scripts="l $DOTFILES_ROOT/scripts"
 
 
 ### navigation
