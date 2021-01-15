@@ -50,18 +50,6 @@ custom folder path to the macos folder in the dotfiles repo.
 
 "
 
-
-# better touch tool
-echo "-------- better touch tool --------
-
-Unfortunately, there is no way to import bettertouchtools settings \
-via command line, you'll have to import the preset manually.
-
-
-
-"
-
-
 # alfred
 # TODO: come up with a better way to load alfred preferences
 echo "-------- alfred --------

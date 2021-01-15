@@ -31,7 +31,6 @@ brew install \
 # casks
 brew install --cask \
     alfred \
-    bettertouchtool \
     brooklyn \
     discord \
     docker \
