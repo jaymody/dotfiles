@@ -21,44 +21,35 @@ sudo apt upgrade -y
 
 # essentials
 sudo apt install -y \
-    coreutils \
-    net-tools \
-    build-essential \
-    make \
-    openssl \
-    libssl-dev \
-    zlib1g-dev \
-    libbz2-dev \
-    libreadline-dev \
-    libsqlite3-dev \
-    llvm \
-    libncurses5-dev \
     apt-transport-https \
+    build-essential \
     ca-certificates \
-    gnupg-agent \
-    software-properties-common \
-    git \
+    coreutils \
     curl \
-    wget
+    git \
+    gnupg-agent \
+    net-tools \
+    software-properties-common \
+    vim \
+    wget \
+    zsh
 
 
 # extras
 sudo apt install -y \
-    zsh \
-    xclip \
-    vim \
+    ack \
+    direnv \
+    fd-find \
+    htop \
+    hub \
+    jq \
     python \
     screen \
     tmux \
     tree \
-    direnv \
-    zip \
     unzip \
-    jq \
-    htop \
-    ack \
-    fd-find \
-    hub
+    xclip \
+    zip
 
 
 # chrome setup
@@ -73,6 +64,13 @@ install_chrome() {
 
 # pyenv setup - https://github.com/pyenv/pyenv-installer
 install_pyenv() {
+    # install dependencies
+    sudo apt-get install --no-install-recommends make build-essential \
+        libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev \
+        wget curl llvm libncurses5-dev xz-utils tk-dev libxml2-dev \
+        libxmlsec1-dev libffi-dev liblzma-dev
+
+    # install pyenv
     curl https://pyenv.run | bash
 }
 
