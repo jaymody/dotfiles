@@ -56,7 +56,9 @@ sudo apt install -y \
     unzip \
     jq \
     htop \
-    ack
+    ack \
+    fd-find \
+    hub
 
 
 # chrome setup
