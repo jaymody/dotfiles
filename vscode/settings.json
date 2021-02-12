@@ -2,18 +2,19 @@
     "workbench.settings.useSplitJSON": true,
     "workbench.settings.editor": "json",
     "window.title": "${remoteName}",
-    "window.zoomLevel": 2,
     "window.restoreWindows": "none",
     "window.closeWhenEmpty": true,
     "editor.minimap.enabled": false,
-    "editor.rulers": [80],
+    "editor.rulers": [
+        80
+    ],
     "editor.formatOnSave": true,
     "editor.suggestSelection": "first",
     "editor.renderControlCharacters": false,
     "workbench.statusBar.visible": false,
     "workbench.activityBar.visible": false,
     "workbench.iconTheme": "file-icons-mac",
-    "workbench.startupEditor": "welcomePageInEmptyWorkbench",
+    "workbench.startupEditor": "newUntitledFile",
     "workbench.colorTheme": "Mariana Pro (Cool)",
     "breadcrumbs.enabled": false,
     "extensions.ignoreRecommendations": true,
@@ -31,18 +32,16 @@
     ],
     "python.pythonPath": "~/.pyenv/shims/python",
     "python.terminal.activateEnvironment": false,
-    "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
     "[json]": {
         "editor.formatOnSave": false,
         "editor.defaultFormatter": "vscode.json-language-features"
     },
     "files.associations": {
-        "*.symlink": "shellscript"
+        "**/dotfiles/*": "shellscript"
     },
     "[markdown]": {
-        "editor.wordWrap": "on"
+        "editor.formatOnSave": false,
+        "editor.wordWrap": "on",
     },
     "[plaintext]": {
         "editor.wordWrap": "on"
@@ -63,7 +62,7 @@
     "latex-workshop.view.pdf.viewer": "tab",
     "latex-workshop.message.update.show": false,
     "latex-workshop.message.error.show": false,
-    "latex-workshop.latex.autoClean.run": "onBuilt",
+    // "latex-workshop.latex.autoClean.run": "onBuilt",
     "latex-workshop.latex.clean.fileTypes": [
         "__latexindent_temp.tex",
         "*.bcf",
@@ -92,5 +91,22 @@
         "*.synctex(busy)",
         "*.synctex.gz(busy)",
         "*.nav"
-    ]
+    ],
+    "python.workspaceSymbols.enabled": true,
+    "python.workspaceSymbols.exclusionPatterns": [
+        "**/site-packages/**",
+        "**/.ipynb_checkpoints/**"
+    ],
+    "sonarlint.rules": {
+        "java:S106": {
+            "level": "off"
+        },
+        "java:S125": {
+            "level": "off"
+        },
+        "java:S2975": {
+            "level": "off"
+        }
+    },
+    "window.zoomLevel": 2
 }

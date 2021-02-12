@@ -81,10 +81,96 @@
             "\t${4:pass}"
         ],
         "description": "tqdm loop"
-    }
-    "plmod":{
+    },
+    "plmod": {
         "prefix": "plmod",
-        "body": ["class MyModule(pl.LightningModule):","\tdef __init__(self, lr=1e-3):","\t\tself.lr = lr","\t\tself.criterion = nn.${1|MSELoss,CrossEntropyLoss|}()","\t\tself.accuracy = pl.metrics.Accuracy()","\t\tself.net = ${2:MyNNModule}()","","\tdef forward(self, x):","\t\treturn self.net(x)","","\tdef predict(self, x):","\t\toutputs = self(x)","\t\tpreds = torch.argmax(outputs, dim=-1)","\t\treturn preds","","\tdef configure_optimizers(self):","\t\treturn torch.optim.${3|Adam,SGD|}(self.parameters(), lr=self.lr)","","\tdef training_step(self, batch):","\t\tx, y = batch","\t\toutputs = self(x)","\t\tloss = self.criterion(outputs, y)","\t\tacc = self.accuracy(outputs, y)","\t\tself.log(\"train_loss\", loss)","\t\tself.log(\"train_acc\", acc)","","\tdef validation_step(self, batch):","\t\tx, y = batch","\t\toutputs = self(x)","\t\tloss = self.criterion(outputs, y)","\t\tacc = self.accuracy(outputs, y)","\t\tself.log(\"val_loss\", loss)","\t\tself.log(\"val_acc\", acc)","","\tdef test_step(self, batch):","\t\treturn self.validation_step(batch)"],
-        "description": "asdf"
-    }
+        "body": [
+            "class MyModule(pl.LightningModule):",
+            "\tdef __init__(self, lr=1e-3):",
+            "\t\tself.lr = lr",
+            "\t\tself.criterion = nn.${1|MSELoss,CrossEntropyLoss|}()",
+            "\t\tself.accuracy = pl.metrics.Accuracy()",
+            "\t\tself.net = ${2:MyNNModule}()",
+            "",
+            "\tdef forward(self, x):",
+            "\t\treturn self.net(x)",
+            "",
+            "\tdef predict(self, x):",
+            "\t\toutputs = self(x)",
+            "\t\tpreds = torch.argmax(outputs, dim=-1)",
+            "\t\treturn preds",
+            "",
+            "\tdef configure_optimizers(self):",
+            "\t\treturn torch.optim.${3|Adam,SGD|}(self.parameters(), lr=self.lr)",
+            "",
+            "\tdef training_step(self, batch):",
+            "\t\tx, y = batch",
+            "\t\toutputs = self(x)",
+            "\t\tloss = self.criterion(outputs, y)",
+            "\t\tacc = self.accuracy(outputs, y)",
+            "\t\tself.log(\"train_loss\", loss)",
+            "\t\tself.log(\"train_acc\", acc)",
+            "",
+            "\tdef validation_step(self, batch):",
+            "\t\tx, y = batch",
+            "\t\toutputs = self(x)",
+            "\t\tloss = self.criterion(outputs, y)",
+            "\t\tacc = self.accuracy(outputs, y)",
+            "\t\tself.log(\"val_loss\", loss)",
+            "\t\tself.log(\"val_acc\", acc)",
+            "",
+            "\tdef test_step(self, batch):",
+            "\t\treturn self.validation_step(batch)"
+        ],
+        "description": "PyTorch Lightning T"
+    },
+    "deterministic": {
+        "prefix": "deterministic",
+        "body": [
+            "random.seed($1)",
+            "np.random.seed($1)",
+            "tf.random.set_seed($1)",
+            "torch.manual_seed($1)",
+            "torch.set_deterministic(True)",
+            "os.environ[\"PYTHONHASHSEED\"] = str($1)"
+        ],
+        "description": "Deterministic settings for python, numpy, torch, and tensorflow."
+    },
+    "__main__": {
+        "prefix": "__main__",
+        "body": [
+            "if __name__ == \"__main__\":",
+            "    pass"
+        ],
+        "description": "description for __main__"
+		},
+		"pl_trainer": {
+			"prefix": "pl_trainer",
+			"body": [
+				"trainer = pl.Trainer(",
+				"    default_root_dir=None,  # set directory to save weights, logs, etc ...",
+				"    num_processes=1,  # num processes to use if using cpu",
+				"    gpus=None,  # num gpus to use if using gpu",
+				"    tpu_cores=None,  # num tpu cores to use if using tpu",
+				"    progress_bar_refresh_rate=1,  # change to 20 if using google colab",
+				"    fast_dev_run=False,  # set to True to quickly verify your code works",
+				"    gradient_clip_val=0,",
+				"    accumulate_grad_batches=1,",
+				"    max_epochs=1000,",
+				"    min_epochs=1,",
+				"    max_steps=None,  # use if you want to train based on step rather than epoch",
+				"    min_steps=None,  # use if you want to train based on step rather than epoch",
+				"    limit_train_batches=1.0,  # percentage of train data to use",
+				"    limit_val_batches=1.0,  # percentage of validation data to use",
+				"    limit_test_batches=1.0,  # percentage of test data to use",
+				"    check_val_every_n_epoch=1,  # run validation every n epochs",
+				"    val_check_interval=1.0,  # run validation after every n percent of an epoch",
+				"    precision=32,  # use 16 for half point precision",
+				"    resume_from_checkpoint=None,  # place path to checkpoint if resuming training",
+				"    auto_lr_find=False,  # set to True to optimize learning rate",
+				"    auto_scale_batch_size=False,  # set to True to find largest batch size that fits in hardware",
+				")"
+			],
+			"description": "PyTorch Lightning Trainer Initialization with useful params documented"
+		}
 }

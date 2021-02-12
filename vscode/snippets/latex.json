@@ -13,31 +13,28 @@
     // 	"description": "Log output to console"
     // }
     "Latex Boilerplate": {
-        "prefix": "latex boilderplate",
+        "prefix": "latex boilerplate",
         "body": [
             "\\documentclass[11pt]{article}",
             "",
-            "\\usepackage[a4paper,margin=1in,footskip=0.25in]{geometry}",
+            "\\usepackage[a4paper,margin=0.75in,footskip=0.5in]{geometry}",
             "\\usepackage{amsmath}",
             "\\usepackage{amsthm}",
             "\\usepackage{color}",
             "\\usepackage{listings}",
             "\\usepackage{graphicx}",
             "",
+            "\\title{\\textbf{Title}}",
+            "\\author{Author}",
+            "",
             "\\begin{document}",
+            "\\maketitle",
             "",
-            "%%%% Title %%%%",
-            "\\begin{center}",
-            "\t{\\huge \\textbf{Title}}[2mm]",
-            "\t{\\large \\textbf{Name}}[2mm]",
-            "\t{\\large \\textbf{\\today}}[2mm]",
-            "\\end{center}",
-            "\\medskip",
-            "",
-            "%%%% Content %%%%",
+            "Place content here.",
             "",
             "\\end{document}",
             ""
-        ]
+        ],
+        "description": ""
     }
 }
