@@ -1,7 +1,7 @@
 [alias]
 
     # log
-    l = !git --no-pager log --pretty=oneline -n 20 --graph --abbrev-commit
+    l = !git --no-pager log --pretty=oneline -n 10 --graph --abbrev-commit
     la = log --pretty=oneline --graph --abbrev-commit --all
 
     # status
