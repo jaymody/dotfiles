@@ -1,6 +1,4 @@
 {
-    "workbench.settings.useSplitJSON": true,
-    "workbench.settings.editor": "json",
     "window.title": "${remoteName}",
     "window.restoreWindows": "none",
     "window.closeWhenEmpty": true,
@@ -32,6 +30,9 @@
     ],
     "python.pythonPath": "~/.pyenv/shims/python",
     "python.terminal.activateEnvironment": false,
+    "[latex]": {
+        "editor.wordWrap": "on"
+    },
     "[json]": {
         "editor.formatOnSave": false,
         "editor.defaultFormatter": "vscode.json-language-features"
@@ -97,16 +98,14 @@
         "**/site-packages/**",
         "**/.ipynb_checkpoints/**"
     ],
-    "sonarlint.rules": {
-        "java:S106": {
-            "level": "off"
-        },
-        "java:S125": {
-            "level": "off"
-        },
-        "java:S2975": {
-            "level": "off"
-        }
-    },
-    "window.zoomLevel": 2
+    "window.zoomLevel": 2,
+    "python.languageServer": "Microsoft",
+    "cSpell.enabled": true,
+    "cSpell.userWords": [
+        "Mody",
+        "asyncio",
+        "convolutional",
+        "dalal",
+        "maanav"
+    ]
 }

@@ -1,10 +1,9 @@
-ban.spellright
 bierner.markdown-preview-github-styles
 cssho.vscode-svgviewer
 dbaeumer.vscode-eslint
+dotdevru.prettier-java
 eamodio.gitlens
 EditorConfig.EditorConfig
-esbenp.prettier-vscode
 James-Yu.latex-workshop
 jgoday.createtmpfile
 ms-python.python
@@ -19,6 +18,7 @@ redhat.java
 rickynormandeau.mariana-pro
 sleistner.vscode-fileutils
 SonarSource.sonarlint-vscode
+streetsidesoftware.code-spell-checker
 VisualStudioExptTeam.vscodeintellicode
 vscjava.vscode-java-debug
 vscjava.vscode-java-dependency
@@ -26,5 +26,4 @@ vscjava.vscode-java-pack
 vscjava.vscode-java-test
 vscjava.vscode-maven
 wayou.file-icons-mac
-yzhang.markdown-all-in-one
 wware.snippet-creator
