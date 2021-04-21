@@ -184,4 +184,10 @@
         "key": "shift+cmd+b",
         "command": "workbench.action.toggleActivityBarVisibility"
     },
+    // tasks
+    {
+        "key": "cmd+shift+r",
+        "command": "workbench.action.tasks.runTask",
+        "args": "run"
+    }
 ]

@@ -10,7 +10,6 @@
     "editor.suggestSelection": "first",
     "editor.renderControlCharacters": false,
     "workbench.statusBar.visible": false,
-    "workbench.activityBar.visible": false,
     "workbench.iconTheme": "file-icons-mac",
     "workbench.startupEditor": "newUntitledFile",
     "workbench.colorTheme": "Mariana Pro (Cool)",
@@ -98,14 +97,25 @@
         "**/site-packages/**",
         "**/.ipynb_checkpoints/**"
     ],
-    "window.zoomLevel": 2,
     "python.languageServer": "Microsoft",
-    "cSpell.enabled": true,
+    "cSpell.enabled": false,
     "cSpell.userWords": [
         "Mody",
         "asyncio",
         "convolutional",
         "dalal",
         "maanav"
-    ]
+    ],
+    "workbench.editorAssociations": [
+        {
+            "viewType": "jupyter.notebook.ipynb",
+            "filenamePattern": "*.ipynb"
+        }
+    ],
+    "task.problemMatchers.neverPrompt": {
+        "shell": true
+    },
+    "autoDocstring.docstringFormat": "numpy",
+    "workbench.activityBar.visible": false,
+    "window.zoomLevel": 1,
 }

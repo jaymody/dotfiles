@@ -36,5 +36,15 @@
             ""
         ],
         "description": ""
-    }
+		},
+		"eqn": {
+			"prefix": "eqn",
+			"body": [
+				"\\begin{align*}",
+				"    y & = x^2 + xy + y^2\\\\",
+				"    & = (x - y)^2",
+				"\\end{align*}"
+			],
+			"description": "Aligned equation template"
+		}
 }
