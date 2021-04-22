@@ -92,12 +92,12 @@
         "*.synctex.gz(busy)",
         "*.nav"
     ],
+    "python.languageServer": "None",
     "python.workspaceSymbols.enabled": true,
     "python.workspaceSymbols.exclusionPatterns": [
         "**/site-packages/**",
         "**/.ipynb_checkpoints/**"
     ],
-    "python.languageServer": "Microsoft",
     "cSpell.enabled": false,
     "cSpell.userWords": [
         "Mody",

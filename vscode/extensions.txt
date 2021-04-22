@@ -1,6 +1,7 @@
 bierner.markdown-preview-github-styles
 cssho.vscode-svgviewer
 dbaeumer.vscode-eslint
+deerawan.vscode-dash
 dotdevru.prettier-java
 eamodio.gitlens
 EditorConfig.EditorConfig
