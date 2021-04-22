@@ -9,9 +9,10 @@ fi
 set -e
 
 
-## TODO: get input to set host name
 # set computer name
-sudo scutil --set HostName jays-mbp
+echo -n "  Set the computer's name (ie something like jays-mac): "
+read computername
+sudo scutil --set HostName "$computername"
 
 
 # install xcode command line tools
@@ -42,26 +43,8 @@ brew cleanup
 # TODO: come up with a better way to update and load iterm preferences
 echo "-------- iterm2 --------
 
-Unfortunately, there is no way to import iterm2 settings via \
-command-line. To import manually, open Preferences > General and set the \
+Import iterm2 settings via Preferences > General and then set the \
 custom folder path to the macos folder in the dotfiles repo.
-
-
-
-"
-
-# alfred
-# TODO: come up with a better way to load alfred preferences
-echo "-------- alfred --------
-
-Please manually copy alfred preferences from:
-${DOTFILES_ROOT}/macos/alfred
-to
-${HOME}/Library/Application Support/Alfred/Alfred.alfredpreferences/preferences
-
-You might need to change dotfiles/macos/local/######### to match the one found \
-in the alfred preferences folder
-
 
 
 "
