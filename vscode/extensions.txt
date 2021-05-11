@@ -8,6 +8,7 @@ EditorConfig.EditorConfig
 James-Yu.latex-workshop
 jgoday.createtmpfile
 ms-python.python
+ms-python.vscode-pylance
 ms-toolsai.jupyter
 ms-vscode-remote.remote-containers
 ms-vscode-remote.remote-ssh

@@ -23,6 +23,8 @@
     },
     "search.exclude": {},
     "python.formatting.provider": "black",
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
     "python.linting.pylintArgs": [
         "--disable=R,C",
         "--extension-pkg-whitelist=cv2,torch"
@@ -117,5 +119,7 @@
     },
     "autoDocstring.docstringFormat": "numpy",
     "workbench.activityBar.visible": false,
-    "window.zoomLevel": 1,
+    "window.zoomLevel": 2,
+    "terminal.integrated.tabs.enabled": true,
+    "workbench.editor.untitled.hint": "hidden",
 }
