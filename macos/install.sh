@@ -1,6 +1,6 @@
 # check os is darwin (macos)
 if test "$(uname)" != "Darwin"; then
-  	echo "os must be darwin (macos)"
+    echo "os must be darwin (macos)"
     exit
 fi
 
@@ -16,7 +16,7 @@ sudo scutil --set HostName "$computername"
 
 
 # install xcode command line tools
-xcode-select --install
+xcode-select --install || echo "XCode already installed, skipping"
 
 
 ## TODO: better defaults
@@ -27,7 +27,7 @@ bash ${DOTFILES_ROOT}/macos/defaults.sh
 # check for brew
 if test ! $(which brew); then
     echo "  Installing Homebrew for you."
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 
