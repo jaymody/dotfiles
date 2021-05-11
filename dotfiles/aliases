@@ -36,6 +36,7 @@ alias sdr="screen -q -D -R -S"
 ### network
 alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias privateip="ipconfig getifaddr en0"
+alias localip="ip route get 8.8.8.8 | sed -n 's/.*src \([0-9.]\+\).*/\1/p'"
 alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
 
