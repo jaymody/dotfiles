@@ -22,9 +22,9 @@ fi
 prompt "Would you like to run the operating system install script? (y/n): "
 if [ $(read_input) = "y" ]; then
     if test "$(uname)" = "Darwin"; then
-        sudo bash "${DOTFILES_ROOT}/macos/install.sh" "${DOTFILES_ROOT}"
+        bash "${DOTFILES_ROOT}/macos/install.sh" "${DOTFILES_ROOT}"
     elif test "$(uname)" = "Linux"; then
-        sudo bash "${DOTFILES_ROOT}/linux/install.sh" "${DOTFILES_ROOT}"
+        bash "${DOTFILES_ROOT}/linux/install.sh" "${DOTFILES_ROOT}"
     else
         echo "os must be darwin (macos) or linux"
         exit 1

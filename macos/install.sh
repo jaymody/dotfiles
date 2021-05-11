@@ -21,7 +21,7 @@ sudo scutil --set HostName "$computername"
 
 
 # install xcode command line tools
-xcode-select --install || echo "XCode already installed, skipping"
+sudo xcode-select --install || echo "XCode already installed, skipping"
 
 
 ## TODO: better defaults
