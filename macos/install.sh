@@ -4,6 +4,11 @@ if test "$(uname)" != "Darwin"; then
     exit
 fi
 
+# fetch dotfiles root
+[ $# -eq 0 ] && fail "1 argument required [path to dotfiles repo root directory]"
+[ ! -d "$1" ] && fail "directory ($1) was not found."
+DOTFILES_ROOT=$1
+
 
 # exit script if command fails
 set -e
