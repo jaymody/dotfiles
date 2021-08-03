@@ -56,11 +56,6 @@
     "python.showStartPage": false,
     "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}",
     "java.configuration.checkProjectSettingsExclusions": false,
-    "jupyter.jupyterServerType": "local",
-    "jupyter.disableJupyterAutoStart": true,
-    "jupyter.sendSelectionToInteractiveWindow": false,
-    "jupyter.askForKernelRestart": false,
-    "jupyter.alwaysTrustNotebooks": true,
     "latex-workshop.view.pdf.viewer": "tab",
     "latex-workshop.message.update.show": false,
     "latex-workshop.message.error.show": false,
@@ -108,12 +103,9 @@
         "dalal",
         "maanav"
     ],
-    "workbench.editorAssociations": [
-        {
-            "viewType": "jupyter.notebook.ipynb",
-            "filenamePattern": "*.ipynb"
-        }
-    ],
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
     "task.problemMatchers.neverPrompt": {
         "shell": true
     },
@@ -122,4 +114,17 @@
     "window.zoomLevel": 2,
     "terminal.integrated.tabs.enabled": true,
     "workbench.editor.untitled.hint": "hidden",
+    "jupyter.jupyterServerType": "local",
+    "jupyter.disableJupyterAutoStart": true,
+    "jupyter.sendSelectionToInteractiveWindow": false,
+    "jupyter.askForKernelRestart": false,
+    "jupyter.alwaysTrustNotebooks": true,
+    "jupyter.colorizeInputBox": false,
+    "python.defaultInterpreterPath": "~/.pyenv/shims/python",
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
+    "editor.inlineSuggest.enabled": true,
+    "jupyter.interactiveWindowMode": "perFile",
 }

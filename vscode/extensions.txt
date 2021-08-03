@@ -5,6 +5,7 @@ deerawan.vscode-dash
 dotdevru.prettier-java
 eamodio.gitlens
 EditorConfig.EditorConfig
+GitHub.copilot
 James-Yu.latex-workshop
 jgoday.createtmpfile
 ms-python.python
@@ -19,6 +20,7 @@ ms-vsliveshare.vsliveshare-pack
 njpwerner.autodocstring
 redhat.java
 rickynormandeau.mariana-pro
+scala-lang.scala
 sleistner.vscode-fileutils
 SonarSource.sonarlint-vscode
 streetsidesoftware.code-spell-checker
