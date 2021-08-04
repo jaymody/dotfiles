@@ -50,7 +50,7 @@
     },
     "explorer.autoReveal": false,
     "createtmpfile.deleteOnExit": true,
-    "createtmpfile.tmpDir": "~/.cache/vscode-tempdir",
+    "createtmpfile.tmpDir": "/tmp",
     "gitlens.currentLine.enabled": false,
     "gitlens.mode.active": "zen",
     "python.showStartPage": false,
@@ -95,14 +95,7 @@
         "**/site-packages/**",
         "**/.ipynb_checkpoints/**"
     ],
-    "cSpell.enabled": false,
-    "cSpell.userWords": [
-        "Mody",
-        "asyncio",
-        "convolutional",
-        "dalal",
-        "maanav"
-    ],
+    "cSpell.enabled": true,
     "workbench.editorAssociations": {
         "*.ipynb": "jupyter-notebook"
     },
@@ -114,17 +107,25 @@
     "window.zoomLevel": 2,
     "terminal.integrated.tabs.enabled": true,
     "workbench.editor.untitled.hint": "hidden",
+    "python.defaultInterpreterPath": "~/.pyenv/shims/python",
+    "editor.inlineSuggest.enabled": true,
+    "jupyter.interactiveWindowMode": "perFile",
     "jupyter.jupyterServerType": "local",
     "jupyter.disableJupyterAutoStart": true,
     "jupyter.sendSelectionToInteractiveWindow": false,
     "jupyter.askForKernelRestart": false,
-    "jupyter.alwaysTrustNotebooks": true,
-    "jupyter.colorizeInputBox": false,
-    "python.defaultInterpreterPath": "~/.pyenv/shims/python",
-    "notebook.cellToolbarLocation": {
-        "default": "right",
-        "jupyter-notebook": "left"
+    "workbench.colorCustomizations": {
+        "[Mariana Pro (Cool)]": {
+            "notebook.cellEditorBackground": "#23292e",
+            // "notebook.outputContainerBackgroundColor": "#313a42",
+            "notebook.focusedCellBorder": "#999999"
+        }
     },
-    "editor.inlineSuggest.enabled": true,
-    "jupyter.interactiveWindowMode": "perFile",
+    "notebook.cellFocusIndicator": "border",
+    "notebook.showCellStatusBar": "visibleAfterExecute",
+    "notebook.insertToolbarLocation": "notebookToolbar",
+    "notebook.cellToolbarLocation": {
+        "default": "hidden",
+    },
+    "notebook.lineNumbers": "on"
 }
