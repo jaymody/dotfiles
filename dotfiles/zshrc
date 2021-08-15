@@ -82,3 +82,10 @@ bindkey "^[[A" up-line-or-beginning-search # Up
 bindkey "^[[B" down-line-or-beginning-search # Down
 bindkey "^[p" history-beginning-search-backward
 bindkey "^[n" history-beginning-search-forward
+
+# TEMPORORARY FIX
+# todo: remove this once the bug is fixed, see https://github.com/ohmyzsh/ohmyzsh/issues/10013
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
