@@ -13,24 +13,19 @@
     "workbench.iconTheme": "file-icons-mac",
     "workbench.startupEditor": "newUntitledFile",
     "workbench.colorTheme": "Mariana Pro (Cool)",
+    "workbench.editor.untitled.hint": "hidden",
     "breadcrumbs.enabled": false,
     "extensions.ignoreRecommendations": true,
+    "terminal.integrated.defaultProfile.osx": "zsh",
     "terminal.external.osxExec": "iTerm.app",
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.macOptionIsMeta": true,
+    "terminal.integrated.tabs.enabled": true,
+    "terminal.integrated.defaultProfile.linux": "zsh",
     "files.exclude": {
         ".ipynb_checkpoints": true
     },
     "search.exclude": {},
-    "python.formatting.provider": "black",
-    "python.linting.enabled": true,
-    "python.linting.pylintEnabled": true,
-    "python.linting.pylintArgs": [
-        "--disable=R,C",
-        "--extension-pkg-whitelist=cv2,torch"
-    ],
-    "python.pythonPath": "~/.pyenv/shims/python",
-    "python.terminal.activateEnvironment": false,
     "[latex]": {
         "editor.wordWrap": "on"
     },
@@ -43,23 +38,25 @@
     },
     "[markdown]": {
         "editor.formatOnSave": false,
-        "editor.wordWrap": "on",
+        "editor.wordWrap": "on"
     },
     "[plaintext]": {
         "editor.wordWrap": "on"
     },
+    "workbench.colorCustomizations": {
+        "[Mariana Pro (Cool)]": {
+            "notebook.cellEditorBackground": "#23292e",
+            "notebook.focusedCellBorder": "#999999"
+        }
+    },
     "explorer.autoReveal": false,
     "createtmpfile.deleteOnExit": true,
     "createtmpfile.tmpDir": "/tmp",
-    "gitlens.currentLine.enabled": false,
     "gitlens.mode.active": "zen",
-    "python.showStartPage": false,
     "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}",
     "java.configuration.checkProjectSettingsExclusions": false,
     "latex-workshop.view.pdf.viewer": "tab",
-    "latex-workshop.message.update.show": false,
     "latex-workshop.message.error.show": false,
-    // "latex-workshop.latex.autoClean.run": "onBuilt",
     "latex-workshop.latex.clean.fileTypes": [
         "__latexindent_temp.tex",
         "*.bcf",
@@ -89,43 +86,44 @@
         "*.synctex.gz(busy)",
         "*.nav"
     ],
-    "python.languageServer": "None",
-    "python.workspaceSymbols.enabled": true,
-    "python.workspaceSymbols.exclusionPatterns": [
-        "**/site-packages/**",
-        "**/.ipynb_checkpoints/**"
-    ],
     "cSpell.enabled": true,
-    "workbench.editorAssociations": {
-        "*.ipynb": "jupyter-notebook"
-    },
     "task.problemMatchers.neverPrompt": {
         "shell": true
     },
     "autoDocstring.docstringFormat": "numpy",
-    "workbench.activityBar.visible": false,
-    "window.zoomLevel": 2,
-    "terminal.integrated.tabs.enabled": true,
-    "workbench.editor.untitled.hint": "hidden",
+    "python.languageServer": "Pylance",
+    "python.formatting.provider": "black",
+    "python.terminal.activateEnvironment": false,
+    "python.pythonPath": "~/.pyenv/shims/python",
     "python.defaultInterpreterPath": "~/.pyenv/shims/python",
+    "[python]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
+    },
     "editor.inlineSuggest.enabled": true,
     "jupyter.interactiveWindowMode": "perFile",
     "jupyter.jupyterServerType": "local",
     "jupyter.disableJupyterAutoStart": true,
     "jupyter.sendSelectionToInteractiveWindow": false,
     "jupyter.askForKernelRestart": false,
-    "workbench.colorCustomizations": {
-        "[Mariana Pro (Cool)]": {
-            "notebook.cellEditorBackground": "#23292e",
-            // "notebook.outputContainerBackgroundColor": "#313a42",
-            "notebook.focusedCellBorder": "#999999"
-        }
-    },
     "notebook.cellFocusIndicator": "border",
     "notebook.showCellStatusBar": "visibleAfterExecute",
     "notebook.insertToolbarLocation": "notebookToolbar",
     "notebook.cellToolbarLocation": {
-        "default": "hidden",
+        "default": "hidden"
     },
-    "notebook.lineNumbers": "on"
+    "notebook.lineNumbers": "on",
+    "gitlens.currentLine.enabled": false,
+    "gitlens.hovers.currentLine.over": "line",
+    "gitlens.codeLens.enabled": false,
+    "workbench.activityBar.visible": false,
+    "github.copilot.enable": {
+        "*": false,
+        "yaml": false,
+        "plaintext": false,
+        "markdown": false
+    },
+    "notebook.output.textLineLimit": 100,
+    "window.zoomLevel": 1
 }
