@@ -24,6 +24,3 @@ export CLOUDSDK_PYTHON="/usr/bin/python2"
 
 # remove annoying pyenv virtualenv message
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-
-# slow wifi problems *cries in 5mbps* ;(
-HOMEBREW_AUTO_UPDATE_SECS=86400
