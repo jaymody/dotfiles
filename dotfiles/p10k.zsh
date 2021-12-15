@@ -63,7 +63,7 @@ typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # phpenv                  # php version from phpenv (https://github.com/phpenv/phpenv)
     # rbenv                   # ruby version from rbenv (https://github.com/rbenv/rbenv)
     pyenv                   # python environment (https://github.com/pyenv/pyenv)
-    # virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
+    virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
     # anaconda                # conda environment (https://conda.io/)
 
     nvm                     # node.js version from nvm (https://github.com/nvm-sh/nvm)
@@ -573,7 +573,10 @@ typeset -g POWERLEVEL9K_VIRTUALENV_FOREGROUND=${TEXT_COLOR}
 typeset -g POWERLEVEL9K_VIRTUALENV_BACKGROUND=${ENV_GREEN}
 # delimeter
 typeset -g POWERLEVEL9K_VIRTUALENV_LEFT_DELIMITER='@'
-
+# If set to "if-different", won't show virtualenv if it's the same as pyenv.
+typeset -g POWERLEVEL9K_VIRTUALENV_SHOW_WITH_PYENV="if-different"
+# Separate environment name from Python version only with a space.
+typeset -g POWERLEVEL9K_VIRTUALENV_{LEFT,RIGHT}_DELIMITER=
 # Don't show Python version next to the virtual environment name.
 typeset -g POWERLEVEL9K_VIRTUALENV_SHOW_PYTHON_VERSION=false
 
