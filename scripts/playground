@@ -1,6 +1,0 @@
-#!/bin/bash
-
-source "${HOME}/.zshrc"
-pyenv shell playground
-mkdir -p /tmp/playground
-jupyter lab --port 7890 --no-browser --NotebookApp.token='' --NotebookApp.password='' /tmp/playground/
