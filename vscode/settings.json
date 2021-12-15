@@ -54,6 +54,9 @@
         "**/dotfiles/*": "shellscript"
     },
     "explorer.autoReveal": false,
+    "task.problemMatchers.neverPrompt": {
+        "shell": true
+    },
     ////////////////////////////////
     //// misc language specific ////
     ////////////////////////////////
@@ -126,9 +129,6 @@
     "createtmpfile.deleteOnExit": true,
     "createtmpfile.tmpDir": "/tmp",
     "cSpell.enabled": true,
-    "task.problemMatchers.neverPrompt": {
-        "shell": true
-    },
     "github.copilot.enable": {
         "*": false,
         "yaml": false,
@@ -162,4 +162,7 @@
     },
     "notebook.lineNumbers": "on",
     "notebook.output.textLineLimit": 100
+    ////////////////////////////////
+    ///////////// new //////////////
+    ////////////////////////////////
 }
