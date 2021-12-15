@@ -1,7 +1,14 @@
 {
+    ////////////////////////////////
+    //////////// window ////////////
+    ////////////////////////////////
     "window.title": "${remoteName}",
     "window.restoreWindows": "none",
     "window.closeWhenEmpty": true,
+    "window.zoomLevel": 1,
+    ////////////////////////////////
+    //////////// editor ////////////
+    ////////////////////////////////
     "editor.minimap.enabled": false,
     "editor.rulers": [
         80
@@ -9,32 +16,50 @@
     "editor.formatOnSave": true,
     "editor.suggestSelection": "first",
     "editor.renderControlCharacters": false,
+    "editor.inlineSuggest.enabled": true,
+    ////////////////////////////////
+    /////////// workbench //////////
+    ////////////////////////////////
+    "workbench.activityBar.visible": false,
     "workbench.statusBar.visible": false,
     "workbench.iconTheme": "file-icons-mac",
     "workbench.startupEditor": "newUntitledFile",
     "workbench.colorTheme": "Mariana Pro (Cool)",
     "workbench.editor.untitled.hint": "hidden",
-    "breadcrumbs.enabled": false,
-    "extensions.ignoreRecommendations": true,
+    "workbench.colorCustomizations": {
+        "[Mariana Pro (Cool)]": {
+            "notebook.cellEditorBackground": "#23292e",
+            "notebook.focusedCellBorder": "#999999"
+        }
+    },
+    ////////////////////////////////
+    /////////// terminal ///////////
+    ////////////////////////////////
     "terminal.integrated.defaultProfile.osx": "zsh",
     "terminal.external.osxExec": "iTerm.app",
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.macOptionIsMeta": true,
     "terminal.integrated.tabs.enabled": true,
     "terminal.integrated.defaultProfile.linux": "zsh",
+    ////////////////////////////////
+    /////////// general ////////////
+    ////////////////////////////////
+    "extensions.ignoreRecommendations": true,
+    "breadcrumbs.enabled": false,
     "files.exclude": {
         ".ipynb_checkpoints": true
     },
     "search.exclude": {},
-    "[latex]": {
-        "editor.wordWrap": "on"
+    "files.associations": {
+        "**/dotfiles/*": "shellscript"
     },
+    "explorer.autoReveal": false,
+    ////////////////////////////////
+    //// misc language specific ////
+    ////////////////////////////////
     "[json]": {
         "editor.formatOnSave": false,
         "editor.defaultFormatter": "vscode.json-language-features"
-    },
-    "files.associations": {
-        "**/dotfiles/*": "shellscript"
     },
     "[markdown]": {
         "editor.formatOnSave": false,
@@ -43,18 +68,27 @@
     "[plaintext]": {
         "editor.wordWrap": "on"
     },
-    "workbench.colorCustomizations": {
-        "[Mariana Pro (Cool)]": {
-            "notebook.cellEditorBackground": "#23292e",
-            "notebook.focusedCellBorder": "#999999"
-        }
-    },
-    "explorer.autoReveal": false,
-    "createtmpfile.deleteOnExit": true,
-    "createtmpfile.tmpDir": "/tmp",
+    ////////////////////////////////
+    /////////// gitlens ////////////
+    ////////////////////////////////
     "gitlens.mode.active": "zen",
+    "gitlens.currentLine.enabled": false,
+    "gitlens.hovers.currentLine.over": "line",
+    "gitlens.codeLens.enabled": false,
+    ////////////////////////////////
+    ///////////// c++ //////////////
+    ////////////////////////////////
     "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}",
+    ////////////////////////////////
+    ///////////// java /////////////
+    ////////////////////////////////
     "java.configuration.checkProjectSettingsExclusions": false,
+    ////////////////////////////////
+    //////////// latex /////////////
+    ////////////////////////////////
+    "[latex]": {
+        "editor.wordWrap": "on"
+    },
     "latex-workshop.view.pdf.viewer": "tab",
     "latex-workshop.message.error.show": false,
     "latex-workshop.latex.clean.fileTypes": [
@@ -86,9 +120,28 @@
         "*.synctex.gz(busy)",
         "*.nav"
     ],
+    ////////////////////////////////
+    ///////// misc plugins /////////
+    ////////////////////////////////
+    "createtmpfile.deleteOnExit": true,
+    "createtmpfile.tmpDir": "/tmp",
     "cSpell.enabled": true,
     "task.problemMatchers.neverPrompt": {
         "shell": true
+    },
+    "github.copilot.enable": {
+        "*": false,
+        "yaml": false,
+        "plaintext": false,
+        "markdown": false
+    },
+    ////////////////////////////////
+    //////////// python ////////////
+    ////////////////////////////////
+    "[python]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
     },
     "autoDocstring.docstringFormat": "numpy",
     "python.languageServer": "Pylance",
@@ -96,12 +149,6 @@
     "python.terminal.activateEnvironment": false,
     "python.pythonPath": "~/.pyenv/shims/python",
     "python.defaultInterpreterPath": "~/.pyenv/shims/python",
-    "[python]": {
-        "editor.codeActionsOnSave": {
-            "source.organizeImports": true
-        }
-    },
-    "editor.inlineSuggest.enabled": true,
     "jupyter.interactiveWindowMode": "perFile",
     "jupyter.jupyterServerType": "local",
     "jupyter.disableJupyterAutoStart": true,
@@ -114,16 +161,5 @@
         "default": "hidden"
     },
     "notebook.lineNumbers": "on",
-    "gitlens.currentLine.enabled": false,
-    "gitlens.hovers.currentLine.over": "line",
-    "gitlens.codeLens.enabled": false,
-    "workbench.activityBar.visible": false,
-    "github.copilot.enable": {
-        "*": false,
-        "yaml": false,
-        "plaintext": false,
-        "markdown": false
-    },
-    "notebook.output.textLineLimit": 100,
-    "window.zoomLevel": 1
+    "notebook.output.textLineLimit": 100
 }
