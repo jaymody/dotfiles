@@ -51,7 +51,7 @@ alias q="exit"
 alias cls=" clear"
 alias clear=" clear"
 alias paths="echo -e ${PATH//:/'\n'}"
-alias reload='exec $0 -l'
+alias reload='exec -l $(lsof -p "$$" | grep -m 1 txt | xargs -n 1 | tail -n +9 | xargs)'
 alias cleands="find . -type f -name '*.DS_Store' -ls -delete"
 
 
