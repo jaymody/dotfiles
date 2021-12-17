@@ -51,7 +51,7 @@ alias q="exit"
 alias cls=" clear"
 alias clear=" clear"
 alias paths="echo -e ${PATH//:/'\n'}"
-alias reload="exec ${SHELL} -l"
+alias reload='exec $0 -l'
 alias cleands="find . -type f -name '*.DS_Store' -ls -delete"
 
 
