@@ -28,7 +28,6 @@ plugins=(
     docker
     github
     rbenv
-    autoswitch_virtualenv
 )
 
 
