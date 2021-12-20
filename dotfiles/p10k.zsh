@@ -571,8 +571,6 @@ typeset -g POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=255
 typeset -g POWERLEVEL9K_VIRTUALENV_FOREGROUND=${TEXT_COLOR}
 # background
 typeset -g POWERLEVEL9K_VIRTUALENV_BACKGROUND=${ENV_GREEN}
-# delimeter
-typeset -g POWERLEVEL9K_VIRTUALENV_LEFT_DELIMITER='@'
 # If set to "if-different", won't show virtualenv if it's the same as pyenv.
 typeset -g POWERLEVEL9K_VIRTUALENV_SHOW_WITH_PYENV="if-different"
 # Separate environment name from Python version only with a space.

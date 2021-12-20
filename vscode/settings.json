@@ -77,7 +77,6 @@
     "gitlens.mode.active": "zen",
     "gitlens.currentLine.enabled": false,
     "gitlens.hovers.currentLine.over": "line",
-    "gitlens.codeLens.enabled": false,
     ////////////////////////////////
     ///////////// c++ //////////////
     ////////////////////////////////
@@ -147,8 +146,6 @@
     "python.languageServer": "Pylance",
     "python.formatting.provider": "black",
     "python.terminal.activateEnvironment": false,
-    "python.pythonPath": "~/.pyenv/shims/python",
-    "python.defaultInterpreterPath": "~/.pyenv/shims/python",
     "jupyter.interactiveWindowMode": "perFile",
     "jupyter.jupyterServerType": "local",
     "jupyter.disableJupyterAutoStart": true,
@@ -161,7 +158,8 @@
         "default": "hidden"
     },
     "notebook.lineNumbers": "on",
-    "notebook.output.textLineLimit": 100
+    "notebook.output.textLineLimit": 100,
+    "gitlens.codeLens.enabled": false
     ////////////////////////////////
     ///////////// new //////////////
     ////////////////////////////////
