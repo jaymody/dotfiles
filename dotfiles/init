@@ -19,8 +19,5 @@ export LS_COLORS="di=1;36:ln=0;44:so=32:pi=31:ex=35:bd=34;46:cd=34;43:su=30;41:s
 # silence the annoying direnv logs (we already have the p10k direnv segment)
 export DIRENV_LOG_FORMAT=
 
-# use system python2 for gcloud since active python will probably be python3
-export CLOUDSDK_PYTHON="/usr/bin/python2"
-
 # remove annoying pyenv virtualenv message
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
