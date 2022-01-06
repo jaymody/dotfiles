@@ -12,8 +12,8 @@ brew install \
     direnv \
     fd \
     fx \
+    grpcurl \
     htop \
-    hub \
     jq \
     node \
     openconnect \
@@ -24,22 +24,22 @@ brew install \
     tldr \
     tmux \
     tree \
-    vnstat \
     watch \
     wget
 
 # casks
 brew install --cask \
     alfred \
+    bitwarden \
     brooklyn \
     discord \
     docker \
     firefox \
     font-fontawesome \
     font-hack-nerd-font \
-    google-backup-and-sync \
     google-chrome \
     google-cloud-sdk \
+    google-drive \
     iterm2 \
     jupyter-notebook-viewer \
     keyboard-cleaner \
@@ -51,9 +51,9 @@ brew install --cask \
     microsoft-word \
     notion \
     rectangle \
+    signal \
     slack \
     spotify \
-    ticktick \
     visual-studio-code \
     whatsapp \
-    zoomus
+    zoom

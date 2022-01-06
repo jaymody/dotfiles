@@ -41,7 +41,6 @@ sudo apt install -y \
     direnv \
     fd-find \
     htop \
-    hub \
     jq \
     python \
     screen \
