@@ -14,7 +14,7 @@ alias ~="cd ~"
 
 
 ### ls
-if ! [ -x "$(command -v gls)" ]; then
+if [ -x "$(command -v gls)" ]; then
     lsflag="gls"
 else
     lsflag="ls"
