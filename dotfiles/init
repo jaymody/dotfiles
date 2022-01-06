@@ -21,3 +21,8 @@ export DIRENV_LOG_FORMAT=
 
 # remove annoying pyenv virtualenv message
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
+# homebrew isn't added to path by default for m1 macbooks
+if test -f "/opt/homebrew/bin/brew"; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi

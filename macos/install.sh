@@ -35,6 +35,11 @@ if test ! $(which brew); then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
+# homebrew isn't added to path by default for m1 macbooks
+if test -f "/opt/homebrew/bin/brew"; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 
 # install from Brewfile
 echo " Installing from Brewfile"
