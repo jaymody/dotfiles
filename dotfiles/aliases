@@ -14,10 +14,10 @@ alias ~="cd ~"
 
 
 ### ls
-if ls --color > /dev/null 2>&1; then
-    lsflag="ls"
-else
+if ! [ -x "$(command -v gls)" ]; then
     lsflag="gls"
+else
+    lsflag="ls"
 fi
 
 alias ls="$lsflag --color --group-directories-first"
