@@ -5,7 +5,6 @@
     "window.title": "${remoteName}",
     "window.restoreWindows": "none",
     "window.closeWhenEmpty": true,
-    "window.zoomLevel": 1,
     ////////////////////////////////
     //////////// editor ////////////
     ////////////////////////////////
@@ -17,11 +16,6 @@
     "editor.suggestSelection": "first",
     "editor.renderControlCharacters": false,
     "editor.inlineSuggest.enabled": true,
-    ////////////////////////////////
-    /////////// workbench //////////
-    ////////////////////////////////
-    "workbench.activityBar.visible": false,
-    "workbench.statusBar.visible": false,
     "workbench.iconTheme": "file-icons-mac",
     "workbench.startupEditor": "newUntitledFile",
     "workbench.colorTheme": "Mariana Pro (Cool)",
@@ -45,7 +39,6 @@
     /////////// general ////////////
     ////////////////////////////////
     "extensions.ignoreRecommendations": true,
-    "breadcrumbs.enabled": false,
     "files.exclude": {
         ".ipynb_checkpoints": true
     },
@@ -77,6 +70,7 @@
     "gitlens.mode.active": "zen",
     "gitlens.currentLine.enabled": false,
     "gitlens.hovers.currentLine.over": "line",
+    "gitlens.codeLens.enabled": true,
     ////////////////////////////////
     ///////////// c++ //////////////
     ////////////////////////////////
@@ -146,6 +140,10 @@
     "python.languageServer": "Pylance",
     "python.formatting.provider": "black",
     "python.terminal.activateEnvironment": false,
+    "python.sortImports.args": [
+        "--profile",
+        "black"
+    ],
     "jupyter.interactiveWindowMode": "perFile",
     "jupyter.jupyterServerType": "local",
     "jupyter.disableJupyterAutoStart": true,
@@ -159,8 +157,9 @@
     },
     "notebook.lineNumbers": "on",
     "notebook.output.textLineLimit": 100,
-    "gitlens.codeLens.enabled": false
     ////////////////////////////////
     ///////////// new //////////////
     ////////////////////////////////
+    "workbench.activityBar.visible": false,
+    "workbench.statusBar.visible": false
 }

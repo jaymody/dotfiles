@@ -90,3 +90,5 @@
 
     name = jaymody
     email = jaykmody@gmail.com
+[pull]
+	rebase = false
