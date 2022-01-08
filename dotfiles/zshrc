@@ -27,6 +27,7 @@ plugins=(
     gcloud
     docker
     github
+    git-open
     rbenv
 )
 
