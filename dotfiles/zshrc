@@ -9,8 +9,11 @@ source ${HOME}/.init
 source ${HOME}/.aliases
 
 
-# autoswitch_virtualenv message (must be loaded before plugins)
-AUTOSWITCH_SILENT=true
+# autoswitch_virtualenv settings
+export AUTOSWITCH_SILENT=true
+export AUTOSWITCH_FILE=".autoswitch"
+export AUTOSWITCH_DEFAULT_REQUIREMENTS=
+export AUTOSWITCH_VIRTUAL_ENV_DIR=".venv"
 
 
 # oh-my-zsh settings
@@ -23,6 +26,7 @@ plugins=(
     colored-man-pages
     gitignore
     pyenv
+    autoswitch_virtualenv
     direnv
     gcloud
     docker

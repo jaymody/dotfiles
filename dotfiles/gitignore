@@ -1,14 +1,9 @@
 ### Personal ####
-todo.md
-.envrc
-
-
-### Visual Studio Code Project Settings ###
-.vscode/
-
-
-### Pyenv ###
-.python-version
+todo.md             # just a todo file :)
+.envrc              # direnv
+.vscode/            # visual studio code
+.python-version     # pyenv
+.autoswitch         # autoswitch_virtualenv zsh plugin
 
 
 ### macOS ###
@@ -39,3 +34,48 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+
+### Linux ###
+
+*~
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
+
+
+### Windows ###
+
+# Windows thumbnail cache files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+
+# Dump file
+*.stackdump
+
+# Folder config file
+[Dd]esktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
