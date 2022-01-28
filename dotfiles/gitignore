@@ -1,9 +1,8 @@
 ### Personal ####
-todo.md             # just a todo file :)
-.envrc              # direnv
-.vscode/            # visual studio code
-.python-version     # pyenv
-.autoswitch         # autoswitch_virtualenv zsh plugin
+todo.md
+.envrc
+.vscode/
+.python-version
 
 
 ### macOS ###
