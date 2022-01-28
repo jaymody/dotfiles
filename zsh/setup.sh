@@ -19,7 +19,7 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH}/custom/
 git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions "${ZSH}/custom/plugins/zsh-autosuggestions"
 git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH}/custom/plugins/zsh-syntax-highlighting"
 git clone --depth=1 https://github.com/paulirish/git-open.git "${ZSH}/custom/plugins/git-open"
-git clone --depth=1 https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv.git "${ZSH}/custom/plugins/autoswitch_virtualenv"
+git clone --depth=1 https://github.com/jaymody/zsh-autoswitch-virtualenv.git "${ZSH}/custom/plugins/autoswitch_virtualenv"
 
 # install powerline fonts
 git clone https://github.com/powerline/fonts.git --depth=1

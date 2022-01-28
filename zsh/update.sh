@@ -18,3 +18,11 @@ git pull
 echo "updating zsh-syntax-highlighting"
 cd ${ZSH}/custom/plugins/zsh-syntax-highlighting
 git pull
+
+echo "updating git-open"
+cd ${ZSH}/custom/plugins/git-open
+git pull
+
+echo "updating autoswitch-virtualenv"
+cd ${ZSH}/custom/plugins/autoswitch_virtualenv
+git pull

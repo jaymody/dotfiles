@@ -9,13 +9,6 @@ source ${HOME}/.init
 source ${HOME}/.aliases
 
 
-# autoswitch_virtualenv settings
-export AUTOSWITCH_SILENT=true
-export AUTOSWITCH_FILE=".autoswitch"
-export AUTOSWITCH_DEFAULT_REQUIREMENTS=
-export AUTOSWITCH_VIRTUAL_ENV_DIR=".venv"
-
-
 # oh-my-zsh settings
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
