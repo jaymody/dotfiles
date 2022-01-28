@@ -119,11 +119,12 @@
     ////////////////////////////////
     ///////// misc plugins /////////
     ////////////////////////////////
+    "markdown-preview-enhanced.previewTheme": "github-light.css",
     "createtmpfile.deleteOnExit": true,
     "createtmpfile.tmpDir": "/tmp",
     "cSpell.enabled": true,
     "github.copilot.enable": {
-        "*": false,
+        "*": true,
         "yaml": false,
         "plaintext": false,
         "markdown": false
@@ -155,11 +156,12 @@
     "notebook.cellToolbarLocation": {
         "default": "hidden"
     },
-    "notebook.lineNumbers": "on",
     "notebook.output.textLineLimit": 100,
-    ////////////////////////////////
-    ///////////// new //////////////
-    ////////////////////////////////
-    "workbench.activityBar.visible": false,
-    "workbench.statusBar.visible": false
+    ////////////////////////
+    ///////// misc /////////
+    ////////////////////////
+    "throwaway": "this is here to just keep the misc section from being empty",
+    "workbench.statusBar.visible": false,
+    "explorer.confirmDragAndDrop": false,
+    "workbench.activityBar.visible": false
 }
