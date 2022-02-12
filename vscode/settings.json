@@ -35,6 +35,7 @@
     "terminal.integrated.macOptionIsMeta": true,
     "terminal.integrated.tabs.enabled": true,
     "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.fontFamily": "Hack",
     ////////////////////////////////
     /////////// general ////////////
     ////////////////////////////////
@@ -116,6 +117,19 @@
         "*.synctex.gz(busy)",
         "*.nav"
     ],
+    "latex-workshop.latex.tools": [
+        {
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": [
+                "-xelatex",
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+            ]
+        }
+    ],
     ////////////////////////////////
     ///////// misc plugins /////////
     ////////////////////////////////
@@ -135,7 +149,10 @@
     "[python]": {
         "editor.codeActionsOnSave": {
             "source.organizeImports": true
-        }
+        },
+        "editor.rulers": [
+            88
+        ]
     },
     "autoDocstring.docstringFormat": "numpy",
     "python.languageServer": "Pylance",
@@ -163,5 +180,12 @@
     "throwaway": "this is here to just keep the misc section from being empty",
     "workbench.statusBar.visible": false,
     "explorer.confirmDragAndDrop": false,
+    // remote.SSH.loclfilesInTmp needed to connect to praxis osaka HPC nodes,
+    // possibly due to JumpBox in the ssh config
+    // https://github.com/microsoft/vscode-remote-release/issues/1896#issuecomment-558214014
+    "remote.SSH.lockfilesInTmp": true,
+    "workbench.sideBar.location": "right",
+    "git.ignoreLegacyWarning": true,
+    "window.zoomLevel": 1,
     "workbench.activityBar.visible": false
 }
