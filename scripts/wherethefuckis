@@ -1,0 +1,3 @@
+#!/bin/bash
+
+printf ${PATH//:/'\n'} | xargs -I {} sh -c '[ -d {} ] && find {} -maxdepth 1 -not -type d' | grep -e "/$1$"
