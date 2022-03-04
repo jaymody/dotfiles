@@ -8,10 +8,12 @@ brew tap homebrew/services
 
 # core
 brew install \
+    cmake \
     coreutils \
     direnv \
     fd \
     fx \
+    gcc \
     grpcurl \
     htop \
     jq \
