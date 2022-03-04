@@ -97,7 +97,7 @@ typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
     # aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
     # aws_eb_env              # aws elastic beanstalk environment (https://aws.amazon.com/elasticbeanstalk/)
     # azure                   # azure account name (https://docs.microsoft.com/en-us/cli/azure)
-    # kubecontext             # current kubernetes context (https://kubernetes.io/)
+    kubecontext             # current kubernetes context (https://kubernetes.io/)
     # terraform               # terraform workspace (https://www.terraform.io)
 
     vcs                     # git status
@@ -1130,6 +1130,8 @@ typeset -g POWERLEVEL9K_AZURE_FOREGROUND=32
 
 
 #############[ kubecontext: current kubernetes context (https://kubernetes.io/) ]#############
+typeset -g POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl'
+
 # Kubernetes context classes for the purpose of using different colors, icons and expansions with
 # different contexts.
 #
@@ -1160,7 +1162,8 @@ typeset -g POWERLEVEL9K_KUBECONTEXT_CLASSES=(
     # '*prod*'  PROD    # These values are examples that are unlikely
     # '*test*'  TEST    # to match your needs. Customize them as needed.
     '*'       DEFAULT)
-typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_FOREGROUND=134
+typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_FOREGROUND=${TEXT_COLOR}
+typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_BACKGROUND=${CLOUD_PROFILE_ORANGE}
 # typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
 # Use POWERLEVEL9K_KUBECONTEXT_CONTENT_EXPANSION to specify the content displayed by kubecontext
