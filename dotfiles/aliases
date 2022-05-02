@@ -89,6 +89,8 @@ alias dockerpsa="docker ps -a"
 alias dockerpse='docker ps --filter "status=exited"'
 alias dockerent="docker exec -it "
 alias dockerents="docker run -it "
+alias dockerbash="docker run --rm -it --entrypoint /bin/bash"
+alias dockerzsh="docker run --rm -it --entrypoint /bin/zsh"
 
 
 ### vscode
