@@ -6,6 +6,7 @@ deerawan.vscode-dash
 dotdevru.prettier-java
 eamodio.gitlens
 EditorConfig.EditorConfig
+esbenp.prettier-vscode
 GitHub.copilot
 James-Yu.latex-workshop
 jgoday.createtmpfile
@@ -27,7 +28,9 @@ rickynormandeau.mariana-pro
 rust-lang.rust
 scala-lang.scala
 shd101wyy.markdown-preview-enhanced
+sissel.shopify-liquid
 sleistner.vscode-fileutils
+statiolake.vscode-rustfmt
 streetsidesoftware.code-spell-checker
 tomoki1207.vscode-input-sequence
 wayou.file-icons-mac

@@ -214,5 +214,10 @@
         "key": "ctrl+space",
         "command": "-toggleSuggestionDetails",
         "when": "suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "shift+cmd+l",
+        "command": "-liquid.formatDocument",
+        "when": "editorTextFocus"
     }
 ]

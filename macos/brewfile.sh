@@ -31,7 +31,6 @@ brew install \
 
 # casks
 brew install --cask \
-    alfred \
     bitwarden \
     brooklyn \
     discord \
@@ -39,6 +38,7 @@ brew install --cask \
     firefox \
     font-fontawesome \
     font-hack-nerd-font \
+    gimp \
     google-chrome \
     google-cloud-sdk \
     google-drive \
@@ -52,6 +52,8 @@ brew install --cask \
     microsoft-teams \
     microsoft-word \
     notion \
+    obsidian \
+    raycast \
     rectangle \
     signal \
     slack \

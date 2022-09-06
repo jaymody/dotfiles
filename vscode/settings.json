@@ -1,191 +1,196 @@
 {
-    ////////////////////////////////
-    //////////// window ////////////
-    ////////////////////////////////
-    "window.title": "${remoteName}",
-    "window.restoreWindows": "none",
-    "window.closeWhenEmpty": true,
-    ////////////////////////////////
-    //////////// editor ////////////
-    ////////////////////////////////
-    "editor.minimap.enabled": false,
-    "editor.rulers": [
-        80
-    ],
-    "editor.formatOnSave": true,
-    "editor.suggestSelection": "first",
-    "editor.renderControlCharacters": false,
-    "editor.inlineSuggest.enabled": true,
-    "workbench.iconTheme": "file-icons-mac",
-    "workbench.startupEditor": "newUntitledFile",
-    "workbench.colorTheme": "Mariana Pro (Cool)",
-    "workbench.editor.untitled.hint": "hidden",
-    "workbench.colorCustomizations": {
-        "[Mariana Pro (Cool)]": {
-            "notebook.cellEditorBackground": "#23292e",
-            "notebook.focusedCellBorder": "#999999"
-        }
+  ////////////////////////////////
+  //////////// window ////////////
+  ////////////////////////////////
+  "window.title": "${remoteName}",
+  "window.restoreWindows": "none",
+  "window.closeWhenEmpty": true,
+  ////////////////////////////////
+  //////////// editor ////////////
+  ////////////////////////////////
+  "editor.minimap.enabled": false,
+  "editor.rulers": [80],
+  "editor.formatOnSave": true,
+  "editor.suggestSelection": "first",
+  "editor.renderControlCharacters": false,
+  "editor.inlineSuggest.enabled": true,
+  "workbench.iconTheme": "file-icons-mac",
+  "workbench.startupEditor": "newUntitledFile",
+  "workbench.editor.untitled.hint": "hidden",
+  "workbench.colorCustomizations": {
+    "[Mariana Pro (Cool)]": {
+      "notebook.cellEditorBackground": "#23292e",
+      "notebook.focusedCellBorder": "#999999"
+    }
+  },
+  ////////////////////////////////
+  /////////// terminal ///////////
+  ////////////////////////////////
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.external.osxExec": "iTerm.app",
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.macOptionIsMeta": true,
+  "terminal.integrated.tabs.enabled": true,
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "terminal.integrated.fontFamily": "Hack",
+  ////////////////////////////////
+  /////////// general ////////////
+  ////////////////////////////////
+  "extensions.ignoreRecommendations": true,
+  "files.exclude": {
+    ".ipynb_checkpoints": true
+  },
+  "search.exclude": {},
+  "files.associations": {
+    "**/dotfiles/*": "shellscript"
+  },
+  "explorer.autoReveal": false,
+  "task.problemMatchers.neverPrompt": {
+    "shell": true
+  },
+  ////////////////////////////////
+  //// misc language specific ////
+  ////////////////////////////////
+  "[json]": {
+    "editor.formatOnSave": false,
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[markdown]": {
+    "editor.formatOnSave": false,
+    "editor.wordWrap": "on"
+  },
+  "[plaintext]": {
+    "editor.wordWrap": "on"
+  },
+  ////////////////////////////////
+  /////////// gitlens ////////////
+  ////////////////////////////////
+  "gitlens.mode.active": "zen",
+  "gitlens.currentLine.enabled": false,
+  "gitlens.hovers.currentLine.over": "line",
+  "gitlens.codeLens.enabled": true,
+  ////////////////////////////////
+  ///////////// c++ //////////////
+  ////////////////////////////////
+  "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}",
+  ////////////////////////////////
+  ///////////// java /////////////
+  ////////////////////////////////
+  "java.configuration.checkProjectSettingsExclusions": false,
+  ////////////////////////////////
+  //////////// latex /////////////
+  ////////////////////////////////
+  "[latex]": {
+    "editor.wordWrap": "on"
+  },
+  "latex-workshop.view.pdf.viewer": "tab",
+  "latex-workshop.message.error.show": false,
+  "latex-workshop.latex.clean.fileTypes": [
+    "__latexindent_temp.tex",
+    "*.bcf",
+    "*.fls",
+    "*.run.xml",
+    "*.synctex.gz",
+    "*.aux",
+    "*.bbl",
+    "*.blg",
+    "*.idx",
+    "*.ind",
+    "*.lof",
+    "*.lot",
+    "*.out",
+    "*.toc",
+    "*.acn",
+    "*.acr",
+    "*.alg",
+    "*.glg",
+    "*.glo",
+    "*.gls",
+    "*.fls",
+    "*.log",
+    "*.fdb_latexmk",
+    "*.snm",
+    "*.synctex(busy)",
+    "*.synctex.gz(busy)",
+    "*.nav"
+  ],
+  "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk",
+      "command": "latexmk",
+      "args": [
+        "-xelatex",
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "%DOC%"
+      ]
+    }
+  ],
+  ////////////////////////////////
+  ///////// misc plugins /////////
+  ////////////////////////////////
+  "markdown-preview-enhanced.previewTheme": "github-light.css",
+  "createtmpfile.deleteOnExit": true,
+  "createtmpfile.tmpDir": "/tmp",
+  "cSpell.enabled": true,
+  "github.copilot.enable": {
+    "*": true,
+    "yaml": false,
+    "plaintext": false,
+    "markdown": false,
+    "python": true
+  },
+  ////////////////////////////////
+  //////////// python ////////////
+  ////////////////////////////////
+  "[python]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
     },
-    ////////////////////////////////
-    /////////// terminal ///////////
-    ////////////////////////////////
-    "terminal.integrated.defaultProfile.osx": "zsh",
-    "terminal.external.osxExec": "iTerm.app",
-    "terminal.integrated.cursorStyle": "line",
-    "terminal.integrated.macOptionIsMeta": true,
-    "terminal.integrated.tabs.enabled": true,
-    "terminal.integrated.defaultProfile.linux": "zsh",
-    "terminal.integrated.fontFamily": "Hack",
-    ////////////////////////////////
-    /////////// general ////////////
-    ////////////////////////////////
-    "extensions.ignoreRecommendations": true,
-    "files.exclude": {
-        ".ipynb_checkpoints": true
-    },
-    "search.exclude": {},
-    "files.associations": {
-        "**/dotfiles/*": "shellscript"
-    },
-    "explorer.autoReveal": false,
-    "task.problemMatchers.neverPrompt": {
-        "shell": true
-    },
-    ////////////////////////////////
-    //// misc language specific ////
-    ////////////////////////////////
-    "[json]": {
-        "editor.formatOnSave": false,
-        "editor.defaultFormatter": "vscode.json-language-features"
-    },
-    "[markdown]": {
-        "editor.formatOnSave": false,
-        "editor.wordWrap": "on"
-    },
-    "[plaintext]": {
-        "editor.wordWrap": "on"
-    },
-    ////////////////////////////////
-    /////////// gitlens ////////////
-    ////////////////////////////////
-    "gitlens.mode.active": "zen",
-    "gitlens.currentLine.enabled": false,
-    "gitlens.hovers.currentLine.over": "line",
-    "gitlens.codeLens.enabled": true,
-    ////////////////////////////////
-    ///////////// c++ //////////////
-    ////////////////////////////////
-    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}",
-    ////////////////////////////////
-    ///////////// java /////////////
-    ////////////////////////////////
-    "java.configuration.checkProjectSettingsExclusions": false,
-    ////////////////////////////////
-    //////////// latex /////////////
-    ////////////////////////////////
-    "[latex]": {
-        "editor.wordWrap": "on"
-    },
-    "latex-workshop.view.pdf.viewer": "tab",
-    "latex-workshop.message.error.show": false,
-    "latex-workshop.latex.clean.fileTypes": [
-        "__latexindent_temp.tex",
-        "*.bcf",
-        "*.fls",
-        "*.run.xml",
-        "*.synctex.gz",
-        "*.aux",
-        "*.bbl",
-        "*.blg",
-        "*.idx",
-        "*.ind",
-        "*.lof",
-        "*.lot",
-        "*.out",
-        "*.toc",
-        "*.acn",
-        "*.acr",
-        "*.alg",
-        "*.glg",
-        "*.glo",
-        "*.gls",
-        "*.fls",
-        "*.log",
-        "*.fdb_latexmk",
-        "*.snm",
-        "*.synctex(busy)",
-        "*.synctex.gz(busy)",
-        "*.nav"
-    ],
-    "latex-workshop.latex.tools": [
-        {
-            "name": "latexmk",
-            "command": "latexmk",
-            "args": [
-                "-xelatex",
-                "-synctex=1",
-                "-interaction=nonstopmode",
-                "-file-line-error",
-                "%DOC%"
-            ]
-        }
-    ],
-    ////////////////////////////////
-    ///////// misc plugins /////////
-    ////////////////////////////////
-    "markdown-preview-enhanced.previewTheme": "github-light.css",
-    "createtmpfile.deleteOnExit": true,
-    "createtmpfile.tmpDir": "/tmp",
-    "cSpell.enabled": true,
-    "github.copilot.enable": {
-        "*": true,
-        "yaml": false,
-        "plaintext": false,
-        "markdown": false
-    },
-    ////////////////////////////////
-    //////////// python ////////////
-    ////////////////////////////////
-    "[python]": {
-        "editor.codeActionsOnSave": {
-            "source.organizeImports": true
-        },
-        "editor.rulers": [
-            88
-        ]
-    },
-    "autoDocstring.docstringFormat": "numpy",
-    "python.languageServer": "Pylance",
-    "python.formatting.provider": "black",
-    "python.terminal.activateEnvironment": false,
-    "python.sortImports.args": [
-        "--profile",
-        "black"
-    ],
-    "jupyter.interactiveWindowMode": "perFile",
-    "jupyter.jupyterServerType": "local",
-    "jupyter.disableJupyterAutoStart": true,
-    "jupyter.sendSelectionToInteractiveWindow": false,
-    "jupyter.askForKernelRestart": false,
-    "notebook.cellFocusIndicator": "border",
-    "notebook.showCellStatusBar": "visibleAfterExecute",
-    "notebook.insertToolbarLocation": "notebookToolbar",
-    "notebook.cellToolbarLocation": {
-        "default": "hidden"
-    },
-    "notebook.output.textLineLimit": 100,
-    ////////////////////////
-    ///////// misc /////////
-    ////////////////////////
-    "throwaway": "this is here to just keep the misc section from being empty",
-    "workbench.statusBar.visible": false,
-    "explorer.confirmDragAndDrop": false,
-    // remote.SSH.loclfilesInTmp needed to connect to praxis osaka HPC nodes,
-    // possibly due to JumpBox in the ssh config
-    // https://github.com/microsoft/vscode-remote-release/issues/1896#issuecomment-558214014
-    "remote.SSH.lockfilesInTmp": true,
-    "workbench.sideBar.location": "right",
-    "git.ignoreLegacyWarning": true,
-    "window.zoomLevel": 1,
-    "workbench.activityBar.visible": false
+    "editor.rulers": [88]
+  },
+  "autoDocstring.docstringFormat": "numpy",
+  "python.languageServer": "Pylance",
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.formatting.provider": "black",
+  "python.terminal.activateEnvironment": false,
+  "python.sortImports.args": ["--profile", "black"],
+  "jupyter.interactiveWindowMode": "perFile",
+  "jupyter.jupyterServerType": "local",
+  "jupyter.disableJupyterAutoStart": true,
+  "jupyter.sendSelectionToInteractiveWindow": false,
+  "jupyter.askForKernelRestart": false,
+  "notebook.cellFocusIndicator": "border",
+  "notebook.showCellStatusBar": "visibleAfterExecute",
+  "notebook.insertToolbarLocation": "notebookToolbar",
+  "notebook.cellToolbarLocation": {
+    "default": "hidden"
+  },
+  "notebook.output.textLineLimit": 100,
+  ////////////////////////
+  ///////// misc /////////
+  ////////////////////////
+  "throwaway": "this is here to just keep the misc section from being empty",
+  "explorer.confirmDragAndDrop": false,
+  // remote.SSH.loclfilesInTmp needed to connect to praxis osaka HPC nodes,
+  // possibly due to JumpBox in the ssh config
+  // https://github.com/microsoft/vscode-remote-release/issues/1896#issuecomment-558214014
+  "remote.SSH.lockfilesInTmp": true,
+  "workbench.sideBar.location": "right",
+  "git.ignoreLegacyWarning": true,
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "workbench.statusBar.visible": false,
+  "gitlens.advanced.messages": {
+    "suppressCommitHasNoPreviousCommitWarning": true
+  },
+  "workbench.activityBar.visible": false,
+  "redhat.telemetry.enabled": false,
+  "window.zoomLevel": 1,
+  "workbench.colorTheme": "Mariana Pro (Cool)",
+  "editor.bracketPairColorization.enabled": false,
+  "editor.stickyScroll.enabled": true
 }
