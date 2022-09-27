@@ -3,6 +3,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# set shell variable (incase it is not set properly, i.e. /bin/bash)
+SHELL="$(which zsh)"
 
 # load aliases and init
 source ${HOME}/.init
