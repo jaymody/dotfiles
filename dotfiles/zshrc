@@ -25,11 +25,10 @@ plugins=(
     direnv
     gcloud
     docker
-    github
     git-open
-    rbenv
-    rust
-    nvm
+    # rbenv
+    # rust
+    # nvm
 )
 
 
@@ -41,7 +40,7 @@ eval $save_aliases
 unset save_aliases
 
 # read aliases that I actually do want
-alias ${_Z_CMD:-z}='_z 2>&1'
+alias z='zshz 2>&1'
 
 
 # load powerlevel10k config
@@ -58,8 +57,8 @@ export TERM=xterm-256color
 
 
 # HISTFILE=~/.zsh_history
-HISTSIZE=64000
-SAVEHIST=64000
+HISTSIZE=256000
+SAVEHIST=256000
 
 unsetopt BEEP
 
