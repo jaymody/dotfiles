@@ -32,6 +32,12 @@ plugins=(
 )
 
 
+# don't know why the oh-my-zsh pyenv plugin doesn't aleviate this problem
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+
+
 # load oh-my-zsh while ignoring aliases
 save_aliases=$(alias -L)
 source $ZSH/oh-my-zsh.sh
