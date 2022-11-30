@@ -23,7 +23,7 @@ export PIPENV_VENV_IN_PROJECT=1
 export AUTOSWITCH_SILENT=true
 
 # poetry shit
-export POETRY_VIRTUALENVS_IN_PROJECT=true
+export POETRY_VIRTUALENVS_IN_PROJECT=false
 export POETRY_NO_INTERACTION=true
 
 # silence the annoying direnv logs (we already have the p10k direnv segment)

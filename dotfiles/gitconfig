@@ -92,3 +92,5 @@
     email = jaykmody@gmail.com
 [pull]
 	rebase = false
+[credential]
+	helper = store
