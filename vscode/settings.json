@@ -39,6 +39,7 @@
     "terminal.integrated.minimumContrastRatio": 1,
     "terminal.integrated.macOptionIsMeta": true,
     "terminal.integrated.tabs.enabled": false,
+    "terminal.integrated.enableMultiLinePasteWarning": false,
     ////////////////////////////////
     /////////// general ////////////
     ////////////////////////////////
@@ -144,8 +145,7 @@
         "*": false,
         "yaml": false,
         "plaintext": false,
-        "markdown": false,
-        "python": false
+        "markdown": false
     },
     ////////////////////////////////
     //////////// python ////////////
@@ -159,9 +159,6 @@
         ]
     },
     "autoDocstring.docstringFormat": "numpy",
-    "python.languageServer": "Pylance",
-    "python.linting.enabled": true,
-    "python.linting.pylintEnabled": true,
     "python.formatting.provider": "black",
     "python.terminal.activateEnvironment": false,
     "python.sortImports.args": [
@@ -184,6 +181,7 @@
     ///////// misc /////////
     ////////////////////////
     "throwaway": "this is here to just keep the misc section from being empty",
+    "markdown-preview-github-styles.colorTheme": "light",
     "explorer.confirmDragAndDrop": false,
     "workbench.sideBar.location": "right",
     "git.ignoreLegacyWarning": true,
@@ -191,12 +189,6 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "workbench.statusBar.visible": false,
-    "gitlens.advanced.messages": {
-        "suppressCommitHasNoPreviousCommitWarning": true
-    },
-    "redhat.telemetry.enabled": false,
     "workbench.colorTheme": "Mariana Pro (Cool)",
     "workbench.activityBar.visible": false,
-    "window.zoomLevel": 1,
-    "workbench.layoutControl.enabled": false,
 }
