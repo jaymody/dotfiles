@@ -2,7 +2,7 @@
     ////////////////////////////////
     //////////// window ////////////
     ////////////////////////////////
-    "window.title": "${remoteName}",
+    "window.title": "${folderName}",
     "window.restoreWindows": "none",
     "window.closeWhenEmpty": true,
     "window.commandCenter": false,
