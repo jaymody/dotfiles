@@ -21,12 +21,6 @@ alias ll="$lsflag -Ahl --color --group-directories-first"
 alias lst="tree --dirsfirst -L 2 -I '.git|.ipynb_checkpoints' --filelimit 64"
 
 
-### screen
-alias s="screen"
-alias sls="screen -ls"
-alias sdr="screen -q -D -R -S"
-
-
 ### network
 alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias privateip="ipconfig getifaddr en0"

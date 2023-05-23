@@ -18,11 +18,8 @@ brew install \
     htop \
     jq \
     node \
-    openconnect \
     openjdk \
     pyenv \
-    pyenv-virtualenv \
-    screen \
     tldr \
     tmux \
     tree \
