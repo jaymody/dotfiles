@@ -22,30 +22,32 @@
     "workbench.iconTheme": "file-icons-mac",
     "workbench.startupEditor": "newUntitledFile",
     "workbench.editor.untitled.hint": "hidden",
+    "workbench.colorTheme": "Mariana Pro (Cool)",
     "workbench.colorCustomizations": {
         "[Mariana Pro (Cool)]": {
             "notebook.cellEditorBackground": "#23292e",
             "notebook.focusedCellBorder": "#999999"
         }
     },
+    "workbench.sideBar.location": "right",
     ////////////////////////////////
     /////////// terminal ///////////
     ////////////////////////////////
     "terminal.integrated.defaultProfile.osx": "zsh",
-    "terminal.external.osxExec": "iTerm.app",
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.defaultProfile.linux": "zsh",
     "terminal.integrated.fontFamily": "Hack",
     "terminal.integrated.minimumContrastRatio": 1,
     "terminal.integrated.macOptionIsMeta": true,
-    "terminal.integrated.tabs.enabled": false,
     "terminal.integrated.enableMultiLinePasteWarning": false,
+    "terminal.integrated.inheritEnv": false,
     ////////////////////////////////
     /////////// general ////////////
     ////////////////////////////////
     "extensions.ignoreRecommendations": true,
     "files.exclude": {
-        ".ipynb_checkpoints": true
+        ".ipynb_checkpoints": true,
+        "__pycache__": true,
     },
     "search.exclude": {},
     "files.associations": {
@@ -80,10 +82,6 @@
     ///////////// c++ //////////////
     ////////////////////////////////
     "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}",
-    ////////////////////////////////
-    ///////////// java /////////////
-    ////////////////////////////////
-    "java.configuration.checkProjectSettingsExclusions": false,
     ////////////////////////////////
     //////////// latex /////////////
     ////////////////////////////////
@@ -141,12 +139,6 @@
     "createtmpfile.deleteOnExit": true,
     "createtmpfile.tmpDir": "/tmp",
     "cSpell.enabled": true,
-    "github.copilot.enable": {
-        "*": false,
-        "yaml": false,
-        "plaintext": false,
-        "markdown": false
-    },
     ////////////////////////////////
     //////////// python ////////////
     ////////////////////////////////
@@ -156,19 +148,13 @@
         },
         "editor.rulers": [
             88
-        ]
+        ],
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnType": true
     },
     "autoDocstring.docstringFormat": "numpy",
-    "python.formatting.provider": "black",
     "python.terminal.activateEnvironment": false,
-    "python.sortImports.args": [
-        "--profile",
-        "black"
-    ],
-    "jupyter.interactiveWindowMode": "perFile",
-    "jupyter.jupyterServerType": "local",
     "jupyter.disableJupyterAutoStart": true,
-    "jupyter.sendSelectionToInteractiveWindow": false,
     "jupyter.askForKernelRestart": false,
     "notebook.cellFocusIndicator": "border",
     "notebook.showCellStatusBar": "visibleAfterExecute",
@@ -178,17 +164,22 @@
     },
     "notebook.output.textLineLimit": 100,
     ////////////////////////
+    ///////// rust /////////
+    ////////////////////////
+    "editor.inlayHints.enabled": "offUnlessPressed",
+    ////////////////////////
     ///////// misc /////////
     ////////////////////////
     "throwaway": "this is here to just keep the misc section from being empty",
-    "markdown-preview-github-styles.colorTheme": "light",
     "explorer.confirmDragAndDrop": false,
-    "workbench.sideBar.location": "right",
     "git.ignoreLegacyWarning": true,
-    "[html]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
     "workbench.statusBar.visible": false,
-    "workbench.colorTheme": "Mariana Pro (Cool)",
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    },
     "workbench.activityBar.visible": false,
+    "window.zoomLevel": 1
 }
