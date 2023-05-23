@@ -14,8 +14,10 @@ export EDITOR="vim"
 
 # ls colors
 export LS_COLORS="di=1;36:ln=0;44:so=32:pi=31:ex=35:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
+# terminal colors
 
-### fixes
+export TERM=xterm-256color
+
 # pipenv shit
 export PIPENV_VENV_IN_PROJECT=1
 
@@ -29,8 +31,8 @@ export POETRY_NO_INTERACTION=true
 # silence the annoying direnv logs (we already have the p10k direnv segment)
 export DIRENV_LOG_FORMAT=
 
-# remove annoying pyenv virtualenv message
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+# add cargo to path
+export PATH=$PATH:${HOME}/.cargo/bin
 
 # homebrew isn't added to path by default for m1 macbooks
 if test -f "/opt/homebrew/bin/brew"; then

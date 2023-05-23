@@ -1,9 +1,3 @@
-### dotfiles
-alias dotfiles="cd $DOTFILES_ROOT"
-alias edotfiles="code $DOTFILES_ROOT"
-alias scripts="l $DOTFILES_ROOT/scripts"
-
-
 ### navigation
 alias ..="cd .."
 alias ...="cd ../.."
@@ -50,7 +44,7 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 alias q="exit"
 alias cls=" clear"
 alias clear=" clear"
-alias paths="echo -e ${PATH//:/'\n'}"
+alias paths='echo -e ${PATH//:/"\n"}'
 alias reload='exec -l $(lsof -p "$$" | grep -m 1 txt | xargs -n 1 | tail -n +9 | xargs)'
 alias cleands="find . -type f -name '*.DS_Store' -ls -delete"
 

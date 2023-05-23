@@ -19,6 +19,8 @@
 
     # commit
     c = commit
+    ca = commit --amend
+    can = commit --amend --no-edit
     cm = commit -m
     amend = commit --amend --reuse-message=HEAD
 
