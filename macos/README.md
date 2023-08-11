@@ -3,7 +3,7 @@ The stuff I do setup a MacBook.
 # Basics
 Set the hostname:
 ```shell
-sudo scutil --set HostName jays-mac"
+sudo scutil --set HostName "jays-mac"
 ```
 
 Install XCode:
@@ -36,39 +36,32 @@ bash defaults.sh
 
 Then, we need to manually change some settings (some of the below are done `defaults.sh`, but some of them are not, in any case this is my comprehensive list):
 
-**General**
+**Appearance**
 - dark mode
 - jump to spot that’s clicked
-- none recent items
 
-**Dock**
+**Desktop & Dock**
 - scale effect
-- autohide
-- no show recent applications in dock
+- autohide dock
+- disable show recent applications in dock
 - turn off double click to X
 
 **Mission Control**
 - group windows by application
 - disable automatically rearrange spaces based on most recent use
 
-**Security and Preferences**
+**Lock Screen**
 - require password immediately
-
-**Sound**
-- show volume in menu bar
 
 **Keyboard**
 - key repeat fast
 - repeat delay shortest
 - turn off autocorrect
 - turn off autocapitalize
-- move focus to menu bar (cmd + shift + ,)
-- shortcuts spotlight to ctrl+space
+- turn off add period with double space
+- shortcuts spotlight to ctrl+space or disable it
 
 **Trackpad**
 - default click strength (medium)
 - default tracking speed (4th tick)
 - turn off force click and haptic feedback
-
-**Display**
-- automatically adjust brightness
