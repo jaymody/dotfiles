@@ -1,7 +1,0 @@
-#!/bin/bash
-
-echo "https://github.com/settings/ssh/new"
-echo ""
-echo "$(whoami)@$(hostname)"
-echo ""
-cat "${1:-$HOME/.ssh/id_rsa.pub}"

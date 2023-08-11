@@ -1,0 +1,36 @@
+function github-sshkey() {
+    echo "https://github.com/settings/ssh/new"
+    echo ""
+    echo "$(whoami)@$(hostname)"
+    echo ""
+    cat "${1:-$HOME/.ssh/id_rsa.pub}"
+}
+
+function wherethefuckis() {
+    printf ${PATH//:/'\n'} | xargs -I {} sh -c '[ -d {} ] && find {} -maxdepth 1 -not -type d' | grep -e "/$1$"
+}
+
+function termcolors() {
+    for i in {0..255} ; do
+        printf "\x1b[38;5;${i}m%3d " "${i}"
+        if (( $i == 15 )) || (( $i > 15 )) && (( ($i-15) % 12 == 0 )); then
+            echo;
+        fi
+    done
+}
+
+function duh() {
+    GLOBIGNORE=.
+
+    if [ $# -eq 0 ]; then
+        du -csh * | sort -rh
+    else
+        du -csh "$@" | sort -rh
+    fi
+}
+
+function copy() {
+    temp="$(pwd)/$1"
+    echo $temp | tr -d '\n'| pbcopy
+    unset temp
+}

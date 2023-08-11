@@ -1,28 +1,19 @@
 # taps
 brew tap homebrew/bundle
 brew tap homebrew/cask
-brew tap homebrew/cask-drivers
 brew tap homebrew/cask-fonts
 brew tap homebrew/core
 brew tap homebrew/services
 
 # core
 brew install \
-    cmake \
     coreutils \
     direnv \
     fd \
     fx \
-    gcc \
-    grpcurl \
     htop \
-    jq \
-    node \
-    openjdk \
-    pyenv \
-    tldr \
-    tmux \
     tree \
+    tmux \
     watch \
     wget
 
@@ -32,27 +23,18 @@ brew install --cask \
     brooklyn \
     discord \
     docker \
-    firefox \
-    font-fontawesome \
-    font-hack-nerd-font \
     gimp \
     google-chrome \
-    google-cloud-sdk \
     google-drive \
     iterm2 \
-    jupyter-notebook-viewer \
     keyboard-cleaner \
     mactex-no-gui \
     messenger \
-    microsoft-excel \
-    microsoft-powerpoint \
     microsoft-teams \
-    microsoft-word \
     notion \
     obsidian \
     raycast \
     rectangle \
-    signal \
     slack \
     spotify \
     visual-studio-code \

@@ -18,11 +18,9 @@
     pl = pull
 
     # commit
-    c = commit
     ca = commit --amend
     can = commit --amend --no-edit
     cm = commit -m
-    amend = commit --amend --reuse-message=HEAD
 
     # add
     a = add
@@ -40,8 +38,8 @@
     aliases = config --get-regexp alias
     url = config --get remote.origin.url
 
-    # gitignore cli from scritps bin
-    ignore = "!github-ignore"
+    # gitignore cli from scripts bin
+    ignore = "!gi"
 
 [apply]
 
@@ -62,12 +60,6 @@
     # make `git rebase` safer on macOS
     # more info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
     trustctime = false
-
-[color]
-
-    # use colors in Git commands that are capable of colored output when
-    # outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
-    ui = auto
 
 [color "branch"]
 
@@ -92,5 +84,7 @@
 
     name = jaymody
     email = jaykmody@gmail.com
+
 [pull]
+
 	rebase = false

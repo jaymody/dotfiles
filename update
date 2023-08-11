@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-# iterate updates.sh files
-for file in $(find -H "." -maxdepth 2 -name 'update.sh' -not -path '*.git*')
-do
-    bash $file
-done

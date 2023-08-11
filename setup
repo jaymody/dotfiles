@@ -1,18 +1,16 @@
+#!/usr/bin/env bash
+
 # check zsh is installed
 if ! [ -x "$(command -v zsh)" ]; then
-    echo "zsh is not installed"
+    echo "ERROR: zsh is not installed"
     exit
 fi
-
 
 # install oh-my-zsh
 export ZSH="$HOME/.oh-my-zsh"
 export KEEP_ZSHRC=yes
 export RUNZSH=no
-curl -fsSLo install-ohmyzsh.sh https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-sh install-ohmyzsh.sh
-rm install-ohmyzsh.sh
-
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # install plugins/themes
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH}/custom/themes/powerlevel10k"
@@ -20,10 +18,3 @@ git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions "${ZSH}/cus
 git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH}/custom/plugins/zsh-syntax-highlighting"
 git clone --depth=1 https://github.com/paulirish/git-open.git "${ZSH}/custom/plugins/git-open"
 git clone --depth=1 https://github.com/jaymody/zsh-autoswitch-virtualenv.git "${ZSH}/custom/plugins/autoswitch_virtualenv"
-
-# install powerline fonts
-git clone https://github.com/powerline/fonts.git --depth=1
-cd fonts
-./install.sh
-cd ..
-rm -rf fonts

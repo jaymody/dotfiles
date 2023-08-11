@@ -1,4 +1,3 @@
-### navigation
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
@@ -6,35 +5,18 @@ alias .....="cd ../../../.."
 alias -- -="cd -"
 alias ~="cd ~"
 
-
-### ls
 if [ -x "$(command -v gls)" ]; then
-    lsflag="gls"
+    lsflag="gls --group-directories-first"
 else
     lsflag="ls"
 fi
 
-alias ls="$lsflag --color --group-directories-first"
-alias l="$lsflag -1 --color --group-directories-first"
-alias la="$lsflag -A1 --color --group-directories-first"
-alias ll="$lsflag -Ahl --color --group-directories-first"
+alias ls="$lsflag --color"
+alias l="$lsflag -1 --color"
+alias la="$lsflag -A1 --color"
+alias ll="$lsflag -Ahl --color"
 alias lst="tree --dirsfirst -L 2 -I '.git|.ipynb_checkpoints' --filelimit 64"
 
-
-### network
-alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias privateip="ipconfig getifaddr en0"
-alias localip="ip route get 8.8.8.8 | sed -n 's/.*src \([0-9.]\+\).*/\1/p'"
-alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
-alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
-
-
-### show/hide desktop
-alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
-alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-
-
-### misc
 alias q="exit"
 alias cls=" clear"
 alias clear=" clear"
@@ -42,44 +24,8 @@ alias paths='echo -e ${PATH//:/"\n"}'
 alias reload='exec -l $(lsof -p "$$" | grep -m 1 txt | xargs -n 1 | tail -n +9 | xargs)'
 alias cleands="find . -type f -name '*.DS_Store' -ls -delete"
 
-
-### pid
-alias psup="ps -u -p"
-
-
-### data
-alias tsv='function __tsv() { column -t $* | less; unset -f __tsv; }; __tsv'
-alias csv='function __csv() { column -s, -t < $* | less -#2 -N -S; unset -f __csv; }; __csv'
-alias json='function __json() { jq -C . $* | less -R; unset -f __json; }; __json'
-
-
-### python
-# pyenv
-alias pyv="pyenv versions"
-
-# poetry
-alias prp="poetry run python"
-
-# pip
-alias pip-uninstall-all="pip uninstall -y -r <(pip freeze)"
-
-# shell
 alias py="python"
 alias ipy="ipython"
+alias pip-uninstall-all="pip uninstall -y -r <(pip freeze)"
 
-# jupyter
-alias jupy="jupyter notebook"
-alias jlab="jupyter lab"
-
-
-### docker
-alias dockerpsa="docker ps -a"
-alias dockerpse='docker ps --filter "status=exited"'
-alias dockerent="docker exec -it "
-alias dockerents="docker run -it "
-alias dockerbash="docker run --rm -it --entrypoint /bin/bash"
-alias dockerzsh="docker run --rm -it --entrypoint /bin/zsh"
-
-
-### vscode
-alias code.="code ."
+alias z='zshz 2>&1'

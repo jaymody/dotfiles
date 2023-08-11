@@ -62,7 +62,7 @@ typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # plenv                   # perl version from plenv (https://github.com/tokuhirom/plenv)
     # phpenv                  # php version from phpenv (https://github.com/phpenv/phpenv)
     # rbenv                   # ruby version from rbenv (https://github.com/rbenv/rbenv)
-    pyenv                   # python environment (https://github.com/pyenv/pyenv)
+    # pyenv                   # python environment (https://github.com/pyenv/pyenv)
     virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
     # anaconda                # conda environment (https://conda.io/)
 
@@ -354,8 +354,8 @@ typeset -g POWERLEVEL9K_DIR_SHOW_WRITABLE=true
 
 # template
 local CONTEXT_TEMPLATE='%n'
-if [ "$(hostname)" != "jays-mbp" ]; then # TODO: this is less than ideal
-    CONTEXT_TEMPLATE="${CONTEXT_TEMPLATE}@%m"
+if test "$(uname)" != "Darwin"; then
+    CONTEXT_TEMPLATE="%n@%m"
 fi
 
 # default

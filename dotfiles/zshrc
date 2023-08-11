@@ -1,15 +1,29 @@
-# load aliases and init
-source ${HOME}/.init
-source ${HOME}/.aliases
+source "${HOME}/.functions"
+source "${HOME}/.aliases"
 
-# load pyenv
-if command -v pyenv &> /dev/null
-then
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    # no rehash speeds up init times
-    # https://github.com/pyenv/pyenv/issues/784#issuecomment-404850327
-    eval "$(pyenv init --path --no-rehash)"
+export EDITOR="vim"
+
+export PATH=$PATH:${HOME}/bin
+export PATH=$PATH:${HOME}/.bin
+export PATH=$PATH:${HOME}/.local/bin
+export PATH=$PATH:${HOME}/.cargo/bin
+
+export LS_COLORS="di=1;36:ln=0;44:so=32:pi=31:ex=35:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
+export TERM=xterm-256color
+
+# autoswitch_virtualenv settings
+export AUTOSWITCH_SILENT=true
+
+# poetry shit
+export POETRY_VIRTUALENVS_IN_PROJECT=true
+export POETRY_NO_INTERACTION=true
+
+# silence the annoying direnv logs (we already have the p10k direnv segment)
+export DIRENV_LOG_FORMAT=
+
+# homebrew isn't added to path by default for m1 macbooks
+if test -f "/opt/homebrew/bin/brew"; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 # oh-my-zsh settings
@@ -18,31 +32,21 @@ zstyle ':omz:update' mode disabled  # disable automatic updates for oh-my-zsh
 export DISABLE_AUTO_TITLE="true"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(
-    # essentials (should be fairly cheap to load)
     z
     zsh-autosuggestions
     zsh-syntax-highlighting
     colored-man-pages
     autoswitch_virtualenv
     git-open
-    # optional stuff (might be expensive to load, but should mostly be completions)
-    brew
-    pip
-    direnv
-    gcloud
-    docker
-    rust
+    gitignore
 )
 
-# load oh-my-zsh while ignoring aliases
+# load oh-my-zsh but ignore any aliases it sets
 save_aliases=$(alias -L)
 source $ZSH/oh-my-zsh.sh
 unalias -m '*'
 eval $save_aliases
 unset save_aliases
-
-# read aliases that I actually do want
-alias z='zshz 2>&1'
 
 # load powerlevel10k config
 source ${HOME}/.p10k.zsh
@@ -51,8 +55,8 @@ source ${HOME}/.p10k.zsh
 echo -ne "\033];terminal\007"
 
 # HISTFILE=~/.zsh_history
-HISTSIZE=1024000
-SAVEHIST=1024000
+export HISTSIZE=1024000
+export SAVEHIST=1024000
 
 # zsh options
 # type setopt in terminal for active settings
@@ -71,3 +75,6 @@ bindkey "^[[A" up-line-or-beginning-search # Up
 bindkey "^[[B" down-line-or-beginning-search # Down
 bindkey "^[p" history-beginning-search-backward
 bindkey "^[n" history-beginning-search-forward
+
+# ocaml init
+[[ ! -r "$HOME/.opam/opam-init/init.zsh" ]] || source "$HOME/.opam/opam-init/init.zsh"  > /dev/null 2> /dev/null

@@ -1,5 +1,0 @@
-#!/bin/bash
-
-temp="$(pwd)/$1"
-echo $temp | tr -d '\n'| pbcopy
-unset temp

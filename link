@@ -84,12 +84,10 @@ link_file () {
 }
 
 install_dotfiles () {
-    info "-------- installing dotfiles from $1 to ${HOME}  --------"
-    [ $# -eq 0 ] && fail "1 argument required [path to directory with dotfiles]"
-    [ ! -d "$1" ] && fail "directory with dotfiles ($1) was not found."
-
+    local dotfiles_dir=$(realpath ./dotfiles)
+    info "-------- installing dotfiles from ${dotfiles_dir} to ${HOME}  --------"
     local overwrite_all=false backup_all=false skip_all=false
-    for src in $(find -H "$1" -maxdepth 1 -type f -name '*' -not -name '.*'); do
+    for src in $(find -H "$dotfiles_dir" -maxdepth 1 -type f -name '*' -not -name '.*'); do
         dst="$HOME/.$(basename $src)"
         link_file "$src" "$dst"
     done

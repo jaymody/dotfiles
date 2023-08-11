@@ -4,11 +4,6 @@ if test "$(uname)" != "Darwin"; then
     exit
 fi
 
-# fetch dotfiles root
-[ $# -eq 0 ] && fail "1 argument required [path to dotfiles repo root directory]"
-[ ! -d "$1" ] && fail "directory ($1) was not found."
-DOTFILES_ROOT=$1
-
 
 # exit script if command fails
 set -e
@@ -26,7 +21,7 @@ sudo xcode-select --install || echo "XCode already installed, skipping"
 
 ## TODO: better defaults
 # load defaults
-bash ${DOTFILES_ROOT}/macos/defaults.sh
+bash defaults.sh
 
 
 # check for brew
@@ -45,7 +40,7 @@ fi
 echo " Installing from Brewfile"
 brew update
 brew upgrade
-bash ${DOTFILES_ROOT}/macos/brewfile.sh
+bash brewfile.sh
 brew cleanup
 
 
