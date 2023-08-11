@@ -6,11 +6,36 @@ Set the hostname:
 sudo scutil --set HostName "jays-mac"
 ```
 
-Install XCode:
+Install XCode (which installs `git` and other important CLI tools):
 ```shell
 sudo xcode-select --install
 ```
 
+# Git
+With that, we want to setup access to github so we can clone repos over ssh.
+
+First, we generate an ssh key (passphrase is optional):
+```shell
+ssh-keygen -t rsa -b 4096
+```
+
+Then, we copy the output of:
+```shell
+cat ~/.ssh/id_rsa.pub
+```
+
+And [add a new ssh key to our github](https://github.com/settings/ssh/new) using the copied public key.
+
+We should now be able to clone repos over ssh. To test it, try:
+
+```shell
+git clone git@github.com:jaymody/dotfiles.git ~/.dotfiles
+```
+
+# Dotfiles
+See github.com/jaymody/dotfiles/README.md
+
+# Homebrew and Apps
 Install homebrew:
 ```shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -24,9 +49,6 @@ brew upgrade
 bash brewfile.sh
 brew cleanup
 ```
-
-# Dotfiles
-See github.com/jaymody/dotfiles
 
 # Settings
 Programmatically set some preferences (things like show hidden files in finder etc ...):
