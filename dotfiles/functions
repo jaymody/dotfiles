@@ -23,7 +23,7 @@ function duh() {
     GLOBIGNORE=.
 
     if [ $# -eq 0 ]; then
-        du -csh * | sort -rh
+        du -csh *(D) | sort -rh
     else
         du -csh "$@" | sort -rh
     fi
