@@ -34,3 +34,24 @@ function copy() {
     echo $temp | tr -d '\n'| pbcopy
     unset temp
 }
+
+function statuses() {
+    if [ -z "$1" ]; then
+        echo "Usage: statuses [DIRPATH]"
+        return
+    fi
+
+    if ! [ -d "$1" ]; then
+        echo "$1 is not a directory"
+        return
+    fi
+
+    for d in $1/*/; do
+        printf "\n\n==== $d ($(git -C $d url)) ====\n"
+        if ! [ -d "$d/.git" ]; then
+            printf "Not a git repository.\n"
+        else
+            git -C "$d" status -s --ignored
+        fi
+    done
+}
