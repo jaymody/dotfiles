@@ -18,3 +18,5 @@ Link files in the `dotfiles` folder to `~`:
 ./link
 ```
 
+There's also a [wiki](https://github.com/jaymody/dotfiles/wiki) that contains guides on how I set up my various machines.
+
