@@ -38,9 +38,6 @@
     aliases = config --get-regexp alias
     url = config --get remote.origin.url
 
-    # gitignore cli from scripts bin
-    ignore = "!gi"
-
 [apply]
 
     # detect whitespace errors when applying a patch

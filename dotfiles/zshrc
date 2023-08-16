@@ -33,7 +33,6 @@ plugins=(
     zsh-autosuggestions
     zsh-syntax-highlighting
     colored-man-pages
-    autoswitch_virtualenv
     git-open
     gitignore
 )
