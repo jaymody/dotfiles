@@ -35,6 +35,7 @@ plugins=(
     colored-man-pages
     git-open
     gitignore
+    autoswitch_virtualenv
 )
 
 # load oh-my-zsh but ignore any aliases it sets
@@ -77,6 +78,3 @@ bindkey "^[n" history-beginning-search-forward
 
 source "${HOME}/.functions"
 source "${HOME}/.aliases"
-
-# rye init
-[[ ! -r "$HOME/.rye/env" ]] || source "$HOME/.rye/env"  > /dev/null 2> /dev/null
