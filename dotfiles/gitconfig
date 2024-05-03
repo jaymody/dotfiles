@@ -34,6 +34,9 @@
     com = checkout main
     cod = checkout dev
 
+    # list ignored files
+    ignored = ls-files . --ignored --exclude-standard --others
+
     # misc
     aliases = config --get-regexp alias
     url = config --get remote.origin.url
