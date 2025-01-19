@@ -1,417 +1,490 @@
--- constant
-local kopt = { noremap = true, silent = true }
-
------------------
---- lazy.nvim ---
------------------
-local setup_lazy_nvim = function()
-    -- https://github.com/nvim-lua/kickstart.nvim/blob/master/init.lua
-    local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-    if not (vim.uv or vim.loop).fs_stat(lazypath) then
-        local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-        local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-        if vim.v.shell_error ~= 0 then
-            vim.api.nvim_echo({
-                { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-                { out,                            "WarningMsg" },
-                { "\nPress any key to exit..." },
-            }, true, {})
-            vim.fn.getchar()
-            os.exit(1)
-        end
-    end
-    vim.opt.rtp:prepend(lazypath)
-end
-setup_lazy_nvim()
+----------------------------------
+--- global constants/functions ---
+----------------------------------
+local kset = vim.keymap.set
 
 ---------------
 --- options ---
 ---------------
 local setup_options = function()
-    -- leader key
-    vim.g.mapleader = "\\"
-    vim.g.maplocalleader = "\\"
+  -- enable editorconfig
+  vim.g.editorconfig = true
 
-    -- enable editorconfig
-    vim.g.editorconfig = true
+  -- line numbers
+  vim.opt.number = true
 
-    -- line numbers
-    vim.opt.number = true
+  -- disable the mouse
+  vim.opt.mouse = ""
 
-    -- disable the mouse
-    vim.opt.mouse = ""
+  -- incremental search
+  vim.opt.incsearch = true
 
-    -- incremental search
-    vim.opt.incsearch = true
+  -- use smart casing for search
+  vim.opt.ignorecase = true
+  vim.opt.smartcase = true
 
-    -- use smart casing for search
-    vim.opt.ignorecase = true
-    vim.opt.smartcase = true
+  -- preview substitutions as you type
+  vim.opt.inccommand = "split"
 
-    -- preview substitutions as you type
-    vim.opt.inccommand = "split"
+  -- use system keyboard
+  vim.opt.clipboard = "unnamedplus"
 
-    -- use system keyboard
-    vim.opt.clipboard = "unnamedplus"
+  -- no wrapping
+  vim.opt.wrap = false
 
-    -- no wrapping
-    vim.opt.wrap = false
+  -- don't show the intro message when opening neovim
+  vim.opt.shortmess:append("I")
 
-    -- don't show the intro message when opening neovim
-    vim.opt.shortmess:append("I")
-
-    -- reserve a space in the gutter, this avoids the annoying
-    -- layout shift in the gutter
-    vim.opt.signcolumn = "yes"
-
-    -- automatically set the current dir to the dir of the buffer
-    -- vim.opt.autochdir = true
+  -- reserve a space in the gutter, this avoids the annoying
+  -- layout shift in the gutter
+  vim.opt.signcolumn = "yes"
 end
-setup_options()
 
 -------------
 -- keymaps --
 -------------
 local setup_keymaps = function()
-    -- toggle case sensitivity
-    vim.keymap.set("n", "<leader>cs", function()
-        vim.o.ignorecase = not vim.o.ignorecase
-        vim.o.smartcase = not vim.o.smartcase
-        print("Case Sensitivity: " .. (vim.o.ignorecase and "Off" or "On"))
-    end, { desc = "Toggle case sensitivity for search" })
+  -- esc will stop search highlighting
+  kset("n", "<esc>", ":noh<enter><esc>", { noremap = true, silent = true })
 
-    -- esc will stop search highlighting
-    vim.keymap.set("n", "<esc>", ":noh<enter><esc>", kopt)
+  -- mark the place where you started a search as '
+  kset("n", "/", "ms/", { noremap = true })
 
-    -- mark the place where you started a search as '
-    vim.keymap.set("n", "/", "ms/", kopt)
+  -- scroll up/down
+  kset({ "n", "v" }, "<C-k>", "<C-y>", { noremap = true, silent = true })
+  kset({ "n", "v" }, "<C-j>", "<C-e>", { noremap = true, silent = true })
 
-    -- scroll up/down
-    vim.keymap.set({ "n", "v" }, "<C-k>", "<C-y>", kopt)
-    vim.keymap.set({ "n", "v" }, "<C-j>", "<C-e>", kopt)
+  -- save file
+  kset({ "n", "i" }, "<D-s>", function() vim.cmd("update") end)
 
-    -- super commands
-    vim.keymap.set("n", "<D-e>", ":e ~/.config/nvim/init.lua<enter>", kopt)
-    vim.keymap.set("n", "<D-s>", ":w<enter>", kopt)
-    vim.keymap.set("i", "<D-s>", "<esc>:w<enter>a", kopt)
-    vim.keymap.set("n", "<D-r>", "<cmd>luafile ~/.config/nvim/init.lua<cr>", kopt)
+  -- init.lua stuff
+  kset("n", "<leader>cc", function() vim.cmd("e ~/.config/nvim/init.lua") end, { desc = "Go to init.lua" })
+  kset("n", "<leader>cr", function() vim.cmd("luafile ~/.config/nvim/init.lua") end,
+    { desc = "Reload init.lua" })
 
-    -- function to toggle cursorline and cursorcolumn
-    function ToggleCursorHighlight()
-        if vim.wo.cursorline and vim.wo.cursorcolumn then
-            vim.wo.cursorline = false
-            vim.wo.cursorcolumn = false
-        else
-            vim.wo.cursorline = true
-            vim.wo.cursorcolumn = true
-        end
+  -- toggle case sensitivity
+  kset("n", "<leader>cs", function()
+    vim.o.ignorecase = not vim.o.ignorecase
+    vim.o.smartcase = not vim.o.smartcase
+    print("Case Sensitivity: " .. (vim.o.ignorecase and "Off" or "On"))
+  end, { desc = "Toggle case sensitivity for search" })
+
+  -- toggle cursor/line column
+  kset("n", "<leader>cl", function()
+    if vim.wo.cursorline and vim.wo.cursorcolumn then
+      vim.wo.cursorline = false
+      vim.wo.cursorcolumn = false
+    else
+      vim.wo.cursorline = true
+      vim.wo.cursorcolumn = true
     end
-
-    vim.keymap.set("n", "<D-y>", ":lua ToggleCursorHighlight()<CR>", kopt)
+  end)
 end
-setup_keymaps()
 
 ---------------
 --- plugins ---
 ---------------
-local plugins = {}
+
+-------------------------------------------------------------------------------
+
+local function which_key_plugin()
+  return {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    opts = { delay = 2000 },
+    config = function()
+      kset(
+        "n",
+        "<leader>?",
+        function() require("which-key").show({ global = false }) end,
+        { desc = "Buffer Local Keymaps (which-key)" }
+      )
+
+      -- local wk = require("which-key")
+      -- wk.add({
+      --   { "<leader>f", desc = "Fuzzy Find" },
+      --   { "<C-g>",     desc = "Harpoon" },
+      --   { "<leader>g", desc = "Git" },
+      --   { "<leader>y", desc = "Yazi" },
+      --   { "<leader>c", desc = "Misc" }
+      -- })
+    end
+  }
+end
+
+-------------------------------------------------------------------------------
+
+local function harpoon_plugin()
+  return {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      local harpoon = require("harpoon")
+      harpoon:setup()
+
+      kset("n", "<C-g>j", function() harpoon:list():replace_at(1) end, { desc = "Go to Harpoon 1" })
+      kset("n", "<C-g>k", function() harpoon:list():replace_at(2) end, { desc = "Go to Harpoon 2" })
+      kset("n", "<C-g>l", function() harpoon:list():replace_at(3) end, { desc = "Go to Harpoon 3" })
+      kset("n", "<C-g>;", function() harpoon:list():replace_at(4) end, { desc = "Go to Harpoon 4" })
+      kset("n", "<C-g><C-j>", function() harpoon:list():select(1) end, { desc = "Set Harpoon 1" })
+      kset("n", "<C-g><C-k>", function() harpoon:list():select(2) end, { desc = "Set Harpoon 1" })
+      kset("n", "<C-g><C-l>", function() harpoon:list():select(3) end, { desc = "Set Harpoon 1" })
+      kset("n", "<C-g><C-;>", function() harpoon:list():select(4) end, { desc = "Set Harpoon 1" })
+    end
+  }
+end
 
 -------------------------------------------------------------------------------
 
 local function nightfox_plugin()
-    return { "EdenEast/nightfox.nvim" }
+  return { "EdenEast/nightfox.nvim" }
 end
-table.insert(plugins, nightfox_plugin())
 
 -------------------------------------------------------------------------------
 
 local function web_devicons_plugin()
-    return { "nvim-tree/nvim-web-devicons" }
+  return { "nvim-tree/nvim-web-devicons" }
 end
-table.insert(plugins, web_devicons_plugin())
 
 -------------------------------------------------------------------------------
 
 local function treesitter_plugin()
-    return { "nvim-treesitter/nvim-treesitter" }
+  return { "nvim-treesitter/nvim-treesitter" }
 end
-table.insert(plugins, treesitter_plugin())
-
--------------------------------------------------------------------------------
-
-local function readline_plugin()
-    local function config()
-        local readline = require("readline")
-        -- navigation
-        vim.keymap.set({ "i", "c", "n", "v" }, "<C-a>", readline.beginning_of_line)
-        vim.keymap.set({ "i", "c", "n", "v" }, "<C-e>", readline.end_of_line)
-        vim.keymap.set({ "i", "c", "n", "v" }, "<M-f>", readline.forward_word)
-        vim.keymap.set({ "i", "c", "n", "v" }, "<M-b>", readline.backward_word)
-        vim.keymap.set({ "i", "c", "n", "v" }, "<C-f>", "<Right>")
-        vim.keymap.set({ "i", "c", "n", "v" }, "<C-b>", "<Left>")
-        vim.keymap.set({ "i", "c", "n", "v" }, "<C-n>", "<Down>")
-        vim.keymap.set({ "i", "c", "n", "v" }, "<C-p>", "<Up>")
-
-        -- deletion
-        vim.keymap.set("!", "<C-d>", "<Delete>")
-        vim.keymap.set("!", "<C-k>", readline.kill_line)
-        vim.keymap.set("!", "<C-u>", readline.backward_kill_line)
-        vim.keymap.set("!", "<M-d>", readline.kill_word)
-        vim.keymap.set("!", "<M-BS>", readline.backward_kill_word)
-    end
-    return { "assistantcontrol/readline.nvim", config = config }
-end
-table.insert(plugins, readline_plugin())
 
 -------------------------------------------------------------------------------
 
 local function fzf_plugin()
-    return { "junegunn/fzf" }
+  return { "junegunn/fzf" }
 end
-table.insert(plugins, fzf_plugin())
 
 -------------------------------------------------------------------------------
 
 local function fzf_lua_plugin()
-    -- fzf keymaps
-    local function config()
-        vim.keymap.set("n", "<leader>ff", "<cmd> FzfLua <cr>", kopt)
-        vim.keymap.set("n", "<leader>fo", "<cmd> FzfLua files <cr>", kopt)
-        vim.keymap.set("n", "<leader>fh", "<cmd> FzfLua oldfiles <cr>", kopt)
-        vim.keymap.set("n", "<leader>fg", "<cmd> FzfLua grep_visual '' <cr>", kopt)
-        vim.keymap.set("n", "<leader>fc", "<cmd> FzfLua registers '' <cr>", kopt)
-        vim.keymap.set("n", "<leader>fb", "<cmd> FzfLua buffers '' <cr>", kopt)
-        vim.keymap.set("n", "<leader>fs", "<cmd> FzfLua lsp_document_symbols '' <cr>", kopt)
-        vim.keymap.set("n", "<leader>fS", "<cmd> FzfLua lsp_workspace_symbols '' <cr>", kopt)
-        vim.keymap.set("n", "<leader>fd", "<cmd> FzfLua lsp_workspace_diagnostics '' <cr>", kopt)
-        vim.keymap.set("n", "<leader>fr", "<cmd> FzfLua lsp_references '' <cr>", kopt)
-    end
-    return { "fzf-lua", config = config }
+  return {
+    "fzf-lua",
+    config =
+        function()
+          kset("n", "<leader>ff", function() vim.cmd("FzfLua") end, { desc = "Fzf" })
+          kset("n", "<leader>fo", function() vim.cmd("FzfLua files") end, { desc = "Files" })
+          kset("n", "<leader>fh", function() vim.cmd("FzfLua oldfiles") end, { desc = "Recent Files" })
+          kset("n", "<leader>fg", function() vim.cmd("FzfLua grep_visual ''") end, { desc = "Grep" })
+          kset("n", "<leader>fc", function() vim.cmd("FzfLua registers ''") end, { desc = "Registers" })
+          kset("n", "<leader>fb", function() vim.cmd("FzfLua buffers ''") end, { desc = "Buffers" })
+          kset("n", "<leader>fs", function() vim.cmd("FzfLua lsp_document_symbols ''") end,
+            { desc = "Symbols in file" })
+          kset("n", "<leader>fS", function() vim.cmd("FzfLua lsp_workspace_symbols ''") end,
+            { desc = "Symbols in workspace" })
+          kset("n", "<leader>fd", function() vim.cmd("FzfLua lsp_workspace_diagnostics ''") end,
+            { desc = "Problems in workspace" })
+          kset("n", "<leader>fr", function() vim.cmd("FzfLua lsp_references ''") end, { desc = "References" })
+        end
+  }
 end
-table.insert(plugins, fzf_lua_plugin())
 
 -------------------------------------------------------------------------------
 
 local function noice_plugin()
-    return {
-        "folke/noice.nvim",
-        event = "VeryLazy",
-        opts = {},
-        dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" }
-    }
+  return {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {},
+    dependencies = { "MunifTanjim/nui.nvim" }
+  }
 end
-table.insert(plugins, noice_plugin())
 
 -------------------------------------------------------------------------------
 local function yazi_plugin()
-    local function config()
-        vim.keymap.set("n", "<leader>y", "<cmd> Yazi <cr>", kopt)
-        vim.keymap.set("n", "<leader>Y", "<cmd> Yazi cwd <cr>", kopt)
-    end
-    return { "mikavilpas/yazi.nvim", config = config }
+  return {
+    "mikavilpas/yazi.nvim",
+    config =
+        function()
+          kset("n", "<leader>y", function() vim.cmd("Yazi") end)
+          kset("n", "<leader>Y", function() vim.cmd("Yazi cwd") end)
+        end
+  }
 end
-table.insert(plugins, yazi_plugin())
 
 -------------------------------------------------------------------------------
 local function lspconfig_plugin()
-    local function config()
-        -- misc options
-        vim.lsp.diagnostic.underline = true
+  local function setup_cmp()
+    local cmp = require("cmp")
+    cmp.setup({
+      snippet = {
+        expand = function(args)
+          vim.snippet.expand(args.body)
+        end,
+      },
+      window = {},
+      mapping = cmp.mapping.preset.insert({
+        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<C-e>"] = cmp.mapping.abort(),
+        ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      }),
+      sources = cmp.config.sources({
+        { name = "nvim_lsp" },
+        { name = "path" },
+      }),
+    })
 
-        -- https://lsp-zero.netlify.app/docs/getting-started.html
-        vim.api.nvim_create_autocmd("LspAttach", {
-            desc = "LSP actions",
-            callback = function(event)
-                local opts = { buffer = event.buf }
+    local cmp_mapping = cmp.mapping
+    cmp.setup({
+      mapping = {
+        ["<C-p>"] = cmp_mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_prev_item()
+          else
+            fallback()
+          end
+        end, { "i", "s" }), -- Enable in insert and select modes
 
-                vim.keymap.set("n", "gh", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
-                vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
-                vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
-                vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts)
-                vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
-                vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
-                vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
-                vim.keymap.set("n", "gR", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
-                vim.keymap.set({ "n", "x" }, "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", opts)
-                vim.keymap.set("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
-            end,
-        })
+        ["<C-n>"] = cmp_mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_next_item()
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+      },
+    })
+    -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+    cmp.setup.cmdline({ "/", "?" }, {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = {
+        { name = "buffer" },
+      },
+    })
 
-        --------------------
-        -- format on save --
-        --------------------
-        -- https://lsp-zero.netlify.app/docs/getting-started
-        local buffer_autoformat = function(bufnr)
-            local group = "lsp_autoformat"
-            vim.api.nvim_create_augroup(group, { clear = false })
-            vim.api.nvim_clear_autocmds({ group = group, buffer = bufnr })
+    -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+    cmp.setup.cmdline(":", {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = cmp.config.sources({
+        { name = "path" },
+      }, {
+        { name = "cmdline" },
+      }),
+      matching = { disallow_symbol_nonprefix_matching = false },
+    })
+  end
 
-            vim.api.nvim_create_autocmd("BufWritePre", {
-                buffer = bufnr,
-                group = group,
-                desc = "LSP format on save",
-                callback = function()
-                    -- note: do not enable async formatting
-                    vim.lsp.buf.format({ async = false, timeout_ms = 10000 })
-                end,
-            })
+  local function setup_lspconfig()
+    -- misc options
+    vim.lsp.diagnostic.underline = true
+
+    -- https://lsp-zero.netlify.app/docs/getting-started.html
+    vim.api.nvim_create_autocmd("LspAttach", {
+      desc = "LSP actions",
+      callback = function(event)
+        local opts = { buffer = event.buf }
+
+        kset("n", "gh", function() vim.cmd("ua vim.lsp.buf.hover()") end, opts)
+        kset("n", "gd", function() vim.cmd("ua vim.lsp.buf.definition()") end, opts)
+        kset("n", "gD", function() vim.cmd("ua vim.lsp.buf.declaration()") end, opts)
+        kset("n", "gi", function() vim.cmd("ua vim.lsp.buf.implementation()") end, opts)
+        kset("n", "go", function() vim.cmd("ua vim.lsp.buf.type_definition()") end, opts)
+        kset("n", "gr", function() vim.cmd("ua vim.lsp.buf.references()") end, opts)
+        kset("n", "gs", function() vim.cmd("ua vim.lsp.buf.signature_help()") end, opts)
+        kset("n", "gR", function() vim.cmd("ua vim.lsp.buf.rename()") end, opts)
+        kset({ "n", "x" },
+          "<F3>",
+          function() vim.cmd("ua vim.lsp.buf.format({async = true})") end,
+          opts)
+        kset("n", "<F4>", function() vim.cmd("ua vim.lsp.buf.code_action()") end, opts)
+      end,
+    })
+
+    --------------------
+    -- format on save --
+    --------------------
+    -- https://lsp-zero.netlify.app/docs/getting-started
+    local buffer_autoformat = function(bufnr)
+      local group = "lsp_autoformat"
+      vim.api.nvim_create_augroup(group, { clear = false })
+      vim.api.nvim_clear_autocmds({ group = group, buffer = bufnr })
+
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        buffer = bufnr,
+        group = group,
+        desc = "LSP format on save",
+        callback = function()
+          -- note: do not enable async formatting
+          vim.lsp.buf.format({ async = false, timeout_ms = 10000 })
+        end,
+      })
+    end
+    vim.api.nvim_create_autocmd("LspAttach", {
+      callback = function(event)
+        local id = vim.tbl_get(event, "data", "client_id")
+        local client = id and vim.lsp.get_client_by_id(id)
+        if client == nil then
+          return
         end
-        vim.api.nvim_create_autocmd("LspAttach", {
-            callback = function(event)
-                local id = vim.tbl_get(event, "data", "client_id")
-                local client = id and vim.lsp.get_client_by_id(id)
-                if client == nil then
-                    return
-                end
 
-                -- make sure there is at least one client with formatting capabilities
-                if client.supports_method("textDocument/formatting") then
-                    buffer_autoformat(event.buf)
-                end
-            end,
-        })
-    end
+        -- make sure there is at least one client with formatting capabilities
+        if client.supports_method("textDocument/formatting") then
+          buffer_autoformat(event.buf)
+        end
+      end,
+    })
+  end
 
-    return { "nvim/nvim-lspconfig", config = config }
-end
-table.insert(plugins, lspconfig_plugin())
-
--------------------------------------------------------------------------------
-
-local function cmp_plugin()
-    local function config()
-        local cmp = require("cmp")
-        cmp.setup({
-            snippet = {
-                expand = function(args)
-                    vim.snippet.expand(args.body)
-                end,
-            },
-            window = {},
-            mapping = cmp.mapping.preset.insert({
-                ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-                ["<C-f>"] = cmp.mapping.scroll_docs(4),
-                ["<C-Space>"] = cmp.mapping.complete(),
-                ["<C-e>"] = cmp.mapping.abort(),
-                ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-            }),
-            sources = cmp.config.sources({
-                { name = "nvim_lsp" },
-                { name = "path" },
-            }),
-        })
-
-        local cmp_mapping = cmp.mapping
-        cmp.setup({
-            mapping = {
-                ["<C-p>"] = cmp_mapping(function(fallback)
-                    if cmp.visible() then
-                        cmp.select_prev_item()
-                    else
-                        fallback()
-                    end
-                end, { "i", "s" }), -- Enable in insert and select modes
-
-                ["<C-n>"] = cmp_mapping(function(fallback)
-                    if cmp.visible() then
-                        cmp.select_next_item()
-                    else
-                        fallback()
-                    end
-                end, { "i", "s" }),
-            },
-        })
-        -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-        cmp.setup.cmdline({ "/", "?" }, {
-            mapping = cmp.mapping.preset.cmdline(),
-            sources = {
-                { name = "buffer" },
-            },
-        })
-
-        -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-        cmp.setup.cmdline(":", {
-            mapping = cmp.mapping.preset.cmdline(),
-            sources = cmp.config.sources({
-                { name = "path" },
-            }, {
-                { name = "cmdline" },
-            }),
-            matching = { disallow_symbol_nonprefix_matching = false },
-        })
-    end
-
-    return { "hrsh7th/nvim-cmp", config = config }
-end
-table.insert(plugins, { "hrsh7th/cmp-nvim-lsp" })
-table.insert(plugins, { "hrsh7th/cmp-buffer" })
-table.insert(plugins, { "hrsh7th/cmp-path" })
-table.insert(plugins, { "hrsh7th/cmp-cmdline" })
-table.insert(plugins, cmp_plugin())
-
--------------------------------------------------------------------------------
-
-local function toggleterm_plugin()
-    local function config()
-        vim.keymap.set({ "n", "i", "t", "v", "c" }, "<D-j>", "<cmd> ToggleTerm <cr>", kopt)
-        require("toggleterm").setup {
-            border = 'curved',
-            direction = 'float',
-        }
-    end
-    return { 'akinsho/toggleterm.nvim', config = config }
-end
-table.insert(plugins, toggleterm_plugin())
-
--------------------------------------------------------------------------------
-
-local function gitsigns_plugin()
-    local function config()
-        vim.keymap.set("n", "<leader>gn", "<cmd> Gitsigns next_hunk <cr>", kopt)
-        vim.keymap.set("n", "<leader>gp", "<cmd> Gitsigns prev_hunk <cr>", kopt)
-        vim.keymap.set("n", "<leader>gi", "<cmd> Gitsigns preview_hunk_inline <cr>", kopt)
-        vim.keymap.set("n", "<leader>gr", "<cmd> Gitsigns reset_hunk <cr>", kopt)
-    end
-    return { "lewis6991/gitsigns.nvim", config = config }
-end
-table.insert(plugins, gitsigns_plugin())
-
--------------------------------------------------------------------------------
-
-local function diffview_plugin()
-    return { "sindrets/diffview.nvim" }
-end
-table.insert(plugins, diffview_plugin())
-
--------------------------------------------------------------------------------
-
-local function comment_plugin()
-    return { "numToStr/Comment.nvim" }
-end
-table.insert(plugins, comment_plugin())
-
--------------------------------------------------------------------------------
-
-local function vim_fugitive_plugin()
-    return { "topope/vim-fugitive" }
-end
-table.insert(plugins, vim_fugitive_plugin())
-
--------------------------------------------------------------------------------
-
--- load plugins
-require("lazy").setup({ spec = plugins })
-
--- colorscheme
-vim.cmd.colorscheme("nordfox")
-
--- lsp servers
-local function setup_lsp_servers()
+  local function setup_lsp_servers()
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
     local c = require("lspconfig")
     c.ocamllsp.setup({ capabilities = capabilities })
     c.ruff.setup({ capabilities = capabilities })
     c.rust_analyzer.setup({ capabilities = capabilities })
     c.lua_ls.setup({ capabilities = capabilities, settings = { Lua = { diagnostics = { globals = { "vim" } } } } })
+  end
+
+  return {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      "hrsh7th/nvim-cmp",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline"
+    },
+    config = function()
+      setup_lspconfig()
+      setup_cmp()
+      setup_lsp_servers()
+    end
+  }
 end
-setup_lsp_servers()
+
+-------------------------------------------------------------------------------
+
+local function toggleterm_plugin()
+  return {
+    'akinsho/toggleterm.nvim',
+    config =
+        function()
+          kset({ "n", "i", "t", "v", "c" }, "<D-j>", function() vim.cmd("ToggleTerm") end)
+          require("toggleterm").setup { direction = 'float' }
+        end
+  }
+end
+
+-------------------------------------------------------------------------------
+
+local function gitsigns_plugin()
+  return {
+    "lewis6991/gitsigns.nvim",
+    config =
+        function()
+          kset("n", "<leader>gn", function() vim.cmd("Gitsigns next_hunk") end)
+          kset("n", "<leader>gp", function() vim.cmd("Gitsigns prev_hunk") end)
+          kset("n", "<leader>gi", function() vim.cmd("Gitsigns preview_hunk_inline") end)
+          kset("n", "<leader>gr", function() vim.cmd("Gitsigns reset_hunk") end)
+        end
+  }
+end
+
+-------------------------------------------------------------------------------
+
+local function diffview_plugin()
+  return { "sindrets/diffview.nvim" }
+end
+
+-------------------------------------------------------------------------------
+
+local function comment_plugin()
+  return { "numToStr/Comment.nvim" }
+end
+
+-------------------------------------------------------------------------------
+
+local function vim_fugitive_plugin()
+  return { "tpope/vim-fugitive" }
+end
+
+-------------------------------------------------------------------------------
+
+local function readline_plugin()
+  return {
+    "assistcontrol/readline.nvim",
+    config = function()
+      local readline = require("readline")
+      -- navigation
+      kset({ "i", "c", "n", "v" }, "<C-a>", readline.beginning_of_line)
+      kset({ "i", "c", "n", "v" }, "<C-e>", readline.end_of_line)
+      kset({ "i", "c", "n", "v" }, "<M-f>", readline.forward_word)
+      kset({ "i", "c", "n", "v" }, "<M-b>", readline.backward_word)
+      kset({ "i", "c", "n", "v" }, "<C-f>", "<Right>")
+      kset({ "i", "c", "n", "v" }, "<C-b>", "<Left>")
+      kset({ "i", "c", "n", "v" }, "<C-n>", "<Down>")
+      kset({ "i", "c", "n", "v" }, "<C-p>", "<Up>")
+
+      -- deletion
+      kset("!", "<C-d>", "<Delete>")
+      kset("!", "<C-k>", readline.kill_line)
+      kset("!", "<C-u>", readline.backward_kill_line)
+      kset("!", "<M-d>", readline.kill_word)
+      kset("!", "<M-BS>", readline.backward_kill_word)
+    end
+  }
+end
+
+------------
+--- main ---
+------------
+
+local setup_lazy_nvim = function()
+  local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+  if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+    if vim.v.shell_error ~= 0 then
+      vim.api.nvim_echo({
+        { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+        { out,                            "WarningMsg" },
+        { "\nPress any key to exit..." },
+      }, true, {})
+      vim.fn.getchar()
+      os.exit(1)
+    end
+  end
+  vim.opt.rtp:prepend(lazypath)
+
+  -- setting leader key needs to happen early after setting up lazy_nvim
+  vim.g.mapleader = " "
+  vim.g.maplocalleader = " "
+end
+
+local function setup_plugins()
+  require("lazy").setup({
+    spec = {
+      which_key_plugin(),
+      harpoon_plugin(),
+      nightfox_plugin(),
+      web_devicons_plugin(),
+      treesitter_plugin(),
+      fzf_plugin(),
+      fzf_lua_plugin(),
+      noice_plugin(),
+      yazi_plugin(),
+      lspconfig_plugin(),
+      toggleterm_plugin(),
+      gitsigns_plugin(),
+      diffview_plugin(),
+      comment_plugin(),
+      vim_fugitive_plugin(),
+      readline_plugin(),
+    }
+  })
+end
+
+local function main()
+  setup_lazy_nvim()
+  setup_options()
+  setup_keymaps()
+  setup_plugins()
+  vim.cmd.colorscheme("nordfox")
+end
+
+main()
