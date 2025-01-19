@@ -28,4 +28,3 @@ alias py="python"
 alias ipy="ipython"
 alias pip-uninstall-all="pip uninstall -y -r <(pip freeze)"
 
-alias z='zshz 2>&1'

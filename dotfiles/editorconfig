@@ -11,7 +11,7 @@ trim_trailing_whitespace = true
 [LICENSE]
 insert_final_newline = false
 
-[*.{js,ts,tsx,yml,yaml,liquid}]
+[*.{js,ts,tsx,ml,mli,dune,yml,yaml,liquid}]
 indent_size = 2
 
 [{Makefile,makefile}]

@@ -36,10 +36,11 @@ zstyle ':omz:update' mode disabled  # disable automatic updates for oh-my-zsh
 export DISABLE_AUTO_TITLE="true"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(
-    z
+    zoxide
     direnv
     zsh-autosuggestions
     zsh-syntax-highlighting
+    zsh-fzf-history-search
     colored-man-pages
     git-open
     gitignore
@@ -86,3 +87,6 @@ bindkey "^[n" history-beginning-search-forward
 
 source "${HOME}/.functions"
 source "${HOME}/.aliases"
+
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+

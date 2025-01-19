@@ -64,6 +64,7 @@ typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # rbenv                   # ruby version from rbenv (https://github.com/rbenv/rbenv)
     # pyenv                   # python environment (https://github.com/pyenv/pyenv)
     virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
+    opam
     # anaconda                # conda environment (https://conda.io/)
 
     nvm                     # node.js version from nvm (https://github.com/nvm-sh/nvm)
@@ -568,6 +569,9 @@ typeset -g POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=255
 
 #####################[ virtualenv: python virtual environment (https://docs.python.org/3/library/venv.html) ]#####################
 # foreground
+typeset -g POWERLEVEL9K_OPAM_FOREGROUND=${TEXT_COLOR}
+typeset -g POWERLEVEL9K_OPAM_BACKGROUND=${CLOUD_PROFILE_ORANGE}
+
 typeset -g POWERLEVEL9K_VIRTUALENV_FOREGROUND=${TEXT_COLOR}
 # background
 typeset -g POWERLEVEL9K_VIRTUALENV_BACKGROUND=${ENV_GREEN}
