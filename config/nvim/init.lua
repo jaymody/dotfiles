@@ -62,6 +62,10 @@ local setup_keymaps = function()
   kset("n", "<leader>cr", function() vim.cmd("luafile ~/.config/nvim/init.lua") end,
     { desc = "Reload init.lua" })
 
+  -- todo.txt
+  kset("n", "<leader>ct", function() vim.cmd("e ~/todo.txt") end,
+    { desc = "Open todo.txt" })
+
   -- toggle case sensitivity
   kset("n", "<leader>cs", function()
     vim.o.ignorecase = not vim.o.ignorecase
@@ -81,6 +85,18 @@ local setup_keymaps = function()
   end)
 end
 
+--------------------
+--- autocommands ---
+--------------------
+local function setup_autocommands()
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "help",
+    callback = function()
+      vim.cmd("wincmd L")
+    end,
+  })
+end
+
 ---------------
 --- plugins ---
 ---------------
@@ -92,6 +108,7 @@ local function which_key_plugin()
     "folke/which-key.nvim",
     event = "VeryLazy",
     opts = { delay = 2000 },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       kset(
         "n",
@@ -100,14 +117,14 @@ local function which_key_plugin()
         { desc = "Buffer Local Keymaps (which-key)" }
       )
 
-      -- local wk = require("which-key")
-      -- wk.add({
-      --   { "<leader>f", desc = "Fuzzy Find" },
-      --   { "<C-g>",     desc = "Harpoon" },
-      --   { "<leader>g", desc = "Git" },
-      --   { "<leader>y", desc = "Yazi" },
-      --   { "<leader>c", desc = "Misc" }
-      -- })
+      local wk = require("which-key")
+      wk.add({
+        { "<leader>f", desc = "Fuzzy Find" },
+        { "<C-g>",     desc = "Harpoon" },
+        { "<leader>g", desc = "Git" },
+        { "<leader>y", desc = "Yazi" },
+        { "<leader>c", desc = "Misc" }
+      })
     end
   }
 end
@@ -143,12 +160,6 @@ end
 
 -------------------------------------------------------------------------------
 
-local function web_devicons_plugin()
-  return { "nvim-tree/nvim-web-devicons" }
-end
-
--------------------------------------------------------------------------------
-
 local function treesitter_plugin()
   return { "nvim-treesitter/nvim-treesitter" }
 end
@@ -164,11 +175,13 @@ end
 local function fzf_lua_plugin()
   return {
     "fzf-lua",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     config =
         function()
-          kset("n", "<leader>ff", function() vim.cmd("FzfLua") end, { desc = "Fzf" })
-          kset("n", "<leader>fo", function() vim.cmd("FzfLua files") end, { desc = "Files" })
-          kset("n", "<leader>fh", function() vim.cmd("FzfLua oldfiles") end, { desc = "Recent Files" })
+          kset("n", "<leader>fz", function() vim.cmd("FzfLua") end, { desc = "Fzf" })
+          kset("n", "<leader>fh", function() vim.cmd("FzfLua helptags") end, { desc = "Help" })
+          kset("n", "<leader>ff", function() vim.cmd("FzfLua files") end, { desc = "Files" })
+          kset("n", "<leader>fo", function() vim.cmd("FzfLua oldfiles") end, { desc = "Old Files" })
           kset("n", "<leader>fg", function() vim.cmd("FzfLua grep_visual ''") end, { desc = "Grep" })
           kset("n", "<leader>fc", function() vim.cmd("FzfLua registers ''") end, { desc = "Registers" })
           kset("n", "<leader>fb", function() vim.cmd("FzfLua buffers ''") end, { desc = "Buffers" })
@@ -198,6 +211,7 @@ end
 local function yazi_plugin()
   return {
     "mikavilpas/yazi.nvim",
+    event = "VeryLazy",
     config =
         function()
           kset("n", "<leader>y", function() vim.cmd("Yazi") end)
@@ -377,6 +391,7 @@ local function gitsigns_plugin()
     "lewis6991/gitsigns.nvim",
     config =
         function()
+          require("gitsigns").setup()
           kset("n", "<leader>gn", function() vim.cmd("Gitsigns next_hunk") end)
           kset("n", "<leader>gp", function() vim.cmd("Gitsigns prev_hunk") end)
           kset("n", "<leader>gi", function() vim.cmd("Gitsigns preview_hunk_inline") end)
@@ -388,7 +403,7 @@ end
 -------------------------------------------------------------------------------
 
 local function diffview_plugin()
-  return { "sindrets/diffview.nvim" }
+  return { "sindrets/diffview.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } }
 end
 
 -------------------------------------------------------------------------------
@@ -430,6 +445,8 @@ local function readline_plugin()
   }
 end
 
+-------------------------------------------------------------------------------
+
 ------------
 --- main ---
 ------------
@@ -451,7 +468,8 @@ local setup_lazy_nvim = function()
   end
   vim.opt.rtp:prepend(lazypath)
 
-  -- setting leader key needs to happen early after setting up lazy_nvim
+  -- setting leader key needs to happen early after setting up lazy_nvim,
+  -- or at least that's what lazy.nvim tells me
   vim.g.mapleader = " "
   vim.g.maplocalleader = " "
 end
@@ -462,7 +480,6 @@ local function setup_plugins()
       which_key_plugin(),
       harpoon_plugin(),
       nightfox_plugin(),
-      web_devicons_plugin(),
       treesitter_plugin(),
       fzf_plugin(),
       fzf_lua_plugin(),
@@ -483,6 +500,7 @@ local function main()
   setup_lazy_nvim()
   setup_options()
   setup_keymaps()
+  setup_autocommands()
   setup_plugins()
   vim.cmd.colorscheme("nordfox")
 end
