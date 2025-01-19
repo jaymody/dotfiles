@@ -13,7 +13,7 @@ Setup `zsh`:
 ./setup
 ```
 
-Link files in the `dotfiles` folder to `~`:
+Link files in the `dotfiles` folder to `~` and folders in `config` to `~/.config`:
 ```shell
 ./link
 ```

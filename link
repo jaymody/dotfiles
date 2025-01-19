@@ -93,9 +93,25 @@ install_dotfiles () {
     done
 }
 
+install_config_directories () {
+    local config_dir=$(realpath ./config)
+    if [ -d "$config_dir" ]; then
+        info "-------- linking config directories from ${config_dir} to ${HOME}/.config --------"
+        local overwrite_all=false backup_all=false skip_all=false
+        mkdir -p "$HOME/.config"
+        for src in $(find "$config_dir" -mindepth 1 -maxdepth 1 -type d); do
+            dst="$HOME/.config/$(basename $src)"
+            link_file "$src" "$dst"
+        done
+    else
+        info "No config directory found to link. Skipping."
+    fi
+}
+
 echo ''
 
-install_dotfiles $1
+install_dotfiles
+install_config_directories
 
 echo ''
 echo '  All installed!'
