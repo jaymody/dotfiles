@@ -161,7 +161,16 @@ end
 -------------------------------------------------------------------------------
 
 local function treesitter_plugin()
-  return { "nvim-treesitter/nvim-treesitter" }
+  return {
+    "nvim-treesitter/nvim-treesitter",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = { "c", "rust", "ocaml", "lua", "javascript", "typescript", "python", "json", "css", "html" },
+        highlight = { enable = true },
+        indent = { enable = true }
+      })
+    end
+  }
 end
 
 -------------------------------------------------------------------------------
@@ -392,10 +401,10 @@ local function gitsigns_plugin()
     config =
         function()
           require("gitsigns").setup()
-          kset("n", "<leader>gn", function() vim.cmd("Gitsigns next_hunk") end)
-          kset("n", "<leader>gp", function() vim.cmd("Gitsigns prev_hunk") end)
-          kset("n", "<leader>gi", function() vim.cmd("Gitsigns preview_hunk_inline") end)
-          kset("n", "<leader>gr", function() vim.cmd("Gitsigns reset_hunk") end)
+          kset("n", "]g", function() vim.cmd("Gitsigns next_hunk") end)
+          kset("n", "[g", function() vim.cmd("Gitsigns prev_hunk") end)
+          -- kset("n", "<leader>gi", function() vim.cmd("Gitsigns preview_hunk_inline") end)
+          -- kset("n", "<leader>gr", function() vim.cmd("Gitsigns reset_hunk") end)
         end
   }
 end
@@ -403,7 +412,14 @@ end
 -------------------------------------------------------------------------------
 
 local function diffview_plugin()
-  return { "sindrets/diffview.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } }
+  return {
+    "sindrets/diffview.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      kset("n", "<leader>gg", function() vim.cmd("DiffviewOpen") end, { desc = "Open Diffview" })
+      kset("n", "<leader>gg", function() vim.cmd("DiffviewOpen") end, { desc = "Open file git history" })
+    end
+  }
 end
 
 -------------------------------------------------------------------------------
