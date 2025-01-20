@@ -38,6 +38,12 @@ local setup_options = function()
   -- reserve a space in the gutter, this avoids the annoying
   -- layout shift in the gutter
   vim.opt.signcolumn = "yes"
+
+  -- diagnostics
+  vim.diagnostic.config({
+    update_in_insert = true,
+    underline = true
+  })
 end
 
 -------------
@@ -57,10 +63,34 @@ local setup_keymaps = function()
   -- save file
   kset({ "n", "i" }, "<D-s>", function() vim.cmd("update") end)
 
+  -- select all
+  kset("n", "<D-a>", "ggVG", { remap = false })
+
   -- init.lua stuff
   kset("n", "<leader>cc", function() vim.cmd("e ~/.config/nvim/init.lua") end, { desc = "Go to init.lua" })
   kset("n", "<leader>cr", function() vim.cmd("luafile ~/.config/nvim/init.lua") end,
     { desc = "Reload init.lua" })
+
+  -- quit
+  kset("n", "<leader>cq", function() vim.cmd("quitall!") end, { desc = "Force quit all" })
+  kset({ "n", "i", "v" }, "<D-w>", function()
+    local buf = vim.api.nvim_get_current_buf()
+
+    -- do nothing if we are in the default unnamed buffer or if we are in buff 0
+    if vim.fn.expand('%') == '' or vim.fn.bufnr('#') == 0 then
+      return
+    end
+
+    -- print an error if the buffer has unsaved changes
+    if vim.api.nvim_buf_get_option(buf, 'modified') then
+      print("Error: Buffer has unsaved changes!")
+      return
+    end
+
+    -- if there exists another buffer, switch to it else
+    vim.cmd('buffer #') -- Switch to the alternate buffer
+    vim.cmd('bdelete ' .. buf)
+  end, { noremap = true })
 
   -- todo.txt
   kset("n", "<leader>ct", function() vim.cmd("e ~/todo.txt") end,
@@ -83,6 +113,12 @@ local setup_keymaps = function()
       vim.wo.cursorcolumn = true
     end
   end)
+
+  -- window navigation
+  kset({ "n", "v" }, "<C-1>", "<Esc>1<C-w>w", { noremap = true })
+  kset({ "n", "v" }, "<C-2>", "<Esc>2<C-w>w", { noremap = true })
+  kset({ "n", "v" }, "<C-3>", "<Esc>3<C-w>w", { noremap = true })
+  kset({ "n", "v" }, "<C-4>", "<Esc>4<C-w>w", { noremap = true })
 end
 
 --------------------
@@ -233,70 +269,101 @@ end
 local function lspconfig_plugin()
   local function setup_cmp()
     local cmp = require("cmp")
+
+    local function make_mapping()
+      IN_CMP = false
+      local tab = function(fallback)
+        if cmp.visible() then
+          IN_CMP = true
+          cmp.select_next_item()
+        else
+          cmp.abort()
+          fallback()
+        end
+      end
+      local shift_tab = function(fallback)
+        if cmp.visible() then
+          IN_CMP = true
+          cmp.select_prev_item()
+        else
+          cmp.abort()
+          fallback()
+        end
+      end
+      local cr = function(fallback)
+        if IN_CMP then
+          IN_CMP = false
+          cmp.confirm()
+        else
+          cmp.abort()
+          fallback()
+        end
+      end
+      local cc = function(fallback)
+        if cmp.visible() then
+          IN_CMP = false
+          cmp.abort()
+        else
+          fallback()
+        end
+      end
+      local cspace = function()
+        cmp.complete()
+      end
+      return tab, shift_tab, cr, cc, cspace
+    end
+
+    local mapping = (function()
+      local tab, shift_tab, cr, cc, cspace = make_mapping()
+      return {
+        ["<Tab>"] = { i = tab },
+        ["<S-Tab>"] = { i = shift_tab },
+        ["<CR>"] = { i = cr },
+        ["<C-c>"] = { i = cc },
+        ["<C-space>"] = { i = cspace },
+        ["<C-b>"] = { i = function() require("cmp").scroll_docs(-4) end },
+        ["<C-f>"] = { i = function() require("cmp").scroll_docs(4) end },
+      }
+    end)()
+
+    local mapping_cmdline = (function()
+      local tab, shift_tab, cr, cc, cspace = make_mapping()
+      return {
+        ["<Tab>"] = { c = tab },
+        ["<S-Tab>"] = { c = shift_tab },
+        ["<CR>"] = { c = cr },
+        ["<C-c>"] = { c = cc },
+        ["<C-space>"] = { c = cspace },
+      }
+    end)()
+
     cmp.setup({
       snippet = {
+        -- REQUIRED, a snippet engine must be set
         expand = function(args)
           vim.snippet.expand(args.body)
         end,
       },
-      window = {},
-      mapping = cmp.mapping.preset.insert({
-        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-Space>"] = cmp.mapping.complete(),
-        ["<C-e>"] = cmp.mapping.abort(),
-        ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-      }),
+      mapping = mapping,
       sources = cmp.config.sources({
         { name = "nvim_lsp" },
         { name = "path" },
       }),
     })
 
-    local cmp_mapping = cmp.mapping
-    cmp.setup({
-      mapping = {
-        ["<C-p>"] = cmp_mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item()
-          else
-            fallback()
-          end
-        end, { "i", "s" }), -- Enable in insert and select modes
-
-        ["<C-n>"] = cmp_mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_next_item()
-          else
-            fallback()
-          end
-        end, { "i", "s" }),
-      },
-    })
-    -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
     cmp.setup.cmdline({ "/", "?" }, {
-      mapping = cmp.mapping.preset.cmdline(),
-      sources = {
-        { name = "buffer" },
-      },
+      mapping = mapping_cmdline,
+      sources = { { name = "buffer" } },
     })
 
-    -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
     cmp.setup.cmdline(":", {
-      mapping = cmp.mapping.preset.cmdline(),
-      sources = cmp.config.sources({
-        { name = "path" },
-      }, {
-        { name = "cmdline" },
-      }),
+      mapping = mapping_cmdline,
+      sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
       matching = { disallow_symbol_nonprefix_matching = false },
     })
   end
 
   local function setup_lspconfig()
-    -- misc options
-    vim.lsp.diagnostic.underline = true
-
     -- https://lsp-zero.netlify.app/docs/getting-started.html
     vim.api.nvim_create_autocmd("LspAttach", {
       desc = "LSP actions",
@@ -356,11 +423,11 @@ local function lspconfig_plugin()
 
   local function setup_lsp_servers()
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
-    local c = require("lspconfig")
-    c.ocamllsp.setup({ capabilities = capabilities })
-    c.ruff.setup({ capabilities = capabilities })
-    c.rust_analyzer.setup({ capabilities = capabilities })
-    c.lua_ls.setup({ capabilities = capabilities, settings = { Lua = { diagnostics = { globals = { "vim" } } } } })
+    local lsp = require("lspconfig")
+    lsp.ocamllsp.setup({ capabilities = capabilities })
+    lsp.ruff.setup({ capabilities = capabilities })
+    lsp.rust_analyzer.setup({ capabilities = capabilities })
+    lsp.lua_ls.setup({ capabilities = capabilities, settings = { Lua = { diagnostics = { globals = { "vim" } } } } })
   end
 
   return {
@@ -401,8 +468,14 @@ local function gitsigns_plugin()
     config =
         function()
           require("gitsigns").setup()
-          kset("n", "]g", function() vim.cmd("Gitsigns next_hunk") end)
-          kset("n", "[g", function() vim.cmd("Gitsigns prev_hunk") end)
+          kset("n", "]]", function()
+            vim.cmd("Gitsigns next_hunk")
+            vim.cmd("normal! zz")
+          end)
+          kset("n", "[[", function()
+            vim.cmd("Gitsigns prev_hunk")
+            vim.cmd("normal! zz")
+          end)
           -- kset("n", "<leader>gi", function() vim.cmd("Gitsigns preview_hunk_inline") end)
           -- kset("n", "<leader>gr", function() vim.cmd("Gitsigns reset_hunk") end)
         end
@@ -430,19 +503,13 @@ end
 
 -------------------------------------------------------------------------------
 
-local function vim_fugitive_plugin()
-  return { "tpope/vim-fugitive" }
-end
-
--------------------------------------------------------------------------------
-
 local function readline_plugin()
   return {
-    "assistcontrol/readline.nvim",
+    "jaymody/readline.nvim",
     config = function()
       local readline = require("readline")
       -- navigation
-      kset({ "i", "c", "n", "v" }, "<C-a>", readline.beginning_of_line)
+      kset({ "i", "c", "n", "v" }, "<C-a>", readline.back_to_indentation)
       kset({ "i", "c", "n", "v" }, "<C-e>", readline.end_of_line)
       kset({ "i", "c", "n", "v" }, "<M-f>", readline.forward_word)
       kset({ "i", "c", "n", "v" }, "<M-b>", readline.backward_word)
@@ -454,7 +521,7 @@ local function readline_plugin()
       -- deletion
       kset("!", "<C-d>", "<Delete>")
       kset("!", "<C-k>", readline.kill_line)
-      kset("!", "<C-u>", readline.backward_kill_line)
+      kset("!", "<C-u>", readline.backward_kill_to_indentation)
       kset("!", "<M-d>", readline.kill_word)
       kset("!", "<M-BS>", readline.backward_kill_word)
     end
@@ -493,7 +560,7 @@ end
 local function setup_plugins()
   require("lazy").setup({
     spec = {
-      which_key_plugin(),
+      -- which_key_plugin(),
       harpoon_plugin(),
       nightfox_plugin(),
       treesitter_plugin(),
@@ -506,7 +573,6 @@ local function setup_plugins()
       gitsigns_plugin(),
       diffview_plugin(),
       comment_plugin(),
-      vim_fugitive_plugin(),
       readline_plugin(),
     }
   })
