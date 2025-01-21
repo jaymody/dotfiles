@@ -11,3 +11,5 @@ font-feature = -calt
 
 keybind = super+a=unbind
 keybind = super+w=unbind
+keybind = super+t=unbind
+keybind = super+p=unbind
