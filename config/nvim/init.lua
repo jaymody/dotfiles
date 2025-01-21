@@ -209,7 +209,14 @@ local function noice_plugin()
   return {
     "folke/noice.nvim",
     event = "VeryLazy",
-    dependencies = { "MunifTanjim/nui.nvim" }
+    dependencies = { "MunifTanjim/nui.nvim" },
+    config = function()
+      require("noice").setup({
+        presets = {
+          command_palette = true, -- position the cmdline and popupmenu together at the top
+        },
+      })
+    end
   }
 end
 
