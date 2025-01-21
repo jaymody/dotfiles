@@ -210,6 +210,7 @@ local function noice_plugin()
     "folke/noice.nvim",
     event = "VeryLazy",
     dependencies = { "MunifTanjim/nui.nvim" },
+    opt = {}, -- idk why, but when I remove this line things break
     config = function()
       require("noice").setup({
         presets = {
