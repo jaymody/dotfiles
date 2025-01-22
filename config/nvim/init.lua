@@ -34,6 +34,9 @@ local function setup_options()
     update_in_insert = true, -- show diagnostics in insert mode
     underline = true         -- underline location of diagnostics
   })
+
+  -- large scrollback buffer for :terminal sessions
+  vim.g.terminal_scrollback_buffer_size = 100000
 end
 
 -------------
@@ -149,12 +152,6 @@ end
 
 -------------------------------------------------------------------------------
 
-local function nightfox_plugin()
-  return { "EdenEast/nightfox.nvim" }
-end
-
--------------------------------------------------------------------------------
-
 local function treesitter_plugin()
   return {
     "nvim-treesitter/nvim-treesitter",
@@ -170,16 +167,10 @@ end
 
 -------------------------------------------------------------------------------
 
-local function fzf_plugin()
-  return { "junegunn/fzf" }
-end
-
--------------------------------------------------------------------------------
-
 local function fzf_lua_plugin()
   return {
     "fzf-lua",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = { "junegunn/fzf", "nvim-tree/nvim-web-devicons" },
     config =
         function()
           -- these bindings match vscode
@@ -223,20 +214,6 @@ end
 
 -------------------------------------------------------------------------------
 
-local function yazi_plugin()
-  return {
-    "mikavilpas/yazi.nvim",
-    event = "VeryLazy",
-    config =
-        function()
-          kset("n", "<D-e>", function() vim.cmd("Yazi") end)
-          kset("n", "<leader><D-e>", function() vim.cmd("Yazi cwd") end)
-        end
-  }
-end
-
--------------------------------------------------------------------------------
-
 local function toggleterm_plugin()
   return {
     'akinsho/toggleterm.nvim',
@@ -249,6 +226,7 @@ local function toggleterm_plugin()
 end
 
 -------------------------------------------------------------------------------
+
 local function lspconfig_plugin()
   local function setup_cmp()
     local cmp = require("cmp")
@@ -432,46 +410,6 @@ end
 
 -------------------------------------------------------------------------------
 
-local function gitsigns_plugin()
-  return {
-    "lewis6991/gitsigns.nvim",
-    config =
-        function()
-          require("gitsigns").setup()
-          kset("n", "]]", function()
-            vim.cmd("Gitsigns next_hunk")
-            vim.cmd("normal! zz")
-          end)
-          kset("n", "[[", function()
-            vim.cmd("Gitsigns prev_hunk")
-            vim.cmd("normal! zz")
-          end)
-          kset("n", "<leader>gr", function() vim.cmd("Gitsigns reset_hunk") end, { desc = "Reset hunk" })
-        end
-  }
-end
-
--------------------------------------------------------------------------------
-
-local function diffview_plugin()
-  return {
-    "sindrets/diffview.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      kset("n", "<leader>gg", function() vim.cmd("DiffviewOpen") end, { desc = "Open Diffview" })
-      kset("n", "<leader>gh", function() vim.cmd("DiffviewOpen") end, { desc = "Open file git history" })
-    end
-  }
-end
-
--------------------------------------------------------------------------------
-
-local function commentary_plugin()
-  return { "tpope/vim-commentary" }
-end
-
--------------------------------------------------------------------------------
-
 local function readline_plugin()
   return {
     "jaymody/readline.nvim",
@@ -530,21 +468,18 @@ local function setup_plugins()
   require("lazy").setup({
     spec = {
       harpoon_plugin(),
-      nightfox_plugin(),
       treesitter_plugin(),
-      fzf_plugin(),
       fzf_lua_plugin(),
       noice_plugin(),
-      yazi_plugin(),
       lspconfig_plugin(),
       toggleterm_plugin(),
-      gitsigns_plugin(),
-      diffview_plugin(),
-      commentary_plugin(),
       readline_plugin(),
+      { "EdenEast/nightfox.nvim" }
     }
   })
 end
+
+-------------------------------------------------------------------------------
 
 local function main()
   setup_lazy_nvim()
