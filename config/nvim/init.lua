@@ -45,7 +45,7 @@ end
 
 local function setup_keymaps()
   -- search highlighting on esc
-  kset("n", "<esc>", ":noh<enter><esc>", { noremap = true, silent = true })
+  kset("n", "<C-c>", ":noh<enter><esc>", { noremap = true, silent = true })
 
   -- mark loc before starting a search as s
   kset("n", "/", "ms/", { noremap = true })
@@ -218,26 +218,13 @@ end
 
 -------------------------------------------------------------------------------
 
-local function toggleterm_plugin()
-  return {
-    'akinsho/toggleterm.nvim',
-    config =
-        function()
-          kset({ "n", "i", "t", "v", "c" }, "<C-0>", function() vim.cmd("ToggleTerm") end)
-          require("toggleterm").setup { direction = 'float' }
-        end
-  }
-end
-
--------------------------------------------------------------------------------
-
 local function lspconfig_plugin()
   local function setup_cmp()
     local cmp = require("cmp")
 
     local function make_mapping()
       IN_CMP = false
-      local tab = function(fallback)
+      local next_item = function(fallback)
         if cmp.visible() then
           IN_CMP = true
           cmp.select_next_item()
@@ -246,7 +233,7 @@ local function lspconfig_plugin()
           fallback()
         end
       end
-      local shift_tab = function(fallback)
+      local prev_item = function(fallback)
         if cmp.visible() then
           IN_CMP = true
           cmp.select_prev_item()
@@ -255,7 +242,7 @@ local function lspconfig_plugin()
           fallback()
         end
       end
-      local cr = function(fallback)
+      local select_item = function(fallback)
         if IN_CMP then
           IN_CMP = false
           cmp.confirm()
@@ -264,7 +251,7 @@ local function lspconfig_plugin()
           fallback()
         end
       end
-      local cc = function(fallback)
+      local cancel_cmp = function(fallback)
         if cmp.visible() then
           IN_CMP = false
           cmp.abort()
@@ -273,26 +260,26 @@ local function lspconfig_plugin()
         end
       end
 
-      return tab, shift_tab, cr, cc, cspace
+      return next_item, prev_item, select_item, cancel_cmp
     end
 
     local mapping = (function()
-      local tab, shift_tab, cr, cc, cspace = make_mapping()
+      local next_item, prev_item, select_item, cancel_cmp = make_mapping()
       return {
-        ["<Tab>"] = { i = tab },
-        ["<S-Tab>"] = { i = shift_tab },
-        ["<CR>"] = { i = cr },
-        ["<C-c>"] = { i = cc },
+        ["<Tab>"] = { i = next_item },
+        ["<S-Tab>"] = { i = prev_item },
+        ["<CR>"] = { i = select_item },
+        ["<C-BS>"] = { i = cancel_cmp },
       }
     end)()
 
     local mapping_cmdline = (function()
-      local tab, shift_tab, cr, cc, cspace = make_mapping()
+      local next_item, prev_item, select_item, cancel_cmp = make_mapping()
       return {
-        ["<Tab>"] = { c = tab },
-        ["<S-Tab>"] = { c = shift_tab },
-        ["<CR>"] = { c = cr },
-        ["<C-c>"] = { c = cc },
+        ["<Tab>"] = { c = next_item },
+        ["<S-Tab>"] = { c = prev_item },
+        ["<CR>"] = { c = select_item },
+        ["<C-BS>"] = { c = cancel_cmp },
       }
     end)()
 
@@ -389,6 +376,10 @@ local function lspconfig_plugin()
     lsp.lua_ls.setup({ capabilities = capabilities, settings = { Lua = { diagnostics = { globals = { "vim" } } } } })
   end
 
+  local function setup_mason()
+    require("mason").setup()
+  end
+
   return {
     "neovim/nvim-lspconfig",
     dependencies = {
@@ -396,12 +387,14 @@ local function lspconfig_plugin()
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline"
+      "hrsh7th/cmp-cmdline",
+      "williamboman/mason.nvim"
     },
     config = function()
       setup_lspconfig()
       setup_cmp()
       setup_lsp_servers()
+      setup_mason()
     end
   }
 end
@@ -489,10 +482,10 @@ local function setup_plugins()
       fzf_lua_plugin(),
       noice_plugin(),
       lspconfig_plugin(),
-      toggleterm_plugin(),
       gitsigns_plugin(),
       readline_plugin(),
-      { "EdenEast/nightfox.nvim" }
+      { "EdenEast/nightfox.nvim" },
+      { "navarasu/onedark.nvim" }
     }
   })
 end
@@ -505,7 +498,8 @@ local function main()
   setup_keymaps()
   setup_autocommands()
   setup_plugins()
-  vim.cmd.colorscheme("nordfox")
+  require('onedark').load()
+  vim.cmd.colorscheme("onedark")
 end
 
 main()
