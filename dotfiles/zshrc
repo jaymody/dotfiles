@@ -41,6 +41,7 @@ plugins=(
     zsh-autosuggestions
     zsh-syntax-highlighting
     zsh-fzf-history-search
+    zig-shell-completions
     colored-man-pages
     git-open
     gitignore
@@ -87,4 +88,3 @@ source "${HOME}/.functions"
 source "${HOME}/.aliases"
 
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
-

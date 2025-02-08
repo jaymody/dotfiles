@@ -54,14 +54,20 @@ local function setup_keymaps()
   kset({ "n", "v" }, "<C-k>", "<C-y>", { noremap = true, silent = true }, { desc = "Scroll up" })
   kset({ "n", "v" }, "<C-j>", "<C-e>", { noremap = true, silent = true }, { desc = "Scroll down" })
 
+  -- indent/dedent
+  kset("n", ">", ">>", { noremap = true, silent = true }, { desc = "Indent" })
+  kset("n", "<", "<<", { noremap = true, silent = true }, { desc = "Dedent" })
+  kset("v", ">", ">gv", { noremap = true, silent = true }, { desc = "Indent" })
+  kset("v", "<", "<gv", { noremap = true, silent = true }, { desc = "Dedent" })
+
   -- select all
-  kset("n", "<D-a>", "ggVG", { remap = false }, { desc = "Select all" })
+  kset("n", "<leader>a", "ggVG", { remap = false }, { desc = "Select all" })
 
   -- buffer stuff
-  kset({ "n", "i" }, "<D-s>", function() vim.cmd("update") end, { desc = "Save buffer" })
+  kset("n", "<leader>s", function() vim.cmd("update") end, { desc = "Save buffer" })
   kset("n", "<leader>cq", function() vim.cmd("quitall!") end, { desc = "Force quit all" })
 
-  kset({ "n", "i", "v" }, "<D-w>", function()
+  kset({ "n", "i", "v" }, "<C-w><C-c>", function()
     local buf = vim.api.nvim_get_current_buf()
 
     -- do nothing if we are in the default unnamed buffer or if we are in buff 0
@@ -173,23 +179,21 @@ local function fzf_lua_plugin()
     dependencies = { "junegunn/fzf", "nvim-tree/nvim-web-devicons" },
     config =
         function()
-          -- these bindings match vscode
-          kset({ "n", "i", "v" }, "<D-p>", function() vim.cmd("FzfLua files") end, { desc = "Files" })
-          kset({ "n", "i", "v" }, "<D-o>", function() vim.cmd("FzfLua oldfiles") end, { desc = "Old Files" })
-          kset({ "n", "i", "v" }, "<D-r>", function() vim.cmd("FzfLua lsp_document_symbols ''") end,
+          kset({ "n", "v" }, "<leader>ff", function() vim.cmd("FzfLua files") end, { desc = "Files" })
+          kset({ "n", "v" }, "<leader>fo", function() vim.cmd("FzfLua oldfiles") end, { desc = "Old Files" })
+          kset({ "n", "v" }, "<leader>fs", function() vim.cmd("FzfLua lsp_document_symbols ''") end,
             { desc = "Symbols in file" })
-          kset({ "n", "i", "v" }, "<D-t>", function() vim.cmd("FzfLua lsp_workspace_symbols ''") end,
+          kset({ "n", "v" }, "<leader>fS", function() vim.cmd("FzfLua lsp_workspace_symbols ''") end,
             { desc = "Symbols in workspace" })
-
-          -- these don't
-          kset("n", "<leader>ff", function() vim.cmd("FzfLua") end, { desc = "Fzf" })
+          kset("n", "<leader>fj", function() vim.cmd("FzfLua jumps") end, { desc = "Jumps" })
+          kset("n", "<leader>fz", function() vim.cmd("FzfLua") end, { desc = "Fzf" })
           kset("n", "<leader>fh", function() vim.cmd("FzfLua helptags") end, { desc = "Help" })
           kset("n", "<leader>fg", function() vim.cmd("FzfLua grep_visual ''") end, { desc = "Grep" })
           kset("n", "<leader>fc", function() vim.cmd("FzfLua registers ''") end, { desc = "Registers" })
           kset("n", "<leader>fb", function() vim.cmd("FzfLua buffers ''") end, { desc = "Buffers" })
           kset("n", "<leader>fd", function() vim.cmd("FzfLua lsp_workspace_diagnostics ''") end,
             { desc = "Problems in workspace" })
-          kset("n", "<leader>fr", function() vim.cmd("FzfLua lsp_references ''") end, { desc = "References" })
+          kset("n", "gr", function() vim.cmd("FzfLua lsp_references ''") end, { desc = "References" })
         end
   }
 end
@@ -219,7 +223,7 @@ local function toggleterm_plugin()
     'akinsho/toggleterm.nvim',
     config =
         function()
-          kset({ "n", "i", "t", "v", "c" }, "<D-j>", function() vim.cmd("ToggleTerm") end)
+          kset({ "n", "i", "t", "v", "c" }, "<C-0>", function() vim.cmd("ToggleTerm") end)
           require("toggleterm").setup { direction = 'float' }
         end
   }
@@ -268,9 +272,7 @@ local function lspconfig_plugin()
           fallback()
         end
       end
-      local cspace = function()
-        cmp.complete()
-      end
+
       return tab, shift_tab, cr, cc, cspace
     end
 
@@ -281,9 +283,6 @@ local function lspconfig_plugin()
         ["<S-Tab>"] = { i = shift_tab },
         ["<CR>"] = { i = cr },
         ["<C-c>"] = { i = cc },
-        ["<C-space>"] = { i = cspace },
-        ["<C-b>"] = { i = function() require("cmp").scroll_docs(-4) end },
-        ["<C-f>"] = { i = function() require("cmp").scroll_docs(4) end },
       }
     end)()
 
@@ -294,7 +293,6 @@ local function lspconfig_plugin()
         ["<S-Tab>"] = { c = shift_tab },
         ["<CR>"] = { c = cr },
         ["<C-c>"] = { c = cc },
-        ["<C-space>"] = { c = cspace },
       }
     end)()
 
@@ -437,6 +435,25 @@ end
 
 -------------------------------------------------------------------------------
 
+local function gitsigns_plugin()
+  return {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require("gitsigns").setup()
+      kset("n", "[c", function()
+        vim.cmd("Gitsigns prev_hunk")
+        vim.cmd("normal! zz")
+      end, { desc = "Go to next hunk", silent = true })
+      kset("n", "]c", function()
+        vim.cmd("Gitsigns next_hunk")
+        vim.cmd("normal! zz")
+      end, { desc = "Go to next hunk", silent = true })
+    end
+  }
+end
+
+-------------------------------------------------------------------------------
+
 ------------
 --- main ---
 ------------
@@ -473,6 +490,7 @@ local function setup_plugins()
       noice_plugin(),
       lspconfig_plugin(),
       toggleterm_plugin(),
+      gitsigns_plugin(),
       readline_plugin(),
       { "EdenEast/nightfox.nvim" }
     }

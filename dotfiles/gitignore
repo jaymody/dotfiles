@@ -2,6 +2,7 @@
 todo.md
 .envrc
 .vscode/
+.zed/
 .python-version
 _scratch.ipynb
 
