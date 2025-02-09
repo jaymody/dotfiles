@@ -1,11 +1,18 @@
 ----------------------------------
 --- global constants/functions ---
 ----------------------------------
+
 local kset = vim.keymap.set
+local function run(cmd)
+  return function()
+    vim.cmd(cmd)
+  end
+end
 
 ---------------
 --- options ---
 ---------------
+
 local function setup_options()
   vim.g.editorconfig = true         -- use editrconfig settings
 
@@ -44,17 +51,12 @@ local function setup_options()
     underline = true
   })
 
-  -- large scrollback buffer for :terminal sessions
-  vim.g.terminal_scrollback_buffer_size = 100000
-
   -- use persistent undo and remove swap files
   local undo_dir = "/tmp/.nvim-undo-dir"
+  if vim.fn.isdirectory(undo_dir) == 0 then vim.fn.mkdir(undo_dir, "", "0700") end
   vim.opt.swapfile = false
   vim.opt.backup = false
   vim.opt.undofile = true
-  if vim.fn.isdirectory(undo_dir) == 0 then
-    vim.fn.mkdir(undo_dir, "", "0700")
-  end
   vim.opt.undodir = undo_dir
 end
 
@@ -63,15 +65,23 @@ end
 -------------
 
 local function setup_keymaps()
-  -- search highlighting on esc
-  kset("n", "<C-c>", ":noh<enter><esc>", { noremap = true, silent = true })
+  -- use C-c as escape, and exit search highlighting on C-c
+  kset({ "i", "x" }, "<C-c>", "<Esc>", { noremap = true, silent = true })
+  kset("n", "<C-c>", ":noh<CR><Esc>", { noremap = true, silent = true })
 
   -- mark loc before starting a search as s
   kset("n", "/", "ms/", { noremap = true })
 
+  -- swap ' and `
+  kset({ "n", "v" }, "'", "`", { noremap = true })
+  kset({ "n", "v" }, "`", "'", { noremap = true })
+
   -- scroll up/down
   kset({ "n", "v" }, "<C-k>", "<C-y>", { noremap = true, silent = true })
   kset({ "n", "v" }, "<C-j>", "<C-e>", { noremap = true, silent = true })
+
+  -- better pasting (paste yanked text below in new line with indenting)
+  kset('n', '<leader>p', 'o<Esc>p`[v`]=<Esc>`]', { noremap = true, silent = true })
 
   -- indent/dedent
   kset("n", ">", ">>", { noremap = true, silent = true })
@@ -80,35 +90,16 @@ local function setup_keymaps()
   kset("v", "<", "<gv", { noremap = true, silent = true })
 
   -- stop pasting in visual from overriding you're yank register
-  kset("v", "p", "\"_dp", { noremap = true, silent = true })
-  kset("v", "P", "\"_dP", { noremap = true, silent = true })
+  kset("v", "p", "\"_dP", { noremap = true, silent = true })
 
-  -- buffer stuff
-  kset("n", "<leader>s", function() vim.cmd("update") end)
-  kset("n", "<leader>cq", function() vim.cmd("quitall!") end)
-
-  kset({ "n", "i", "v" }, "<C-w><C-c>", function()
-    local buf = vim.api.nvim_get_current_buf()
-
-    -- do nothing if we are in the default unnamed buffer or if we are in buff 0
-    if vim.fn.expand('%') == '' or vim.fn.bufnr('#') == 0 then
-      return
-    end
-
-    -- print an error if the buffer has unsaved changes
-    if vim.api.nvim_buf_get_option(buf, 'modified') then
-      print("Error: Buffer has unsaved changes!")
-      return
-    end
-
-    -- if there exists another buffer, switch to it else
-    vim.cmd('buffer #') -- Switch to the alternate buffer
-    vim.cmd('bdelete ' .. buf)
-  end, { noremap = true })
+  -- don't immediately jump to next thing under cursor when using *
+  kset("n", '*', 'mi*<CR>`i', { noremap = true, silent = true })
+  kset("v", '*', 'mi"yy/<C-r>y<CR>`i', { noremap = true, silent = true })
 
   -- init.lua stuff
-  kset("n", "<leader>cc", function() vim.cmd("e ~/.config/nvim/init.lua") end)
-  kset("n", "<leader>cr", function() vim.cmd("luafile ~/.config/nvim/init.lua") end)
+  kset("n", "<leader>cc", run("e ~/.config/nvim/init.lua"))
+  kset("n", "<leader>cr", run("luafile ~/.config/nvim/init.lua"))
+
 
   -- toggle case sensitivity
   kset("n", "<leader>cs", function()
@@ -128,6 +119,11 @@ local function setup_keymaps()
     end
   end)
 
+  -- when exiting visual mode, return back to the place where it was started
+  vim.keymap.set('n', 'v', 'mvv', { noremap = true })
+  vim.keymap.set('n', 'V', 'mvV', { noremap = true })
+  vim.keymap.set('v', '<C-c>', "<Esc>`v", { noremap = true, silent = true })
+
   -- window navigation
   kset({ "n", "v" }, "<C-1>", "<Esc>1<C-w>w", { noremap = true })
   kset({ "n", "v" }, "<C-2>", "<Esc>2<C-w>w", { noremap = true })
@@ -138,6 +134,7 @@ end
 --------------------
 --- autocommands ---
 --------------------
+
 local function setup_autocommands()
   -- open help windows on a rightmost split
   vim.api.nvim_create_autocmd("FileType", {
@@ -213,18 +210,18 @@ local function fzf_lua_plugin()
     dependencies = { "junegunn/fzf", "nvim-tree/nvim-web-devicons" },
     config =
         function()
-          kset("n", "<leader>ff", function() vim.cmd("FzfLua files") end)
-          kset("n", "<leader>fo", function() vim.cmd("FzfLua oldfiles") end)
-          kset("n", "<leader>fs", function() vim.cmd("FzfLua lsp_document_symbols ''") end)
-          kset("n", "<leader>fS", function() vim.cmd("FzfLua lsp_workspace_symbols ''") end)
-          kset("n", "<leader>fj", function() vim.cmd("FzfLua jumps") end)
-          kset("n", "<leader>fz", function() vim.cmd("FzfLua") end)
-          kset("n", "<leader>fh", function() vim.cmd("FzfLua helptags") end)
-          kset("n", "<leader>fg", function() vim.cmd("FzfLua grep_visual ''") end)
-          kset("n", "<leader>fc", function() vim.cmd("FzfLua registers ''") end)
-          kset("n", "<leader>fb", function() vim.cmd("FzfLua buffers ''") end)
-          kset("n", "<leader>fd", function() vim.cmd("FzfLua lsp_workspace_diagnostics ''") end)
-          kset("n", "gr", function() vim.cmd("FzfLua lsp_references ''") end)
+          kset("n", "<leader>ff", run("FzfLua files"))
+          kset("n", "<leader>fo", run("FzfLua oldfiles"))
+          kset("n", "<leader>fs", run("FzfLua lsp_document_symbols ''"))
+          kset("n", "<leader>fS", run("FzfLua lsp_workspace_symbols ''"))
+          kset("n", "<leader>fj", run("FzfLua jumps"))
+          kset("n", "<leader>fz", run("FzfLua"))
+          kset("n", "<leader>fh", run("FzfLua helptags"))
+          kset("n", "<leader>fg", run("FzfLua grep_visual ''"))
+          kset("n", "<leader>fc", run("FzfLua registers ''"))
+          kset("n", "<leader>fb", run("FzfLua buffers ''"))
+          kset("n", "<leader>fd", run("FzfLua lsp_workspace_diagnostics ''"))
+          kset("n", "gr", run("FzfLua lsp_references ''"))
         end
   }
 end
@@ -240,7 +237,7 @@ local function noice_plugin()
     config = function()
       require("noice").setup({
         presets = {
-          command_palette = true, -- position the cmdline and popupmenu together at the top
+          command_palette = true, -- put the command pallete at the top
         },
       })
     end
@@ -343,23 +340,19 @@ local function lspconfig_plugin()
   local function setup_lspconfig()
     -- https://lsp-zero.netlify.app/docs/getting-started.html
     vim.api.nvim_create_autocmd("LspAttach", {
-      desc = "LSP actions",
       callback = function(event)
         local opts = { buffer = event.buf }
 
-        kset("n", "gh", function() vim.cmd("lua vim.lsp.buf.hover()") end, opts)
-        kset("n", "gd", function() vim.cmd("lua vim.lsp.buf.definition()") end, opts)
-        kset("n", "gD", function() vim.cmd("lua vim.lsp.buf.declaration()") end, opts)
-        kset("n", "gi", function() vim.cmd("lua vim.lsp.buf.implementation()") end, opts)
-        kset("n", "go", function() vim.cmd("lua vim.lsp.buf.type_definition()") end, opts)
-        kset("n", "gr", function() vim.cmd("lua vim.lsp.buf.references()") end, opts)
-        kset("n", "gs", function() vim.cmd("lua vim.lsp.buf.signature_help()") end, opts)
-        kset("n", "gR", function() vim.cmd("lua vim.lsp.buf.rename()") end, opts)
-        kset({ "n", "x" },
-          "<F3>",
-          function() vim.cmd("lua vim.lsp.buf.format({async = true})") end,
-          opts)
-        kset("n", "<F4>", function() vim.cmd("lua vim.lsp.buf.code_action()") end, opts)
+        kset("n", "gh", run("lua vim.lsp.buf.hover()"), opts)
+        kset("n", "gd", run("lua vim.lsp.buf.definition()"), opts)
+        kset("n", "gD", run("lua vim.lsp.buf.declaration()"), opts)
+        kset("n", "gi", run("lua vim.lsp.buf.implementation()"), opts)
+        kset("n", "go", run("lua vim.lsp.buf.type_definition()"), opts)
+        kset("n", "gr", run("lua vim.lsp.buf.references()"), opts)
+        kset("n", "gs", run("lua vim.lsp.buf.signature_help()"), opts)
+        kset("n", "gR", run("lua vim.lsp.buf.rename()"), opts)
+        kset("n", "<F3>", run("lua vim.lsp.buf.format({async = true})"), opts)
+        kset("n", "<F4>", run("lua vim.lsp.buf.code_action()"), opts)
       end
     })
 
@@ -375,7 +368,6 @@ local function lspconfig_plugin()
       vim.api.nvim_create_autocmd("BufWritePre", {
         buffer = bufnr,
         group = group,
-        desc = "LSP format on save",
         callback = function()
           -- note: do not enable async formatting
           vim.lsp.buf.format({ async = false, timeout_ms = 10000 })
@@ -460,16 +452,34 @@ end
 -------------------------------------------------------------------------------
 
 local function gitsigns_plugin()
+  local function gitsigns_visual_op(op)
+    return function()
+      return require('gitsigns')[op]({ vim.fn.line("."), vim.fn.line("v") })
+    end
+  end
+
+  local function do_and_center(op)
+    return function()
+      vim.cmd(op)
+      local hunks = require("gitsigns").get_hunks()
+      if hunks and #hunks > 0 then vim.cmd('normal! zz') end
+    end
+  end
+
   return {
     "lewis6991/gitsigns.nvim",
     config = function()
       require("gitsigns").setup()
-      kset("n", "[c", function()
-        vim.cmd("Gitsigns prev_hunk && normal! zz")
-      end, { desc = "Go to next hunk", silent = true })
-      kset("n", "]c", function()
-        vim.cmd("Gitsigns next_hunk && normal! zz")
-      end, { desc = "Go to next hunk", silent = true })
+      kset("n", "[c", do_and_center('Gitsigns prev_hunk'))
+      kset("n", "]c", do_and_center('Gitsigns next_hunk'))
+      kset("n", "<leader>gi", run('Gitsigns preview_hunk_inline'))
+      kset("n", "<leader>gp", run('Gitsigns preview_hunk'))
+      kset("n", "<leader>gr", run('Gitsigns reset_hunk'))
+      kset("n", "<leader>gs", run('Gitsigns stage_hunk'))
+      kset("n", "<leader>gu", run('Gitsigns undo_stage_hunk'))
+      kset("v", "<leader>gr", gitsigns_visual_op("reset_hunk"))
+      kset("v", "<leader>gs", gitsigns_visual_op("stage_hunk"))
+      kset("v", "<leader>gu", gitsigns_visual_op("undo_stage_hunk"))
     end
   }
 end
