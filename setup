@@ -19,4 +19,3 @@ git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "${
 git clone --depth=1 https://github.com/paulirish/git-open.git "${ZSH}/custom/plugins/git-open"
 git clone --depth=1 https://github.com/jaymody/zsh-autoswitch-virtualenv.git "${ZSH}/custom/plugins/autoswitch_virtualenv"
 git clone --depth=1 https://github.com/ziglang/shell-completions "${ZSH}/custom/plugins/zig-shell-completions"
-git clone --depth=1 https://github.com/joshskidmore/zsh-fzf-history-search.git "${ZSH}/custom/plugins/zsh-fzf-history-search"

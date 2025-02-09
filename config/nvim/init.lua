@@ -26,17 +26,36 @@ local function setup_options()
 
   vim.opt.shortmess:append("I")     -- don't show neovim splash screen message
 
+  vim.opt.colorcolumn = "80"        -- show ruler at col 80
+
+  vim.opt.termguicolors = true      -- idk a lot of ppl have this in their .vimrc
+
+  -- better indenting
+  vim.opt.autoindent = true
+  vim.opt.smartindent = true
+
   -- reserve a space in the gutter
   -- this avoids the annoying layout shift when stuff pops in/out of the gutter
   vim.opt.signcolumn = "yes"
 
+  -- diagnostics
   vim.diagnostic.config({
-    update_in_insert = true, -- show diagnostics in insert mode
-    underline = true         -- underline location of diagnostics
+    update_in_insert = false,
+    underline = true
   })
 
   -- large scrollback buffer for :terminal sessions
   vim.g.terminal_scrollback_buffer_size = 100000
+
+  -- use persistent undo and remove swap files
+  local undo_dir = "/tmp/.nvim-undo-dir"
+  vim.opt.swapfile = false
+  vim.opt.backup = false
+  vim.opt.undofile = true
+  if vim.fn.isdirectory(undo_dir) == 0 then
+    vim.fn.mkdir(undo_dir, "", "0700")
+  end
+  vim.opt.undodir = undo_dir
 end
 
 -------------
@@ -51,21 +70,22 @@ local function setup_keymaps()
   kset("n", "/", "ms/", { noremap = true })
 
   -- scroll up/down
-  kset({ "n", "v" }, "<C-k>", "<C-y>", { noremap = true, silent = true }, { desc = "Scroll up" })
-  kset({ "n", "v" }, "<C-j>", "<C-e>", { noremap = true, silent = true }, { desc = "Scroll down" })
+  kset({ "n", "v" }, "<C-k>", "<C-y>", { noremap = true, silent = true })
+  kset({ "n", "v" }, "<C-j>", "<C-e>", { noremap = true, silent = true })
 
   -- indent/dedent
-  kset("n", ">", ">>", { noremap = true, silent = true }, { desc = "Indent" })
-  kset("n", "<", "<<", { noremap = true, silent = true }, { desc = "Dedent" })
-  kset("v", ">", ">gv", { noremap = true, silent = true }, { desc = "Indent" })
-  kset("v", "<", "<gv", { noremap = true, silent = true }, { desc = "Dedent" })
+  kset("n", ">", ">>", { noremap = true, silent = true })
+  kset("n", "<", "<<", { noremap = true, silent = true })
+  kset("v", ">", ">gv", { noremap = true, silent = true })
+  kset("v", "<", "<gv", { noremap = true, silent = true })
 
-  -- select all
-  kset("n", "<leader>a", "ggVG", { remap = false }, { desc = "Select all" })
+  -- stop pasting in visual from overriding you're yank register
+  kset("v", "p", "\"_dp", { noremap = true, silent = true })
+  kset("v", "P", "\"_dP", { noremap = true, silent = true })
 
   -- buffer stuff
-  kset("n", "<leader>s", function() vim.cmd("update") end, { desc = "Save buffer" })
-  kset("n", "<leader>cq", function() vim.cmd("quitall!") end, { desc = "Force quit all" })
+  kset("n", "<leader>s", function() vim.cmd("update") end)
+  kset("n", "<leader>cq", function() vim.cmd("quitall!") end)
 
   kset({ "n", "i", "v" }, "<C-w><C-c>", function()
     local buf = vim.api.nvim_get_current_buf()
@@ -84,19 +104,18 @@ local function setup_keymaps()
     -- if there exists another buffer, switch to it else
     vim.cmd('buffer #') -- Switch to the alternate buffer
     vim.cmd('bdelete ' .. buf)
-  end, { noremap = true }, { desc = "Close buffer" })
+  end, { noremap = true })
 
   -- init.lua stuff
-  kset("n", "<leader>cc", function() vim.cmd("e ~/.config/nvim/init.lua") end, { desc = "Go to init.lua" })
-  kset("n", "<leader>cr", function() vim.cmd("luafile ~/.config/nvim/init.lua") end,
-    { desc = "Reload init.lua" })
+  kset("n", "<leader>cc", function() vim.cmd("e ~/.config/nvim/init.lua") end)
+  kset("n", "<leader>cr", function() vim.cmd("luafile ~/.config/nvim/init.lua") end)
 
   -- toggle case sensitivity
   kset("n", "<leader>cs", function()
     vim.o.ignorecase = not vim.o.ignorecase
     vim.o.smartcase = not vim.o.smartcase
     print("Case Sensitivity: " .. (vim.o.ignorecase and "Off" or "On"))
-  end, { desc = "Toggle case sensitivity for search" })
+  end)
 
   -- toggle cursor/line column
   kset("n", "<leader>cl", function()
@@ -107,13 +126,13 @@ local function setup_keymaps()
       vim.wo.cursorline = true
       vim.wo.cursorcolumn = true
     end
-  end, { desc = "Toggle cursorline and cursorcolumn" })
+  end)
 
   -- window navigation
-  kset({ "n", "v" }, "<C-1>", "<Esc>1<C-w>w", { noremap = true }, { desc = "Focus window 1" })
-  kset({ "n", "v" }, "<C-2>", "<Esc>2<C-w>w", { noremap = true }, { desc = "Focus window 2" })
-  kset({ "n", "v" }, "<C-3>", "<Esc>3<C-w>w", { noremap = true }, { desc = "Focus window 3" })
-  kset({ "n", "v" }, "<C-4>", "<Esc>4<C-w>w", { noremap = true }, { desc = "Focus window 4" })
+  kset({ "n", "v" }, "<C-1>", "<Esc>1<C-w>w", { noremap = true })
+  kset({ "n", "v" }, "<C-2>", "<Esc>2<C-w>w", { noremap = true })
+  kset({ "n", "v" }, "<C-3>", "<Esc>3<C-w>w", { noremap = true })
+  kset({ "n", "v" }, "<C-4>", "<Esc>4<C-w>w", { noremap = true })
 end
 
 --------------------
@@ -125,6 +144,14 @@ local function setup_autocommands()
     pattern = "help",
     callback = function()
       vim.cmd("wincmd L")
+    end,
+  })
+
+  -- highlight yanked contents
+  vim.api.nvim_create_autocmd("TextYankPost", {
+    pattern = "*",
+    callback = function()
+      vim.highlight.on_yank { higroup = "Visual", timeout = 20 }
     end,
   })
 end
@@ -144,14 +171,14 @@ local function harpoon_plugin()
       local harpoon = require("harpoon")
       harpoon:setup()
 
-      kset("n", "<C-g>j", function() harpoon:list():replace_at(1) end, { desc = "Go to Harpoon 1" })
-      kset("n", "<C-g>k", function() harpoon:list():replace_at(2) end, { desc = "Go to Harpoon 2" })
-      kset("n", "<C-g>l", function() harpoon:list():replace_at(3) end, { desc = "Go to Harpoon 3" })
-      kset("n", "<C-g>;", function() harpoon:list():replace_at(4) end, { desc = "Go to Harpoon 4" })
-      kset("n", "<C-g><C-j>", function() harpoon:list():select(1) end, { desc = "Set Harpoon 1" })
-      kset("n", "<C-g><C-k>", function() harpoon:list():select(2) end, { desc = "Set Harpoon 2" })
-      kset("n", "<C-g><C-l>", function() harpoon:list():select(3) end, { desc = "Set Harpoon 3" })
-      kset("n", "<C-g><C-;>", function() harpoon:list():select(4) end, { desc = "Set Harpoon 4" })
+      kset("n", "<C-g>j", function() harpoon:list():replace_at(1) end)
+      kset("n", "<C-g>k", function() harpoon:list():replace_at(2) end)
+      kset("n", "<C-g>l", function() harpoon:list():replace_at(3) end)
+      kset("n", "<C-g>;", function() harpoon:list():replace_at(4) end)
+      kset("n", "<C-g><C-j>", function() harpoon:list():select(1) end)
+      kset("n", "<C-g><C-k>", function() harpoon:list():select(2) end)
+      kset("n", "<C-g><C-l>", function() harpoon:list():select(3) end)
+      kset("n", "<C-g><C-;>", function() harpoon:list():select(4) end)
     end
   }
 end
@@ -165,7 +192,14 @@ local function treesitter_plugin()
       require("nvim-treesitter.configs").setup({
         ensure_installed = { "c", "rust", "ocaml", "lua", "javascript", "typescript", "python", "json", "css", "html" },
         highlight = { enable = true },
-        indent = { enable = true }
+        indent = { enable = true },
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            node_incremental = "v",
+            node_decremental = "V"
+          }
+        }
       })
     end
   }
@@ -179,21 +213,18 @@ local function fzf_lua_plugin()
     dependencies = { "junegunn/fzf", "nvim-tree/nvim-web-devicons" },
     config =
         function()
-          kset({ "n", "v" }, "<leader>ff", function() vim.cmd("FzfLua files") end, { desc = "Files" })
-          kset({ "n", "v" }, "<leader>fo", function() vim.cmd("FzfLua oldfiles") end, { desc = "Old Files" })
-          kset({ "n", "v" }, "<leader>fs", function() vim.cmd("FzfLua lsp_document_symbols ''") end,
-            { desc = "Symbols in file" })
-          kset({ "n", "v" }, "<leader>fS", function() vim.cmd("FzfLua lsp_workspace_symbols ''") end,
-            { desc = "Symbols in workspace" })
-          kset("n", "<leader>fj", function() vim.cmd("FzfLua jumps") end, { desc = "Jumps" })
-          kset("n", "<leader>fz", function() vim.cmd("FzfLua") end, { desc = "Fzf" })
-          kset("n", "<leader>fh", function() vim.cmd("FzfLua helptags") end, { desc = "Help" })
-          kset("n", "<leader>fg", function() vim.cmd("FzfLua grep_visual ''") end, { desc = "Grep" })
-          kset("n", "<leader>fc", function() vim.cmd("FzfLua registers ''") end, { desc = "Registers" })
-          kset("n", "<leader>fb", function() vim.cmd("FzfLua buffers ''") end, { desc = "Buffers" })
-          kset("n", "<leader>fd", function() vim.cmd("FzfLua lsp_workspace_diagnostics ''") end,
-            { desc = "Problems in workspace" })
-          kset("n", "gr", function() vim.cmd("FzfLua lsp_references ''") end, { desc = "References" })
+          kset("n", "<leader>ff", function() vim.cmd("FzfLua files") end)
+          kset("n", "<leader>fo", function() vim.cmd("FzfLua oldfiles") end)
+          kset("n", "<leader>fs", function() vim.cmd("FzfLua lsp_document_symbols ''") end)
+          kset("n", "<leader>fS", function() vim.cmd("FzfLua lsp_workspace_symbols ''") end)
+          kset("n", "<leader>fj", function() vim.cmd("FzfLua jumps") end)
+          kset("n", "<leader>fz", function() vim.cmd("FzfLua") end)
+          kset("n", "<leader>fh", function() vim.cmd("FzfLua helptags") end)
+          kset("n", "<leader>fg", function() vim.cmd("FzfLua grep_visual ''") end)
+          kset("n", "<leader>fc", function() vim.cmd("FzfLua registers ''") end)
+          kset("n", "<leader>fb", function() vim.cmd("FzfLua buffers ''") end)
+          kset("n", "<leader>fd", function() vim.cmd("FzfLua lsp_workspace_diagnostics ''") end)
+          kset("n", "gr", function() vim.cmd("FzfLua lsp_references ''") end)
         end
   }
 end
@@ -329,7 +360,7 @@ local function lspconfig_plugin()
           function() vim.cmd("lua vim.lsp.buf.format({async = true})") end,
           opts)
         kset("n", "<F4>", function() vim.cmd("lua vim.lsp.buf.code_action()") end, opts)
-      end,
+      end
     })
 
     --------------------
@@ -434,12 +465,10 @@ local function gitsigns_plugin()
     config = function()
       require("gitsigns").setup()
       kset("n", "[c", function()
-        vim.cmd("Gitsigns prev_hunk")
-        vim.cmd("normal! zz")
+        vim.cmd("Gitsigns prev_hunk && normal! zz")
       end, { desc = "Go to next hunk", silent = true })
       kset("n", "]c", function()
-        vim.cmd("Gitsigns next_hunk")
-        vim.cmd("normal! zz")
+        vim.cmd("Gitsigns next_hunk && normal! zz")
       end, { desc = "Go to next hunk", silent = true })
     end
   }
@@ -484,8 +513,8 @@ local function setup_plugins()
       lspconfig_plugin(),
       gitsigns_plugin(),
       readline_plugin(),
-      { "EdenEast/nightfox.nvim" },
-      { "navarasu/onedark.nvim" }
+      { "tpope/vim-surround" },
+      { "EdenEast/nightfox.nvim" }
     }
   })
 end
@@ -498,8 +527,7 @@ local function main()
   setup_keymaps()
   setup_autocommands()
   setup_plugins()
-  require('onedark').load()
-  vim.cmd.colorscheme("onedark")
+  vim.cmd.colorscheme("nordfox")
 end
 
 main()
