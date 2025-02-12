@@ -3,10 +3,28 @@
 ----------------------------------
 
 local kset = vim.keymap.set
+
 local function run(cmd)
   return function()
     vim.cmd(cmd)
   end
+end
+
+local function get_floating_window_rect(width_ratio, height_ratio)
+  local screen_width = vim.opt.columns:get()
+  local screen_height = vim.opt.lines:get() - vim.opt.cmdheight:get()
+
+  local width = screen_width * width_ratio
+  local height = screen_height * height_ratio
+  local center_x = (screen_width - width) / 2
+  local center_y = (screen_height - height) / 2
+
+  return {
+    center_x = math.floor(center_x),
+    center_y = math.floor(center_y),
+    width = math.floor(width),
+    height = math.floor(height),
+  }
 end
 
 ---------------
@@ -14,7 +32,7 @@ end
 ---------------
 
 local function setup_options()
-  vim.g.editorconfig = true         -- use editrconfig settings
+  vim.g.editorconfig = true         -- use editorconfig settings
 
   vim.opt.number = true             -- show line numbers
   vim.opt.relativenumber = true     -- use relative line numbers
@@ -32,14 +50,6 @@ local function setup_options()
   vim.opt.wrap = false              -- don't wrap lines
 
   vim.opt.shortmess:append("I")     -- don't show neovim splash screen message
-
-  vim.opt.colorcolumn = "80"        -- show ruler at col 80
-
-  vim.opt.termguicolors = true      -- idk a lot of ppl have this in their .vimrc
-
-  -- better indenting
-  vim.opt.autoindent = true
-  vim.opt.smartindent = true
 
   -- reserve a space in the gutter
   -- this avoids the annoying layout shift when stuff pops in/out of the gutter
@@ -67,7 +77,7 @@ end
 local function setup_keymaps()
   -- use C-c as escape, and exit search highlighting on C-c
   kset({ "i", "x" }, "<C-c>", "<Esc>", { noremap = true, silent = true })
-  kset("n", "<C-c>", ":noh<CR><Esc>", { noremap = true, silent = true })
+  kset("n", "<C-c>", ":noh<CR>:NvimTreeClose<CR><Esc>", { noremap = true, silent = true })
 
   -- mark loc before starting a search as s
   kset("n", "/", "ms/", { noremap = true })
@@ -89,7 +99,7 @@ local function setup_keymaps()
   kset("v", ">", ">gv", { noremap = true, silent = true })
   kset("v", "<", "<gv", { noremap = true, silent = true })
 
-  -- stop pasting in visual from overriding you're yank register
+  -- prevent pasting in visual from overriding you're yank register
   kset("v", "p", "\"_dP", { noremap = true, silent = true })
 
   -- don't immediately jump to next thing under cursor when using *
@@ -113,9 +123,11 @@ local function setup_keymaps()
     if vim.wo.cursorline and vim.wo.cursorcolumn then
       vim.wo.cursorline = false
       vim.wo.cursorcolumn = false
+      vim.opt.colorcolumn = ""
     else
       vim.wo.cursorline = true
       vim.wo.cursorcolumn = true
+      vim.opt.colorcolumn = "80"
     end
   end)
 
@@ -139,9 +151,7 @@ local function setup_autocommands()
   -- open help windows on a rightmost split
   vim.api.nvim_create_autocmd("FileType", {
     pattern = "help",
-    callback = function()
-      vim.cmd("wincmd L")
-    end,
+    callback = run("wincmd L"),
   })
 
   -- highlight yanked contents
@@ -159,35 +169,12 @@ end
 
 -------------------------------------------------------------------------------
 
-local function harpoon_plugin()
-  return {
-    "ThePrimeagen/harpoon",
-    branch = "harpoon2",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      local harpoon = require("harpoon")
-      harpoon:setup()
-
-      kset("n", "<C-g>j", function() harpoon:list():replace_at(1) end)
-      kset("n", "<C-g>k", function() harpoon:list():replace_at(2) end)
-      kset("n", "<C-g>l", function() harpoon:list():replace_at(3) end)
-      kset("n", "<C-g>;", function() harpoon:list():replace_at(4) end)
-      kset("n", "<C-g><C-j>", function() harpoon:list():select(1) end)
-      kset("n", "<C-g><C-k>", function() harpoon:list():select(2) end)
-      kset("n", "<C-g><C-l>", function() harpoon:list():select(3) end)
-      kset("n", "<C-g><C-;>", function() harpoon:list():select(4) end)
-    end
-  }
-end
-
--------------------------------------------------------------------------------
-
 local function treesitter_plugin()
   return {
     "nvim-treesitter/nvim-treesitter",
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = { "c", "rust", "ocaml", "lua", "javascript", "typescript", "python", "json", "css", "html" },
+        ensure_installed = { "c", "rust", "ocaml", "lua", "javascript", "typescript", "python", "json", "css", "html", "zig" },
         highlight = { enable = true },
         indent = { enable = true },
         incremental_selection = {
@@ -206,7 +193,7 @@ end
 
 local function fzf_lua_plugin()
   return {
-    "fzf-lua",
+    "ibhagwan/fzf-lua",
     dependencies = { "junegunn/fzf", "nvim-tree/nvim-web-devicons" },
     config =
         function()
@@ -486,6 +473,35 @@ end
 
 -------------------------------------------------------------------------------
 
+local function nvim_tree_plugin()
+  return {
+    "nvim-tree/nvim-tree.lua",
+    config = function()
+      kset("n", "<leader>e", run("NvimTreeFindFileToggle!"))
+      kset("n", "<leader>E", run("NvimTreeToggle"))
+
+      require("nvim-tree").setup({
+        view = {
+          float = {
+            enable = true,
+            open_win_config = function()
+              local rect = get_floating_window_rect(0.5, 0.8)
+              return {
+                border = "rounded",
+                relative = "editor",
+                row = rect["center_y"],
+                col = rect["center_x"],
+                width = rect["width"],
+                height = rect["height"],
+              }
+            end
+          },
+        }
+      })
+    end
+  }
+end
+
 ------------
 --- main ---
 ------------
@@ -516,13 +532,13 @@ end
 local function setup_plugins()
   require("lazy").setup({
     spec = {
-      harpoon_plugin(),
       treesitter_plugin(),
       fzf_lua_plugin(),
       noice_plugin(),
       lspconfig_plugin(),
       gitsigns_plugin(),
       readline_plugin(),
+      nvim_tree_plugin(),
       { "tpope/vim-surround" },
       { "EdenEast/nightfox.nvim" }
     }
