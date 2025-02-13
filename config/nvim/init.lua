@@ -51,15 +51,11 @@ local function setup_options()
 
   vim.opt.shortmess:append("I")     -- don't show neovim splash screen message
 
+  vim.opt.confirm = true            -- confirm rather than failing for :q on unsaved changes
+
   -- reserve a space in the gutter
   -- this avoids the annoying layout shift when stuff pops in/out of the gutter
   vim.opt.signcolumn = "yes"
-
-  -- diagnostics
-  vim.diagnostic.config({
-    update_in_insert = false,
-    underline = true
-  })
 
   -- use persistent undo and remove swap files
   local undo_dir = "/tmp/.nvim-undo-dir"
@@ -76,8 +72,8 @@ end
 
 local function setup_keymaps()
   -- use C-c as escape, and exit search highlighting on C-c
-  kset({ "i", "x" }, "<C-c>", "<Esc>", { noremap = true, silent = true })
-  kset("n", "<C-c>", ":noh<CR>:NvimTreeClose<CR><Esc>", { noremap = true, silent = true })
+  kset({ "i", "x" }, "<C-c>", "<Esc>:up<CR>", { noremap = true, silent = true })
+  kset("n", "<C-c>", ":noh<CR>:NvimTreeClose<CR>:up<CR><Esc>", { noremap = true, silent = true })
 
   -- mark loc before starting a search as s
   kset("n", "/", "ms/", { noremap = true })
@@ -110,7 +106,6 @@ local function setup_keymaps()
   kset("n", "<leader>cc", run("e ~/.config/nvim/init.lua"))
   kset("n", "<leader>cr", run("luafile ~/.config/nvim/init.lua"))
 
-
   -- toggle case sensitivity
   kset("n", "<leader>cs", function()
     vim.o.ignorecase = not vim.o.ignorecase
@@ -134,13 +129,7 @@ local function setup_keymaps()
   -- when exiting visual mode, return back to the place where it was started
   vim.keymap.set('n', 'v', 'mvv', { noremap = true })
   vim.keymap.set('n', 'V', 'mvV', { noremap = true })
-  vim.keymap.set('v', '<C-c>', "<Esc>`v", { noremap = true, silent = true })
-
-  -- window navigation
-  kset({ "n", "v" }, "<C-1>", "<Esc>1<C-w>w", { noremap = true })
-  kset({ "n", "v" }, "<C-2>", "<Esc>2<C-w>w", { noremap = true })
-  kset({ "n", "v" }, "<C-3>", "<Esc>3<C-w>w", { noremap = true })
-  kset({ "n", "v" }, "<C-4>", "<Esc>4<C-w>w", { noremap = true })
+  vim.keymap.set('v', '<C-c>', "<Esc>`v:up<CR>", { noremap = true, silent = true })
 end
 
 --------------------
@@ -176,7 +165,6 @@ local function treesitter_plugin()
       require("nvim-treesitter.configs").setup({
         ensure_installed = { "c", "rust", "ocaml", "lua", "javascript", "typescript", "python", "json", "css", "html", "zig" },
         highlight = { enable = true },
-        indent = { enable = true },
         incremental_selection = {
           enable = true,
           keymaps = {
@@ -204,11 +192,12 @@ local function fzf_lua_plugin()
           kset("n", "<leader>fj", run("FzfLua jumps"))
           kset("n", "<leader>fz", run("FzfLua"))
           kset("n", "<leader>fh", run("FzfLua helptags"))
-          kset("n", "<leader>fg", run("FzfLua grep_visual ''"))
+          kset("n", "<leader>fg", run("FzfLua grep_project"))
           kset("n", "<leader>fc", run("FzfLua registers ''"))
           kset("n", "<leader>fb", run("FzfLua buffers ''"))
           kset("n", "<leader>fd", run("FzfLua lsp_workspace_diagnostics ''"))
           kset("n", "gr", run("FzfLua lsp_references ''"))
+          kset("n", "ga", run("FzfLua lsp_code_actions ''"))
         end
   }
 end
@@ -233,113 +222,143 @@ end
 
 -------------------------------------------------------------------------------
 
+local function cmp_plugin()
+  return {
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      "L3MON4D3/LuaSnip",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline"
+    },
+
+    config =
+        function()
+          local cmp = require("cmp")
+
+          local function make_mapping()
+            IN_CMP = false
+            local next_item = function(fallback)
+              if cmp.visible() then
+                IN_CMP = true
+                cmp.select_next_item()
+              else
+                cmp.abort()
+                fallback()
+              end
+            end
+            local prev_item = function(fallback)
+              if cmp.visible() then
+                IN_CMP = true
+                cmp.select_prev_item()
+              else
+                cmp.abort()
+                fallback()
+              end
+            end
+            local select_item = function(fallback)
+              if IN_CMP then
+                IN_CMP = false
+                cmp.confirm()
+              else
+                cmp.abort()
+                fallback()
+              end
+            end
+            local cancel_cmp = function(fallback)
+              if cmp.visible() then
+                IN_CMP = false
+                cmp.abort()
+              else
+                fallback()
+              end
+            end
+
+            return next_item, prev_item, select_item, cancel_cmp
+          end
+
+          local mapping = (function()
+            local next_item, prev_item, select_item, cancel_cmp = make_mapping()
+            return {
+              ["<Tab>"] = { i = next_item },
+              ["<S-Tab>"] = { i = prev_item },
+              ["<CR>"] = { i = select_item },
+              ["<C-BS>"] = { i = cancel_cmp },
+            }
+          end)()
+
+          local mapping_cmdline = (function()
+            local next_item, prev_item, select_item, cancel_cmp = make_mapping()
+            return {
+              ["<Tab>"] = { c = next_item },
+              ["<S-Tab>"] = { c = prev_item },
+              ["<CR>"] = { c = select_item },
+              ["<C-BS>"] = { c = cancel_cmp },
+            }
+          end)()
+
+          cmp.setup({
+            snippet = {
+              expand = function(args)
+                -- NOTE: with nvim v0.10, we can get rid of luasnip and just use
+                -- vim.snippet.expand(args.body), but I'm using luasnip here since
+                -- I may need to use older versions of nvim
+                require("luasnip").lsp_expand(args.body)
+              end,
+            },
+            mapping = mapping,
+            sources = cmp.config.sources({
+              { name = "nvim_lsp" },
+              { name = "path" },
+            }),
+          })
+
+          cmp.setup.cmdline({ "/", "?" }, {
+            mapping = mapping_cmdline,
+            sources = { { name = "buffer" } },
+          })
+
+          cmp.setup.cmdline(":", {
+            mapping = mapping_cmdline,
+            sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
+            matching = { disallow_symbol_nonprefix_matching = false },
+          })
+        end
+  }
+end
+
+-------------------------------------------------------------------------------
+
 local function lspconfig_plugin()
-  local function setup_cmp()
-    local cmp = require("cmp")
-
-    local function make_mapping()
-      IN_CMP = false
-      local next_item = function(fallback)
-        if cmp.visible() then
-          IN_CMP = true
-          cmp.select_next_item()
-        else
-          cmp.abort()
-          fallback()
-        end
-      end
-      local prev_item = function(fallback)
-        if cmp.visible() then
-          IN_CMP = true
-          cmp.select_prev_item()
-        else
-          cmp.abort()
-          fallback()
-        end
-      end
-      local select_item = function(fallback)
-        if IN_CMP then
-          IN_CMP = false
-          cmp.confirm()
-        else
-          cmp.abort()
-          fallback()
-        end
-      end
-      local cancel_cmp = function(fallback)
-        if cmp.visible() then
-          IN_CMP = false
-          cmp.abort()
-        else
-          fallback()
-        end
-      end
-
-      return next_item, prev_item, select_item, cancel_cmp
-    end
-
-    local mapping = (function()
-      local next_item, prev_item, select_item, cancel_cmp = make_mapping()
-      return {
-        ["<Tab>"] = { i = next_item },
-        ["<S-Tab>"] = { i = prev_item },
-        ["<CR>"] = { i = select_item },
-        ["<C-BS>"] = { i = cancel_cmp },
-      }
-    end)()
-
-    local mapping_cmdline = (function()
-      local next_item, prev_item, select_item, cancel_cmp = make_mapping()
-      return {
-        ["<Tab>"] = { c = next_item },
-        ["<S-Tab>"] = { c = prev_item },
-        ["<CR>"] = { c = select_item },
-        ["<C-BS>"] = { c = cancel_cmp },
-      }
-    end)()
-
-    cmp.setup({
-      snippet = {
-        -- REQUIRED, a snippet engine must be set
-        expand = function(args)
-          vim.snippet.expand(args.body)
-        end,
-      },
-      mapping = mapping,
-      sources = cmp.config.sources({
-        { name = "nvim_lsp" },
-        { name = "path" },
-      }),
-    })
-
-    cmp.setup.cmdline({ "/", "?" }, {
-      mapping = mapping_cmdline,
-      sources = { { name = "buffer" } },
-    })
-
-    cmp.setup.cmdline(":", {
-      mapping = mapping_cmdline,
-      sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
-      matching = { disallow_symbol_nonprefix_matching = false },
-    })
-  end
-
   local function setup_lspconfig()
     -- https://lsp-zero.netlify.app/docs/getting-started.html
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(event)
         local opts = { buffer = event.buf }
 
-        kset("n", "gh", run("lua vim.lsp.buf.hover()"), opts)
+        kset("n", "gh",
+          function()
+            vim.lsp.buf.hover()
+            vim.diagnostic.open_float(0, { scope = "cursor" })
+          end, opts)
+
+        kset("n", "]d",
+          function()
+            vim.diagnostic.goto_next({ wrap = true, float = true })
+          end, opts)
+
+        kset("n", "[d",
+          function()
+            vim.diagnostic.goto_prev({ wrap = true, float = true })
+          end, opts)
+
         kset("n", "gd", run("lua vim.lsp.buf.definition()"), opts)
         kset("n", "gD", run("lua vim.lsp.buf.declaration()"), opts)
         kset("n", "gi", run("lua vim.lsp.buf.implementation()"), opts)
         kset("n", "go", run("lua vim.lsp.buf.type_definition()"), opts)
-        kset("n", "gr", run("lua vim.lsp.buf.references()"), opts)
         kset("n", "gs", run("lua vim.lsp.buf.signature_help()"), opts)
         kset("n", "gR", run("lua vim.lsp.buf.rename()"), opts)
         kset("n", "<F3>", run("lua vim.lsp.buf.format({async = true})"), opts)
-        kset("n", "<F4>", run("lua vim.lsp.buf.code_action()"), opts)
       end
     })
 
@@ -375,15 +394,30 @@ local function lspconfig_plugin()
         end
       end,
     })
+
+    -- diagnostics
+    vim.diagnostic.config({
+      signs = false,
+      virtual_text = false,
+      float = true,
+      update_in_insert = false,
+      underline = true
+    })
   end
 
   local function setup_lsp_servers()
-    local capabilities = require("cmp_nvim_lsp").default_capabilities()
+    local lspconfig_defaults = require('lspconfig').util.default_config
+    lspconfig_defaults.capabilities = vim.tbl_deep_extend(
+      'force',
+      lspconfig_defaults.capabilities,
+      require('cmp_nvim_lsp').default_capabilities()
+    )
+
     local lsp = require("lspconfig")
-    lsp.ocamllsp.setup({ capabilities = capabilities })
-    lsp.ruff.setup({ capabilities = capabilities })
-    lsp.rust_analyzer.setup({ capabilities = capabilities })
-    lsp.lua_ls.setup({ capabilities = capabilities, settings = { Lua = { diagnostics = { globals = { "vim" } } } } })
+    lsp.ocamllsp.setup({})
+    lsp.ruff.setup({})
+    lsp.rust_analyzer.setup({})
+    lsp.lua_ls.setup({ settings = { Lua = { diagnostics = { globals = { "vim" } } } } })
   end
 
   local function setup_mason()
@@ -395,14 +429,10 @@ local function lspconfig_plugin()
     dependencies = {
       "hrsh7th/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline",
       "williamboman/mason.nvim"
     },
     config = function()
       setup_lspconfig()
-      setup_cmp()
       setup_lsp_servers()
       setup_mason()
     end
@@ -532,15 +562,16 @@ end
 local function setup_plugins()
   require("lazy").setup({
     spec = {
-      treesitter_plugin(),
-      fzf_lua_plugin(),
-      noice_plugin(),
-      lspconfig_plugin(),
-      gitsigns_plugin(),
-      readline_plugin(),
-      nvim_tree_plugin(),
+      treesitter_plugin(), -- syntax highlighting
+      fzf_lua_plugin(),    -- search
+      noice_plugin(),      -- I like the command pallete at the top
+      cmp_plugin(),        -- completions popup
+      lspconfig_plugin(),  -- lsp and completions
+      gitsigns_plugin(),   -- git gutter and hunk manipulation/navigation
+      readline_plugin(),   -- emacs like bindings for basic text stuff
+      nvim_tree_plugin(),  -- file explorer because :Ex is very feature poor
+      { "EdenEast/nightfox.nvim" },
       { "tpope/vim-surround" },
-      { "EdenEast/nightfox.nvim" }
     }
   })
 end
