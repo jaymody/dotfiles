@@ -1,0 +1,39 @@
+[env]
+TERM = "xterm-256color"
+
+[window]
+title = "terminal"
+option_as_alt = "OnlyLeft"
+
+[font]
+size = 20.0
+normal = { family = "Hack Nerd Font Mono", style = "Regular" }
+
+[scrolling]
+history = 100000
+
+### One Dark Color Theme ###
+# https://github.com/alacritty/alacritty-theme/blob/14794c3cc2dc1b4649f8b9b79a8833d2ce5bfd60/themes/one_dark.toml
+[colors.primary]
+background = '#282c34'
+foreground = '#abb2bf'
+
+[colors.normal]
+black   = '#1e2127'
+red     = '#e06c75'
+green   = '#98c379'
+yellow  = '#d19a66'
+blue    = '#61afef'
+magenta = '#c678dd'
+cyan    = '#56b6c2'
+white   = '#abb2bf'
+
+[colors.bright]
+black   = '#5c6370'
+red     = '#e06c75'
+green   = '#98c379'
+yellow  = '#d19a66'
+blue    = '#61afef'
+magenta = '#c678dd'
+cyan    = '#56b6c2'
+white   = '#ffffff'

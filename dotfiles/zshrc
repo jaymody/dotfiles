@@ -1,10 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 function command_exists {
     command -v "$1" >/dev/null 2>&1
 }
@@ -68,12 +61,6 @@ function setup_tools {
 
     ### rust ###
     [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
-
-    ### homebrew ###
-    # homebrew isn't added to path by default for m1 macbooks
-    if test -f "/opt/homebrew/bin/brew"; then
-        eval "$(/opt/homebrew/bin/brew shellenv)"
-    fi
 }
 
 function setup_fzf {
@@ -105,16 +92,30 @@ function setup_fzf {
 }
 
 function main {
+    ### homebrew ###
+    # we run this at the very beginning to make sure we have accesss to the
+    # commands we need later on (like tmux)
+    if test -f "/opt/homebrew/bin/brew"; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
+
+    # start tmux
+    # https://github.com/romkatv/powerlevel10k/issues/1203#issuecomment-754805535
+    if command_exists tmux && [ -z "$TMUX" ]; then
+        tmux new-session -A -s main
+    fi
+
+    # powerlevel10k instant prompt, should go near the top of zshrc
+    if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+        source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    fi
+
     setup_zsh
     setup_tools
     setup_fzf
 
     source "${HOME}/.functions"
     source "${HOME}/.aliases"
-
-    if [ -z "$TMUX" ]; then
-        tmux attach -t main || tmux new -s main
-    fi
 }
 
 main
