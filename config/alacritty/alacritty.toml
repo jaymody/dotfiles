@@ -6,7 +6,7 @@ title = "terminal"
 option_as_alt = "OnlyLeft"
 
 [font]
-size = 20.0
+size = 13.0
 normal = { family = "Hack Nerd Font Mono", style = "Regular" }
 
 [scrolling]

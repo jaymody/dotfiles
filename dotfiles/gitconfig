@@ -8,8 +8,8 @@
     s = status -s
 
     # diff
-    d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
-    ds = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --staged --patch-with-stat"
+    d = !"git diff --stat -p"
+    ds = !"git diff --stat -p --staged"
 
     # push
     p = push
@@ -82,7 +82,7 @@
 
 [user]
 
-    name = jaymody
+    name = Jay Mody
     email = jaykmody@gmail.com
 
 [pull]
