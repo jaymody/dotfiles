@@ -32,6 +32,10 @@ end
 ---------------
 
 local function setup_options()
+  -- leader key
+  vim.g.mapleader = " "
+  vim.g.maplocalleader = " "
+
   vim.g.editorconfig = true         -- use editorconfig settings
 
   vim.opt.number = true             -- show line numbers
@@ -72,8 +76,9 @@ end
 
 local function setup_keymaps()
   -- use C-c as escape, and exit search highlighting on C-c
-  kset({ "i", "x" }, "<C-c>", "<Esc>:up<CR>", { noremap = true, silent = true })
-  kset("n", "<C-c>", ":noh<CR>:NvimTreeClose<CR>:up<CR><Esc>", { noremap = true, silent = true })
+  kset({ "i", "x" }, "<C-c>", "<Esc>:lua vim.lsp.buf.format({async = true})<CR>", { noremap = true, silent = true })
+  kset("n", "<C-c>", ":noh<CR>:NvimTreeClose<CR>:lua vim.lsp.buf.format({async = true})<CR><Esc>",
+    { noremap = true, silent = true })
 
   -- mark loc before starting a search as s
   kset("n", "/", "ms/", { noremap = true })
@@ -129,7 +134,7 @@ local function setup_keymaps()
   -- when exiting visual mode, return back to the place where it was started
   vim.keymap.set('n', 'v', 'mvv', { noremap = true })
   vim.keymap.set('n', 'V', 'mvV', { noremap = true })
-  vim.keymap.set('v', '<C-c>', "<Esc>`v:up<CR>", { noremap = true, silent = true })
+  vim.keymap.set('v', '<C-c>', "<Esc>`v:lua vim.lsp.buf.format({async = true})<CR>", { noremap = true, silent = true })
 end
 
 --------------------
@@ -137,17 +142,11 @@ end
 --------------------
 
 local function setup_autocommands()
-  -- open help windows on a rightmost split
-  vim.api.nvim_create_autocmd("FileType", {
-    pattern = "help",
-    callback = run("wincmd L"),
-  })
-
   -- highlight yanked contents
   vim.api.nvim_create_autocmd("TextYankPost", {
     pattern = "*",
     callback = function()
-      vim.highlight.on_yank { higroup = "Visual", timeout = 20 }
+      vim.highlight.on_yank { higroup = "Visual", timeout = 40 }
     end,
   })
 end
@@ -199,24 +198,6 @@ local function fzf_lua_plugin()
           kset("n", "gr", run("FzfLua lsp_references ''"))
           kset("n", "ga", run("FzfLua lsp_code_actions ''"))
         end
-  }
-end
-
--------------------------------------------------------------------------------
-
-local function noice_plugin()
-  return {
-    "folke/noice.nvim",
-    event = "VeryLazy",
-    dependencies = { "MunifTanjim/nui.nvim" },
-    opt = {}, -- idk why, but when I remove this line things break
-    config = function()
-      require("noice").setup({
-        presets = {
-          command_palette = true, -- put the command pallete at the top
-        },
-      })
-    end
   }
 end
 
@@ -552,11 +533,6 @@ local setup_lazy_nvim = function()
     end
   end
   vim.opt.rtp:prepend(lazypath)
-
-  -- setting leader key needs to happen early after setting up lazy_nvim,
-  -- or at least that's what lazy.nvim tells me
-  vim.g.mapleader = " "
-  vim.g.maplocalleader = " "
 end
 
 local function setup_plugins()
@@ -564,14 +540,13 @@ local function setup_plugins()
     spec = {
       treesitter_plugin(), -- syntax highlighting
       fzf_lua_plugin(),    -- search
-      noice_plugin(),      -- I like the command pallete at the top
       cmp_plugin(),        -- completions popup
       lspconfig_plugin(),  -- lsp and completions
       gitsigns_plugin(),   -- git gutter and hunk manipulation/navigation
       readline_plugin(),   -- emacs like bindings for basic text stuff
       nvim_tree_plugin(),  -- file explorer because :Ex is very feature poor
-      { "EdenEast/nightfox.nvim" },
       { "tpope/vim-surround" },
+      { "joshdick/onedark.vim", priority = 1000 }
     }
   })
 end
@@ -584,7 +559,7 @@ local function main()
   setup_keymaps()
   setup_autocommands()
   setup_plugins()
-  vim.cmd.colorscheme("nordfox")
+  vim.cmd.colorscheme("onedark")
 end
 
 main()
