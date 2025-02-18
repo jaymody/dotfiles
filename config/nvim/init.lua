@@ -10,29 +10,11 @@ local function run(cmd)
   end
 end
 
-local function get_floating_window_rect(width_ratio, height_ratio)
-  local screen_width = vim.opt.columns:get()
-  local screen_height = vim.opt.lines:get() - vim.opt.cmdheight:get()
-
-  local width = screen_width * width_ratio
-  local height = screen_height * height_ratio
-  local center_x = (screen_width - width) / 2
-  local center_y = (screen_height - height) / 2
-
-  return {
-    center_x = math.floor(center_x),
-    center_y = math.floor(center_y),
-    width = math.floor(width),
-    height = math.floor(height),
-  }
-end
-
 ---------------
 --- options ---
 ---------------
 
 local function setup_options()
-  -- leader key
   vim.g.mapleader = " "
   vim.g.maplocalleader = " "
 
@@ -57,9 +39,7 @@ local function setup_options()
 
   vim.opt.confirm = true            -- confirm rather than failing for :q on unsaved changes
 
-  -- reserve a space in the gutter
-  -- this avoids the annoying layout shift when stuff pops in/out of the gutter
-  vim.opt.signcolumn = "yes"
+  vim.opt.signcolumn = "yes"        -- always show sign column to avoid it popping in/out
 
   -- use persistent undo and remove swap files
   local undo_dir = "/tmp/.nvim-undo-dir"
@@ -76,14 +56,13 @@ end
 
 local function setup_keymaps()
   -- use C-c as escape, and exit search highlighting on C-c
-  kset({ "i", "x" }, "<C-c>", "<Esc>:lua vim.lsp.buf.format({async = true})<CR>", { noremap = true, silent = true })
-  kset("n", "<C-c>", ":noh<CR>:NvimTreeClose<CR>:lua vim.lsp.buf.format({async = true})<CR><Esc>",
-    { noremap = true, silent = true })
+  kset({ "i", "x" }, "<C-c>", "<Esc>", { noremap = true, silent = true })
+  kset("n", "<C-c>", ":noh<CR><Esc>", { noremap = true, silent = true })
 
   -- mark loc before starting a search as s
   kset("n", "/", "ms/", { noremap = true })
 
-  -- swap ' and `
+  -- swap ' and `, since ` is typically what I want and ' is easier to hit
   kset({ "n", "v" }, "'", "`", { noremap = true })
   kset({ "n", "v" }, "`", "'", { noremap = true })
 
@@ -134,14 +113,8 @@ local function setup_keymaps()
   -- when exiting visual mode, return back to the place where it was started
   vim.keymap.set('n', 'v', 'mvv', { noremap = true })
   vim.keymap.set('n', 'V', 'mvV', { noremap = true })
-  vim.keymap.set('v', '<C-c>', "<Esc>`v:lua vim.lsp.buf.format({async = true})<CR>", { noremap = true, silent = true })
-end
+  vim.keymap.set('v', '<C-c>', "<Esc>`v", { noremap = true, silent = true })
 
---------------------
---- autocommands ---
---------------------
-
-local function setup_autocommands()
   -- highlight yanked contents
   vim.api.nvim_create_autocmd("TextYankPost", {
     pattern = "*",
@@ -162,7 +135,11 @@ local function treesitter_plugin()
     "nvim-treesitter/nvim-treesitter",
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = { "c", "rust", "ocaml", "lua", "javascript", "typescript", "python", "json", "css", "html", "zig" },
+        ensure_installed = {
+          "c", "rust", "ocaml", "lua", "javascript", "typescript",
+          "python", "json", "css", "html", "zig", "markdown", "markdown_inline",
+          "cpp", "toml", "sql"
+        },
         highlight = { enable = true },
         incremental_selection = {
           enable = true,
@@ -312,7 +289,6 @@ end
 
 local function lspconfig_plugin()
   local function setup_lspconfig()
-    -- https://lsp-zero.netlify.app/docs/getting-started.html
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(event)
         local opts = { buffer = event.buf }
@@ -488,27 +464,33 @@ local function nvim_tree_plugin()
   return {
     "nvim-tree/nvim-tree.lua",
     config = function()
-      kset("n", "<leader>e", run("NvimTreeFindFileToggle!"))
-      kset("n", "<leader>E", run("NvimTreeToggle"))
+      local api = require("nvim-tree.api")
 
-      require("nvim-tree").setup({
-        view = {
-          float = {
-            enable = true,
-            open_win_config = function()
-              local rect = get_floating_window_rect(0.5, 0.8)
-              return {
-                border = "rounded",
-                relative = "editor",
-                row = rect["center_y"],
-                col = rect["center_x"],
-                width = rect["width"],
-                height = rect["height"],
-              }
-            end
-          },
-        }
-      })
+      -- open file tree at with the root at the cwd, else open it at the files
+      -- parent dir
+      kset("n", "<leader>e",
+        function()
+          local cwd = vim.fn.getcwd()
+          local file_parent = vim.fn.fnamemodify(vim.fn.expand("%:p"), ":h")
+          local path = file_parent:find(cwd, 1, true) == 1 and cwd or file_parent
+          api.tree.open({
+            path = path,
+            current_window = true,
+            find_file = true
+          })
+        end)
+
+      -- open the tree at the cwd
+      kset("n", "<leader>E",
+        function()
+          api.tree.open({
+            path = vim.fn.getcwd(),
+            current_window = true,
+            find_file = false
+          })
+        end)
+
+      require("nvim-tree").setup({ view = { float = { enable = true } } })
     end
   }
 end
@@ -546,6 +528,7 @@ local function setup_plugins()
       readline_plugin(),   -- emacs like bindings for basic text stuff
       nvim_tree_plugin(),  -- file explorer because :Ex is very feature poor
       { "tpope/vim-surround" },
+      { "tpope/vim-fugitive" },
       { "joshdick/onedark.vim", priority = 1000 }
     }
   })
@@ -557,7 +540,6 @@ local function main()
   setup_lazy_nvim()
   setup_options()
   setup_keymaps()
-  setup_autocommands()
   setup_plugins()
   vim.cmd.colorscheme("onedark")
 end
