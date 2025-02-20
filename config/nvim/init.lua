@@ -18,14 +18,8 @@ local function setup_options()
   vim.g.mapleader = " "
   vim.g.maplocalleader = " "
 
-  vim.g.editorconfig = true         -- use editorconfig settings
-
   vim.opt.number = true             -- show line numbers
-  vim.opt.relativenumber = true     -- use relative line numbers
 
-  vim.opt.mouse = ""                -- disable the mouse
-
-  vim.opt.incsearch = true          -- highlight search matches as you type
   vim.opt.ignorecase = true         -- ignore case in search
   vim.opt.smartcase = true          -- unless the search has a capital
 
@@ -41,13 +35,9 @@ local function setup_options()
 
   vim.opt.signcolumn = "yes"        -- always show sign column to avoid it popping in/out
 
-  -- use persistent undo and remove swap files
-  local undo_dir = "/tmp/.nvim-undo-dir"
-  if vim.fn.isdirectory(undo_dir) == 0 then vim.fn.mkdir(undo_dir, "", "0700") end
-  vim.opt.swapfile = false
-  vim.opt.backup = false
-  vim.opt.undofile = true
-  vim.opt.undodir = undo_dir
+  vim.opt.cursorline = true         -- highlight the line the cursor is on
+
+  vim.opt.undofile = true           -- persist undos
 end
 
 -------------
@@ -55,71 +45,44 @@ end
 -------------
 
 local function setup_keymaps()
-  -- use C-c as escape, and exit search highlighting on C-c
-  kset({ "i", "x" }, "<C-c>", "<Esc>", { noremap = true, silent = true })
-  kset("n", "<C-c>", ":noh<CR><Esc>", { noremap = true, silent = true })
-
-  -- mark loc before starting a search as s
-  kset("n", "/", "ms/", { noremap = true })
-
-  -- swap ' and `, since ` is typically what I want and ' is easier to hit
-  kset({ "n", "v" }, "'", "`", { noremap = true })
-  kset({ "n", "v" }, "`", "'", { noremap = true })
+  -- use <C-c> as <Esc>
+  kset({ "i", "c", "n", "v" }, "<C-c>", "<Esc>", { remap = true })
 
   -- scroll up/down
-  kset({ "n", "v" }, "<C-k>", "<C-y>", { noremap = true, silent = true })
-  kset({ "n", "v" }, "<C-j>", "<C-e>", { noremap = true, silent = true })
+  kset({ "n", "v" }, "<C-j>", "<C-e>")
+  kset({ "n", "v" }, "<C-k>", "<C-y>")
 
-  -- better pasting (paste yanked text below in new line with indenting)
-  kset('n', '<leader>p', 'o<Esc>p`[v`]=<Esc>`]', { noremap = true, silent = true })
+  -- clear highlighting when pressing <Esc> in normal mode
+  kset("n", "<Esc>", ":noh<CR><C-c>")
 
-  -- indent/dedent
-  kset("n", ">", ">>", { noremap = true, silent = true })
-  kset("n", "<", "<<", { noremap = true, silent = true })
-  kset("v", ">", ">gv", { noremap = true, silent = true })
-  kset("v", "<", "<gv", { noremap = true, silent = true })
-
-  -- prevent pasting in visual from overriding you're yank register
+  -- when pasting in visual mode, do not override the yank register
   kset("v", "p", "\"_dP", { noremap = true, silent = true })
 
-  -- don't immediately jump to next thing under cursor when using *
-  kset("n", '*', 'mi*<CR>`i', { noremap = true, silent = true })
-  kset("v", '*', 'mi"yy/<C-r>y<CR>`i', { noremap = true, silent = true })
+  -- jump straight to init.lua
+  kset("n", "<leader>c", run("e ~/.config/nvim/init.lua"))
 
-  -- init.lua stuff
-  kset("n", "<leader>cc", run("e ~/.config/nvim/init.lua"))
-  kset("n", "<leader>cr", run("luafile ~/.config/nvim/init.lua"))
+  -- reload init.lua
+  kset("n", "<leader>r", run("luafile ~/.config/nvim/init.lua"))
+end
 
-  -- toggle case sensitivity
-  kset("n", "<leader>cs", function()
-    vim.o.ignorecase = not vim.o.ignorecase
-    vim.o.smartcase = not vim.o.smartcase
-    print("Case Sensitivity: " .. (vim.o.ignorecase and "Off" or "On"))
-  end)
+-------------
+-- autocmd --
+-------------
 
-  -- toggle cursor/line column
-  kset("n", "<leader>cl", function()
-    if vim.wo.cursorline and vim.wo.cursorcolumn then
-      vim.wo.cursorline = false
-      vim.wo.cursorcolumn = false
-      vim.opt.colorcolumn = ""
-    else
-      vim.wo.cursorline = true
-      vim.wo.cursorcolumn = true
-      vim.opt.colorcolumn = "80"
-    end
-  end)
-
-  -- when exiting visual mode, return back to the place where it was started
-  vim.keymap.set('n', 'v', 'mvv', { noremap = true })
-  vim.keymap.set('n', 'V', 'mvV', { noremap = true })
-  vim.keymap.set('v', '<C-c>', "<Esc>`v", { noremap = true, silent = true })
-
+local function setup_autocmd()
   -- highlight yanked contents
   vim.api.nvim_create_autocmd("TextYankPost", {
     pattern = "*",
     callback = function()
-      vim.highlight.on_yank { higroup = "Visual", timeout = 40 }
+      vim.highlight.on_yank { higroup = "Visual", timeout = 60 }
+    end,
+  })
+
+  -- open help windows on a right split
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "help",
+    callback = function()
+      vim.cmd("wincmd L")
     end,
   })
 end
@@ -144,8 +107,10 @@ local function treesitter_plugin()
         incremental_selection = {
           enable = true,
           keymaps = {
-            node_incremental = "v",
-            node_decremental = "V"
+            init_selection = "<CR>",
+            node_incremental = "<CR>",
+            node_decremental = "<BS>",
+            scope_incremental = "\\"
           }
         }
       })
@@ -480,16 +445,6 @@ local function nvim_tree_plugin()
           })
         end)
 
-      -- open the tree at the cwd
-      kset("n", "<leader>E",
-        function()
-          api.tree.open({
-            path = vim.fn.getcwd(),
-            current_window = true,
-            find_file = false
-          })
-        end)
-
       require("nvim-tree").setup({ view = { float = { enable = true } } })
     end
   }
@@ -527,9 +482,7 @@ local function setup_plugins()
       gitsigns_plugin(),   -- git gutter and hunk manipulation/navigation
       readline_plugin(),   -- emacs like bindings for basic text stuff
       nvim_tree_plugin(),  -- file explorer because :Ex is very feature poor
-      { "tpope/vim-surround" },
-      { "tpope/vim-fugitive" },
-      { "joshdick/onedark.vim", priority = 1000 }
+      { "tpope/vim-surround" }
     }
   })
 end
@@ -540,8 +493,8 @@ local function main()
   setup_lazy_nvim()
   setup_options()
   setup_keymaps()
+  setup_autocmd()
   setup_plugins()
-  vim.cmd.colorscheme("onedark")
 end
 
 main()
