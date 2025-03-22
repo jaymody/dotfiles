@@ -101,9 +101,9 @@ function main {
 
     # start tmux
     # https://github.com/romkatv/powerlevel10k/issues/1203#issuecomment-754805535
-    if command_exists tmux && [ -z "$TMUX" ]; then
-        tmux new-session -A -s main
-    fi
+    # if command_exists tmux && [ -z "$TMUX" ]; then
+    #     tmux new-session -A -s main
+    # fi
 
     # powerlevel10k instant prompt, should go near the top of zshrc
     if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
