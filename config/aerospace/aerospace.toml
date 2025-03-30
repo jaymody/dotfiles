@@ -1,0 +1,105 @@
+start-at-login = true
+default-root-container-orientation = 'horizontal'
+default-root-container-layout = 'accordion'
+accordion-padding = 20
+
+enable-normalization-flatten-containers = false
+enable-normalization-opposite-orientation-for-nested-containers = false
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+[gaps]
+inner.horizontal = 20
+inner.vertical = 20
+outer.left = 20
+outer.bottom = 20
+outer.top = 20
+outer.right = 20
+
+[mode.main.binding]
+# layouts
+cmd-alt-ctrl-f = 'fullscreen'
+cmd-alt-ctrl-s = 'layout v_accordion'
+cmd-alt-ctrl-w = 'layout h_accordion'
+cmd-alt-ctrl-e = 'layout tiles horizontal vertical'
+cmd-alt-ctrl-shift-space = 'layout floating tiling'
+cmd-alt-ctrl-y = ['split vertical', 'layout accordion']
+
+# closing
+cmd-alt-ctrl-backspace = 'close-all-windows-but-current'
+
+# resize
+cmd-alt-ctrl-minus = 'resize smart -50'
+cmd-alt-ctrl-equal = 'resize smart +50'
+
+# focus windows
+cmd-alt-ctrl-h = 'focus left'
+cmd-alt-ctrl-j = 'focus down'
+cmd-alt-ctrl-k = 'focus up'
+cmd-alt-ctrl-l = 'focus right'
+
+# move windows
+cmd-alt-ctrl-shift-h = 'move left'
+cmd-alt-ctrl-shift-j = 'move down'
+cmd-alt-ctrl-shift-k = 'move up'
+cmd-alt-ctrl-shift-l = 'move right'
+
+# focus workspace
+cmd-alt-ctrl-0 = 'workspace 0'
+cmd-alt-ctrl-1 = 'workspace 1'
+cmd-alt-ctrl-2 = 'workspace 2'
+cmd-alt-ctrl-3 = 'workspace 3'
+cmd-alt-ctrl-4 = 'workspace 4'
+cmd-alt-ctrl-5 = 'workspace 5'
+cmd-alt-ctrl-6 = 'workspace 6'
+cmd-alt-ctrl-7 = 'workspace 7'
+cmd-alt-ctrl-8 = 'workspace 8'
+cmd-alt-ctrl-9 = 'workspace 9'
+
+# move to workspace
+cmd-alt-ctrl-shift-0 = 'move-node-to-workspace 0'
+cmd-alt-ctrl-shift-1 = 'move-node-to-workspace 1'
+cmd-alt-ctrl-shift-2 = 'move-node-to-workspace 2'
+cmd-alt-ctrl-shift-3 = 'move-node-to-workspace 3'
+cmd-alt-ctrl-shift-4 = 'move-node-to-workspace 4'
+cmd-alt-ctrl-shift-5 = 'move-node-to-workspace 5'
+cmd-alt-ctrl-shift-6 = 'move-node-to-workspace 6'
+cmd-alt-ctrl-shift-7 = 'move-node-to-workspace 7'
+cmd-alt-ctrl-shift-8 = 'move-node-to-workspace 8'
+cmd-alt-ctrl-shift-9 = 'move-node-to-workspace 9'
+
+# open apps
+cmd-alt-ctrl-enter = '''exec-and-forget open -n /Applications/Alacritty.app'''
+cmd-alt-ctrl-n = '''exec-and-forget open -n /Applications/Safari.app'''
+cmd-alt-ctrl-shift-enter = '''exec-and-forget /opt/homebrew/bin/code -n'''
+
+# app-ids of popular apps: https://nikitabobko.github.io/AeroSpace/goodies#popular-apps-ids
+# apps that have a default workspace
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
+run = ['move-node-to-workspace 7']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.garageband10'
+run = ['move-node-to-workspace 6']
+
+# apps should float by default, unless explicitly added to the below list
+[[on-window-detected]]
+if.app-name-regex-substring = '.*'
+check-further-callbacks = true
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'org.alacritty'
+run = ['layout tiling']
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.VSCode'
+run = ['layout tiling']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Safari'
+run = ['layout tiling']
+
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+run = ['layout tiling']
