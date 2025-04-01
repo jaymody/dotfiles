@@ -32,10 +32,10 @@ cmd-alt-ctrl-minus = 'resize smart -50'
 cmd-alt-ctrl-equal = 'resize smart +50'
 
 # focus windows
-cmd-alt-ctrl-h = 'focus left'
-cmd-alt-ctrl-j = 'focus down'
-cmd-alt-ctrl-k = 'focus up'
-cmd-alt-ctrl-l = 'focus right'
+cmd-alt-ctrl-h = 'focus --ignore-floating left'
+cmd-alt-ctrl-j = 'focus --ignore-floating down'
+cmd-alt-ctrl-k = 'focus --ignore-floating up'
+cmd-alt-ctrl-l = 'focus --ignore-floating right'
 
 # move windows
 cmd-alt-ctrl-shift-h = 'move left'
@@ -69,7 +69,7 @@ cmd-alt-ctrl-shift-9 = 'move-node-to-workspace 9'
 
 # open apps
 cmd-alt-ctrl-enter = '''exec-and-forget open -n /Applications/Alacritty.app'''
-cmd-alt-ctrl-n = '''exec-and-forget open -n /Applications/Safari.app'''
+cmd-alt-ctrl-n = '''exec-and-forget open -n "/Applications/Google Chrome.app"'''
 cmd-alt-ctrl-shift-enter = '''exec-and-forget /opt/homebrew/bin/code -n'''
 
 # app-ids of popular apps: https://nikitabobko.github.io/AeroSpace/goodies#popular-apps-ids
