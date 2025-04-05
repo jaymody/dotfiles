@@ -1,0 +1,25 @@
+" <C-c> as esc
+inoremap <C-c> <Esc>
+vnoremap <C-c> <Esc>
+nnoremap <C-c> <Esc>:noh<CR>
+
+" make Y behave similar to D and C
+nnoremap Y y$
+
+" for vim surround, it's nicer to type s instead of S in visual mode
+vnoremap s S
+
+" jump to
+nnoremap ]c workbench.action.editor.nextChange
+nnoremap [c workbench.action.editor.previousChange
+nnoremap ]d editor.action.marker.next
+nnoremap [d editor.action.marker.previous
+nnoremap % editor.action.jumpToBracket
+
+" lsp
+nnoremap go editor.action.goToTypeDefinition
+nnoremap gD editor.action.revealDeclaration
+nnoremap gr editor.action.referenceSearch.trigger
+nnoremap gR editor.action.rename
+nnoremap gs ocaml.copy-type-under-cursor
+vnoremap gs ocaml.copy-type-under-cursor
