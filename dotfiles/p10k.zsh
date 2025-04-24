@@ -47,6 +47,10 @@ unset -m 'POWERLEVEL9K_*'
 autoload -Uz is-at-least && is-at-least 5.1 || return
 
 
+######## other
+# for osc133 support for tmux next-prompt 
+typeset -g POWERLEVEL9K_TERM_SHELL_INTEGRATION=true
+
 
 ######## left ########
 typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
