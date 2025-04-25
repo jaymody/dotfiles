@@ -16,15 +16,11 @@ Symlink files from `dotfiles` to your home directory:
 Make `zsh` your default shell:
 ```shell
 chsh -s $(which zsh)
-exec shell
 ```
 
 And that's it! Restart your shell/terminal and you should be good to go.
 
-There's also a [wiki](https://github.com/jaymody/dotfiles/wiki) that contains guides on how I set up my various machines.
-
-## try it out in docker!
-
+Or, try it out in docker first!:
 ```shell
 docker run -e TERM -e COLORTERM -e LC_ALL=C.UTF-8 -it --rm alpine sh -uec '
   apk add alpine-sdk bash git zsh vim neovim
@@ -32,3 +28,5 @@ docker run -e TERM -e COLORTERM -e LC_ALL=C.UTF-8 -it --rm alpine sh -uec '
   printf "O" | ~/.dotfiles/link
   exec zsh'
 ```
+
+For my machines/tools specific setups, see the [wiki](https://github.com/jaymody/dotfiles/wiki).
