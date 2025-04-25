@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 
-# exit script if command fails
 set -e
 
-info () { printf "\r  [ \033[00;34m..\033[0m ] $1\n"; }
-user () { printf "\r  [ \033[0;33m??\033[0m ] $1\n"; }
-success () { printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n";}
-fail () { printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"; echo ''; exit; }
+function info { printf "\r  [ \033[00;34m..\033[0m ] $1\n"; }
+function user { printf "\r  [ \033[0;33m??\033[0m ] $1\n"; }
+function success { printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n";}
+function fail { printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"; echo ''; exit; }
 
-link_file () {
+function link_file {
     local src=$1 dst=$2
 
     local overwrite= backup= skip=
@@ -29,7 +28,7 @@ link_file () {
 
             else
 
-                user "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
+                user "File already exists: $dst, what do you want to do?\n\
                 [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
                 read -n 1 action
 
@@ -78,40 +77,29 @@ link_file () {
 
     if [ "$skip" != "true" ]    # "false" or empty
     then
+        mkdir -p "$(dirname "$2")"
         ln -s "$1" "$2"
         success "linked $1 to $2"
     fi
 }
 
-install_dotfiles () {
-    local dotfiles_dir=$(realpath ./dotfiles)
-    info "-------- installing dotfiles from ${dotfiles_dir} to ${HOME}  --------"
+function install_dotfiles {
+    local dotfiles_dir="$(realpath "$(dirname -- "${BASH_SOURCE[0]}")")/dotfiles"
+
+    info "-------- installing dotfiles from ${dotfiles_dir} to ${HOME} --------"
     local overwrite_all=false backup_all=false skip_all=false
-    for src in $(find -H "$dotfiles_dir" -maxdepth 1 -type f -name '*' -not -name '.*'); do
-        dst="$HOME/.$(basename $src)"
+    for src in $(find -H "$dotfiles_dir" -type f); do
+        local dst="$HOME/${src#$dotfiles_dir/}"
+        # printf "%s        %s\n" $src $dst
         link_file "$src" "$dst"
     done
 }
 
-install_config_directories () {
-    local config_dir=$(realpath ./config)
-    if [ -d "$config_dir" ]; then
-        info "-------- linking config directories from ${config_dir} to ${HOME}/.config --------"
-        local overwrite_all=false backup_all=false skip_all=false
-        mkdir -p "$HOME/.config"
-        for src in $(find "$config_dir" -mindepth 1 -maxdepth 1 -type d); do
-            dst="$HOME/.config/$(basename $src)"
-            link_file "$src" "$dst"
-        done
-    else
-        info "No config directory found to link. Skipping."
-    fi
+function main {
+    echo ''
+    install_dotfiles
+    echo ''
+    echo '  Done!'
 }
 
-echo ''
-
-install_dotfiles
-install_config_directories
-
-echo ''
-echo '  All installed!'
+main
