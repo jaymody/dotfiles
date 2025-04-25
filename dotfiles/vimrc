@@ -6,15 +6,14 @@ set smartcase
 set cursorline
 set nowrap
 set confirm
-set undofile
 set showmatch
 set termguicolors
 set wildmenu
 set hidden
 set clipboard^=unnamed,unnamedplus
 
-" insert mode vertical bar 
-let &t_SI = "\e[6 q" 
+" insert mode vertical bar
+let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
 " filetype plugin indent on
