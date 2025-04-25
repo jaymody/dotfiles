@@ -22,3 +22,13 @@ exec shell
 And that's it! Restart your shell/terminal and you should be good to go.
 
 There's also a [wiki](https://github.com/jaymody/dotfiles/wiki) that contains guides on how I set up my various machines.
+
+## try it out in docker!
+
+```shell
+docker run -e TERM -e COLORTERM -e LC_ALL=C.UTF-8 -it --rm alpine sh -uec '
+  apk add alpine-sdk bash git zsh vim neovim
+  git clone --recurse-submodules --shallow-submodule https://github.com/jaymody/dotfiles.git ~/.dotfiles
+  printf "O" | ~/.dotfiles/link
+  exec zsh'
+```
