@@ -1,3 +1,5 @@
+export DOTFILES_DIR="$(dirname "$(dirname "$(realpath "${(%):-%N}")")")"
+
 function command_exists {
     command -v "$1" >/dev/null 2>&1
 }
@@ -40,12 +42,11 @@ function setup_zsh {
     bindkey "^P" up-line-or-beginning-search
     bindkey "^N" down-line-or-beginning-search
 
-    # zsh extensions
-    DIR="${HOME}/.dotfiles-local"
-    source_if_exists "${DIR}/powerlevel10k/powerlevel10k.zsh-theme"
-    source_if_exists "${HOME}/.p10k.zsh"
-    source_if_exists "${DIR}/zsh-autosuggestions/zsh-autosuggestions.zsh"
-    source_if_exists "${DIR}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+    # zsh plugins
+    source_if_exists "$DOTFILES_DIR/zsh-plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    source_if_exists "$DOTFILES_DIR/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+    source_if_exists "$DOTFILES_DIR/zsh-plugins/powerlevel10k/powerlevel10k.zsh-theme"
+    source_if_exists "$HOME/.p10k.zsh"
 }
 
 function setup_tools {
