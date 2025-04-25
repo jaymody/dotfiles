@@ -6,19 +6,17 @@ alias -- -="cd -"
 alias ~="cd ~"
 
 if [ -x "$(command -v gls)" ]; then
-    lsflag="gls --group-directories-first"
+    lsflag="gls --group-directories-first --color"
 else
     lsflag="ls"
 fi
 
 alias ls="$lsflag --color"
-alias l="$lsflag -1 --color"
-alias la="$lsflag -A1 --color"
-alias ll="$lsflag -Ahl --color"
-alias lst="tree --dirsfirst -L 2 -I '.git|.ipynb_checkpoints' --filelimit 64"
+alias l="$lsflag -1"
+alias la="$lsflag -A1"
+alias ll="$lsflag -Ahl"
+alias lst="tree -aC --dirsfirst -L 2 -I '.git|.ipynb_checkpoints' --filelimit 64"
 
-alias q="exit"
-alias cls=" clear"
 alias clear=" clear"
 alias paths='echo -e ${PATH//:/"\n"}'
 alias reload='exec -l $(lsof -p "$$" | grep -m 1 txt | xargs -n 1 | tail -n +9 | xargs)'
@@ -27,4 +25,3 @@ alias cleands="find . -type f -name '*.DS_Store' -ls -delete"
 alias py="python"
 alias ipy="ipython"
 alias pip-uninstall-all="pip uninstall -y -r <(pip freeze)"
-

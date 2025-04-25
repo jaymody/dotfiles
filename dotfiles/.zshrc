@@ -6,6 +6,10 @@ function source_if_exists {
     [ -f "$1" ] && source "$1"
 }
 
+function prepend_to_path {
+    [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]] && PATH="$1:$PATH";
+}
+
 function setup_zsh {
     # editor
     if command_exists nvim; then
@@ -61,49 +65,43 @@ function setup_tools {
 
     ### rust ###
     [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+
+    ### docker ###
+    export PATH="/Applications/Docker.app/Contents/Resources/bin:${PATH}"
 }
 
 function setup_fzf {
-    local ignore_dirs=".git,node_modules,.opam,.cache,target,_build"
+    prepend_to_path $HOME/.fzf/bin
 
-    if [[ ! "$PATH" == *$HOME/.fzf/bin* ]]; then
-      PATH="${PATH:+${PATH}:}/home/jay/.fzf/bin"
+    if command_exists fzf; then
+        source <(fzf --zsh)
+
+        local ignore_dirs=".git,node_modules,.opam,.cache,target,_build"
+
+        local cpy_cmd="xclip -selection clipboard"
+        if command -v pbcopy &> /dev/null; then cpy_cmd="pbcopy" fi
+        export FZF_CTRL_R_OPTS="--bind 'ctrl-y:execute-silent(echo -n {2..} | $cpy_cmd)+abort'"
+
+        # TODO: older vesions of fzf don't support [become], maybe there's a portable alternative?
+        # https://github.com/junegunn/fzf/issues/3650#issuecomment-1973846496
+        export FZF_CTRL_T_OPTS="
+        --walker-skip $ignore_dirs
+        --preview 'batcat --color=always {} || bat --color=always {} || cat {}'
+        --bind 'ctrl-y:become(nvim {} > /dev/tty)'
+        "
+
+        export FZF_ALT_C_OPTS="
+        --walker-skip $ignore_dirs
+        --preview 'tree -C {} || ls -1'
+        "
     fi
-
-    # TODO: copy the entire fzf --zsh file into my dotfiles
-    source <(fzf --zsh)
-
-    local cpy_cmd="xclip -selection clipboard"
-    if command -v pbcopy &> /dev/null; then cpy_cmd="pbcopy" fi
-    export FZF_CTRL_R_OPTS="--bind 'ctrl-y:execute-silent(echo -n {2..} | $cpy_cmd)+abort'"
-
-    # TODO: older vesions of fzf don't support [become], maybe there's a portable alternative?
-    # https://github.com/junegunn/fzf/issues/3650#issuecomment-1973846496
-    export FZF_CTRL_T_OPTS="
-      --walker-skip $ignore_dirs
-      --preview 'batcat --color=always {} || bat --color=always {} || cat {}'
-      --bind 'ctrl-y:become(nvim {} > /dev/tty)'
-      "
-
-    export FZF_ALT_C_OPTS="
-      --walker-skip $ignore_dirs
-      --preview 'tree -C {} || ls -1'
-      "
 }
 
 function main {
-    ### homebrew ###
-    # we run this at the very beginning to make sure we have accesss to the
-    # commands we need later on (like tmux)
+    # homebrew
     if test -f "/opt/homebrew/bin/brew"; then
         eval "$(/opt/homebrew/bin/brew shellenv)"
     fi
-
-    # start tmux
-    # https://github.com/romkatv/powerlevel10k/issues/1203#issuecomment-754805535
-    # if command_exists tmux && [ -z "$TMUX" ]; then
-    #     tmux new-session -A -s main
-    # fi
 
     # powerlevel10k instant prompt, should go near the top of zshrc
     if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
