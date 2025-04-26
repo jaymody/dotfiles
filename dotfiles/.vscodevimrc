@@ -9,14 +9,8 @@ nnoremap Y y$
 " for vim surround, it's nicer to type s instead of S in visual mode
 vnoremap s S
 
-" jump to
-nnoremap ]c workbench.action.editor.nextChange
-nnoremap [c workbench.action.editor.previousChange
-nnoremap ]d editor.action.marker.next
-nnoremap [d editor.action.marker.previous
-nnoremap % editor.action.jumpToBracket
-
 " lsp
+nnoremap % editor.action.jumpToBracket
 nnoremap go editor.action.goToTypeDefinition
 nnoremap gD editor.action.revealDeclaration
 nnoremap gr editor.action.referenceSearch.trigger
