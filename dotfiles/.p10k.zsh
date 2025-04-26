@@ -12,21 +12,19 @@
   [[ $ZSH_VERSION == (5.<1->*|<6->.*) ]] || return
 
   # colors
-  local grey=245
-  local red=1
-  local green=2
-  local yellow=3
-  local blue=4
-  local magenta=5
-  local cyan=6
-  local white=7
+  grey=245
+  red=1
+  green=2
+  yellow=3
+  blue=4
+  magenta=5
+  cyan=6
+  white=7
 
   # left segments
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     ###### line 1 ######
     context
-    virtualenv
-    vcs
     dir
     status
     ###### line 2 ######
@@ -35,7 +33,11 @@
   )
 
   # right segments
-  typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
+  typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
+    opam
+    virtualenv
+    vcs
+  )
 
   # general
   typeset -g POWERLEVEL9K_MODE=ascii
@@ -61,6 +63,17 @@
   typeset -g POWERLEVEL9K_VIRTUALENV_LEFT_DELIMITER='('
   typeset -g POWERLEVEL9K_VIRTUALENV_RIGHT_DELIMITER=')'
   typeset -g POWERLEVEL9K_VIRTUALENV_CONTENT_EXPANSION='%B${P9K_CONTENT}%b'
+
+  # opam
+  prompt_opam() {
+    if command -v opam >/dev/null; then
+      local switch=${$(opam switch show):t}
+      if [[ $switch == "default" ]]; then
+        return
+      fi
+      p10k segment -f 208 -t "%B%F{$yellow}($switch)%f%b"
+    fi
+  }
 
   # dir
   typeset -g POWERLEVEL9K_DIR_FOREGROUND=$white
