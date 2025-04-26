@@ -50,6 +50,7 @@
   typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
   typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=true
   typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
+  typeset -g POWERLEVEL9K_TERM_SHELL_INTEGRATION=true            # support next-prompt / previous-prompt in tmux
 
   # prompt_char
   typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_{VIINS,VICMD,VIVIS}_FOREGROUND=$white
@@ -71,7 +72,7 @@
       if [[ $switch == "default" ]]; then
         return
       fi
-      p10k segment -f 208 -t "%B%F{$yellow}($switch)%f%b"
+      p10k segment -t "%B%F{$yellow}($switch)%f%b"
     fi
   }
 
