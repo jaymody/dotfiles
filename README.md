@@ -23,7 +23,7 @@ And that's it! Restart your shell/terminal and you should be good to go.
 Or, try it out in docker first!:
 ```shell
 docker run -e TERM -e COLORTERM -e LC_ALL=C.UTF-8 -it --rm alpine sh -uec '
-  apk add alpine-sdk bash git zsh vim neovim
+  apk add alpine-sdk bash git zsh vim neovim fzf
   git clone --recurse-submodules --shallow-submodule https://github.com/jaymody/dotfiles.git ~/.dotfiles
   printf "O" | ~/.dotfiles/link
   exec zsh'

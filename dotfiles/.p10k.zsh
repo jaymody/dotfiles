@@ -75,7 +75,7 @@
   typeset -g POWERLEVEL9K_DIR_MIN_COMMAND_COLUMNS_PCT=50
 
   # context
-  typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE="%B%F{$blue}%n%f %F{$red}%m%f"
+  typeset -g POWERLEVEL9K_CONTEXT_REMOTE_TEMPLATE="%B%F{$blue}%n%f %F{$red}%m%f"
   typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE="%B%F{$blue}%n%f"
 
   # vcs

@@ -19,7 +19,6 @@ alias lst="tree -aC --dirsfirst -L 2 -I '.git|.ipynb_checkpoints' --filelimit 64
 
 alias clear=" clear"
 alias paths='echo -e ${PATH//:/"\n"}'
-alias reload='exec -l $(lsof -p "$$" | grep -m 1 txt | xargs -n 1 | tail -n +9 | xargs)'
 alias cleands="find . -type f -name '*.DS_Store' -ls -delete"
 
 alias py="python"
