@@ -85,10 +85,8 @@
   typeset -g POWERLEVEL9K_VCS_CLEAN_FOREGROUND=$green
   typeset -g POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=$magenta
   typeset -g POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=$red
-  # TODO: would be nice to bold this as well, but the naive thing of:
-  # typeset -g POWERLEVEL9K_VCS_CONTENT_EXPANSION='%B[$P9K_CONTENT]%b'
-  # doesn't work (only bolds everything up to the start of the P9K content)
-  typeset -g POWERLEVEL9K_VCS_CONTENT_EXPANSION='[$P9K_CONTENT]'
+  # https://github.com/romkatv/powerlevel10k/issues/2859#issuecomment-2832511798
+  typeset -g POWERLEVEL9K_VCS_CONTENT_EXPANSION='%B[${P9K_CONTENT//\%k/${MATCH}%B}]%b'
 
   # postamble
   (( ! $+functions[p10k] )) || p10k reload
