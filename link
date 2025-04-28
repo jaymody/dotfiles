@@ -90,7 +90,6 @@ function install_dotfiles {
     local overwrite_all=false backup_all=false skip_all=false
     for src in $(find -H "$dotfiles_dir" -type f); do
         local dst="$HOME/${src#$dotfiles_dir/}"
-        # printf "%s        %s\n" $src $dst
         link_file "$src" "$dst"
     done
 }
