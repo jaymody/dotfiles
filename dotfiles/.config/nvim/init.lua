@@ -4,6 +4,13 @@ if vim.fn.has("nvim-0.11") == 0 then
   return
 end
 
+-- helper functions
+local function run(cmd)
+  return function()
+    vim.cmd(cmd)
+  end
+end
+
 -- options
 local function setup_options()
   vim.g.mapleader = " "
@@ -30,24 +37,22 @@ local function setup_options()
   vim.diagnostic.config({
     underline = true,
     signs = true,
-    virtual_lines = { current_line = true },
     float = { border = "rounded" },
     jump = { float = true },
+    update_in_insert = true
   })
 end
 
 -- keymaps
 local function setup_keymaps()
-  vim.keymap.set("n", "<C-c>", function() vim.cmd("silent noh") end)
+  vim.keymap.set("n", "<C-c>", run("silent noh"))
   vim.keymap.set("v", "p", "\"_dP", { noremap = true, silent = true })
   vim.keymap.set("n", "<leader>c", ":e ~/.config/nvim/init.lua<CR>", { silent = true })
   vim.keymap.set("n", "<leader>r", ":source ~/.config/nvim/init.lua<CR>", { silent = true })
+  vim.keymap.set("n", "<leader>e", ":Ex<CR>", { silent = true })
   vim.keymap.set("c", "<C-p>", "<Up>")
   vim.keymap.set("c", "<C-n>", "<Down>")
-  vim.keymap.set({ "i", "n" }, "<C-s>", function()
-    vim.cmd("silent update")
-    vim.cmd("stopinsert")
-  end)
+  vim.keymap.set({ "i", "n" }, "<C-s>", run("silent update | stopinsert"))
 end
 
 -- autocmd
@@ -61,9 +66,7 @@ local function setup_autocmds()
 
   vim.api.nvim_create_autocmd("FileType", {
     pattern = "help",
-    callback = function()
-      vim.cmd("wincmd L")
-    end
+    callback = run("wincmd L")
   })
 end
 
@@ -92,6 +95,16 @@ local function setup_rust()
     root_markers = { "Cargo.toml", ".git" },
   })
   vim.lsp.enable("rust_analyzer")
+end
+
+local function setup_ocaml()
+  vim.g.no_ocaml_maps = true
+  vim.lsp.config("ocamllsp", {
+    cmd = { "ocamllsp" },
+    filetypes = { "ocaml" },
+    root_markers = { "dune-project", ".git" }
+  })
+  vim.lsp.enable("ocamllsp")
 end
 
 local function setup_lsp()
@@ -123,14 +136,174 @@ local function setup_lsp()
   -- setup language servers
   setup_lua()
   setup_rust()
+  setup_ocaml()
+end
+
+-- lazy.nvim
+local function setup_lazy_nvim()
+  local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+  if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+    if vim.v.shell_error ~= 0 then
+      vim.api.nvim_echo({
+        { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+        { out,                            "WarningMsg" },
+        { "\nPress any key to exit..." },
+      }, true, {})
+      vim.fn.getchar()
+      os.exit(1)
+    end
+  end
+  vim.opt.rtp:prepend(lazypath)
+end
+
+-- plugins
+local function plugin_onedark()
+  return {
+    "navarasu/onedark.nvim",
+    priority = 1000,
+    config = function()
+      require('onedark').setup { style = "dark" }
+      require('onedark').load()
+    end
+  }
+end
+
+local function plugin_surround()
+  return {
+    "tpope/vim-surround",
+    config = function()
+      vim.keymap.set("v", "s", "<Plug>VSurround")
+    end
+  }
+end
+
+local function plugin_treesitter()
+  return {
+    "nvim-treesitter/nvim-treesitter",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = {
+          "c", "rust", "ocaml", "lua", "javascript", "typescript",
+          "python", "json", "css", "html", "zig", "markdown", "markdown_inline",
+          "cpp", "toml", "sql", "bash", "vim", "vimdoc", "dockerfile", "gitignore"
+        },
+        highlight = { enable = true },
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "<CR>",
+            node_incremental = "<CR>",
+            node_decremental = "<BS>",
+            scope_incremental = "\\"
+          }
+        }
+      })
+    end
+  }
+end
+
+local function plugin_gitsigns()
+  local function gitsigns_visual_op(op)
+    return function()
+      return require('gitsigns')[op]({ vim.fn.line("."), vim.fn.line("v") })
+    end
+  end
+
+  local function do_and_center(op)
+    return function()
+      require('gitsigns').nav_hunk(op, {}, function()
+        local hunks = require("gitsigns").get_hunks()
+        if hunks and #hunks > 0 then vim.cmd('normal! zz') end
+      end)
+    end
+  end
+
+  return {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require("gitsigns").setup()
+      vim.keymap.set("n", "<M-[>", do_and_center('prev'))
+      vim.keymap.set("n", "<M-]>", do_and_center('next'))
+      vim.keymap.set("n", "<leader>gi", run('Gitsigns preview_hunk_inline'))
+      vim.keymap.set("n", "<leader>gp", run('Gitsigns preview_hunk'))
+      vim.keymap.set("n", "<leader>gr", run('Gitsigns reset_hunk'))
+      vim.keymap.set("n", "<leader>gs", run('Gitsigns stage_hunk'))
+      vim.keymap.set("n", "<leader>gu", run('Gitsigns undo_stage_hunk'))
+      vim.keymap.set("v", "<leader>gr", gitsigns_visual_op("reset_hunk"))
+      vim.keymap.set("v", "<leader>gs", gitsigns_visual_op("stage_hunk"))
+      vim.keymap.set("v", "<leader>gu", gitsigns_visual_op("undo_stage_hunk"))
+    end
+  }
+end
+
+local function plugin_blink()
+  vim.opt.completeopt = "noinsert,fuzzy"
+  vim.opt.pumheight = 12
+  vim.opt.winborder = "rounded"
+  return {
+    'saghen/blink.cmp',
+    dependencies = { 'rafamadriz/friendly-snippets' },
+    opts = {
+      keymap = { preset = "enter" },
+      appearance = {
+        nerd_font_variant = "mono",
+      },
+      completion = { documentation = { auto_show = true } },
+      sources = { default = { "lsp", "path", "snippets", "buffer" } },
+      signature = { enabled = true },
+      cmdline = {
+        keymap = { preset = "enter" },
+      }
+    },
+  }
+end
+
+local function plugin_fzf_lua()
+  return {
+    "ibhagwan/fzf-lua",
+    dependencies = { "junegunn/fzf", "nvim-tree/nvim-web-devicons" },
+    config =
+        function()
+          vim.keymap.set("n", "<leader>ff", run("FzfLua files"))
+          vim.keymap.set("n", "<leader>fo", run("FzfLua oldfiles"))
+          vim.keymap.set("n", "<leader>fs", run("FzfLua lsp_document_symbols ''"))
+          vim.keymap.set("n", "<leader>fS", run("FzfLua lsp_workspace_symbols ''"))
+          vim.keymap.set("n", "<leader>fj", run("FzfLua jumps"))
+          vim.keymap.set("n", "<leader>fz", run("FzfLua"))
+          vim.keymap.set("n", "<leader>fh", run("FzfLua helptags"))
+          vim.keymap.set("n", "<leader>fg", run("FzfLua grep_project"))
+          vim.keymap.set("n", "<leader>fc", run("FzfLua registers ''"))
+          vim.keymap.set("n", "<leader>fb", run("FzfLua buffers ''"))
+          vim.keymap.set("n", "<leader>fd", run("FzfLua lsp_workspace_diagnostics ''"))
+          vim.keymap.set("n", "gr", run("FzfLua lsp_references ''"))
+          vim.keymap.set("n", "ga", run("FzfLua lsp_code_actions ''"))
+        end
+  }
+end
+
+local function setup_plugins()
+  require("lazy").setup({
+    spec = {
+      plugin_onedark(),
+      plugin_surround(),
+      plugin_treesitter(),
+      plugin_gitsigns(),
+      plugin_fzf_lua(),
+      plugin_blink(),
+    }
+  })
 end
 
 -- main
 local function main()
+  setup_lazy_nvim()
   setup_options()
   setup_keymaps()
   setup_autocmds()
   setup_lsp()
+  setup_plugins()
 end
 
 main()
