@@ -17,3 +17,7 @@ nnoremap gr editor.action.referenceSearch.trigger
 nnoremap gR editor.action.rename
 nnoremap gs ocaml.copy-type-under-cursor
 vnoremap gs ocaml.copy-type-under-cursor
+
+" save file
+inoremap <C-s> <Esc>:up<CR>
+nnoremap <C-s> <Esc>:up<CR>
