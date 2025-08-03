@@ -32,12 +32,12 @@ local function setup_options()
   vim.opt.termguicolors = true
   vim.opt.completeopt = "menu,menuone,noinsert,fuzzy,popup"
   vim.opt.pumheight = 12
-  vim.opt.winborder = 'rounded'
+  vim.opt.winborder = "single"
 
   vim.diagnostic.config({
     underline = true,
     signs = true,
-    float = { border = "rounded" },
+    float = { border = "single" },
     jump = { float = true },
     update_in_insert = true
   })
@@ -164,7 +164,21 @@ local function plugin_onedark()
     "navarasu/onedark.nvim",
     priority = 1000,
     config = function()
-      require('onedark').setup { style = "dark" }
+      require('onedark').setup {
+        style = "warm",
+        code_style = {
+          comments  = "none",
+          keywords  = "none",
+          functions = "none",
+          strings   = "none",
+          variables = "none",
+        },
+        diagnostics = {
+          darker = true,
+          undercurl = true,
+          background = true,
+        },
+      }
       require('onedark').load()
     end
   }
@@ -241,9 +255,9 @@ end
 local function plugin_blink()
   vim.opt.completeopt = "noinsert,fuzzy"
   vim.opt.pumheight = 12
-  vim.opt.winborder = "rounded"
   return {
     'saghen/blink.cmp',
+    version = "*",
     dependencies = { 'rafamadriz/friendly-snippets' },
     opts = {
       keymap = { preset = "enter" },

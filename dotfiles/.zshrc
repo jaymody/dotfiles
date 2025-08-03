@@ -26,13 +26,15 @@ function setup_zsh {
     bindkey -e
 
     # path
-    export PATH=$PATH:${HOME}/bin
-    export PATH=$PATH:${HOME}/.bin
-    export PATH=$PATH:${HOME}/.local/bin
+    export PATH=${HOME}/bin:$PATH
+    export PATH=${HOME}/.bin:$PATH
+    export PATH=${HOME}/.local/bin:$PATH
 
     # history
+    export HISTFILE=~/.zsh_history
     export HISTSIZE=1024000
     export SAVEHIST=1024000
+    setopt appendhistory
 
     # make ctrl-p and ctrl-n go up/down the history given the current prefix
     autoload -U up-line-or-beginning-search
