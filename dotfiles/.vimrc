@@ -1,3 +1,5 @@
+syntax on
+
 set number
 set hlsearch
 set incsearch
@@ -16,13 +18,7 @@ set clipboard^=unnamed,unnamedplus
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
-" filetype plugin indent on
-colorscheme habamax
-syntax on
-
-inoremap <C-c> <Esc>
-vnoremap <C-c> <Esc>
-nnoremap <C-c> :noh<CR><Esc>
+nnoremap <C-c> :noh<CR>
 vnoremap p "_dP
 
 cnoremap <C-p> <Up>
