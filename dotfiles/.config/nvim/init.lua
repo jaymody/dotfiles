@@ -165,7 +165,7 @@ local function plugin_onedark()
     priority = 1000,
     config = function()
       require('onedark').setup {
-        style = "warm",
+        style = "dark",
         code_style = {
           comments  = "none",
           keywords  = "none",
