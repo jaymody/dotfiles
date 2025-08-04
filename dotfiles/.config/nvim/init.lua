@@ -30,8 +30,6 @@ local function setup_options()
   vim.opt.cursorline = true
   vim.opt.undofile = true
   vim.opt.termguicolors = true
-  vim.opt.completeopt = "menu,menuone,noinsert,fuzzy,popup"
-  vim.opt.pumheight = 12
   vim.opt.winborder = "single"
 
   vim.diagnostic.config({
@@ -50,8 +48,8 @@ local function setup_keymaps()
   vim.keymap.set("n", "<leader>c", ":e ~/.config/nvim/init.lua<CR>", { silent = true })
   vim.keymap.set("n", "<leader>r", ":source ~/.config/nvim/init.lua<CR>", { silent = true })
   vim.keymap.set("n", "<leader>e", ":Ex<CR>", { silent = true })
-  vim.keymap.set("c", "<C-p>", "<Up>")
-  vim.keymap.set("c", "<C-n>", "<Down>")
+  vim.keymap.set({ "i", "n", "v", "x", "c" }, "<C-p>", "<Up>")
+  vim.keymap.set({ "i", "n", "v", "x", "c" }, "<C-n>", "<Down>")
   vim.keymap.set({ "i", "n" }, "<C-s>", run("silent update | stopinsert"))
 end
 
@@ -187,6 +185,7 @@ end
 local function plugin_surround()
   return {
     "tpope/vim-surround",
+    dependencies = { "tpope/vim-repeat" },
     config = function()
       vim.keymap.set("v", "s", "<Plug>VSurround")
     end
@@ -252,24 +251,43 @@ local function plugin_gitsigns()
   }
 end
 
-local function plugin_blink()
-  vim.opt.completeopt = "noinsert,fuzzy"
+local function plugin_blink_cmp()
+  -- TODO: there's this really annoying behaviour where pressing Ctrl-n
+  -- after typing "vim." will cause the 'ins-completion' to trigger and will
+  -- autoinsert the first entry instead of going down once in the menu.
+  --
+  -- I don't know how to disable this (I've tried for over an hour). Things
+  -- I've tried.
+  --
+  --   - `vim.top.complete = ""`
+  --   - overriding `C-n` and `C-p` to not use "fallback" in blink.cmp's mapping
+  --   - `vim.keymap.set("i", "C-n", "<Down>")
+  --   - a bunch of other stuff I can't seem to remember
+  --
+  -- Stuff like this really makes me frustrated when using/configuring neovim and
+  -- makes me want to go back to vscode.
+  vim.opt.winborder = "single"
+  vim.opt.completeopt = "noselect,popup"
   vim.opt.pumheight = 12
   return {
-    'saghen/blink.cmp',
+    "saghen/blink.cmp",
     version = "*",
     dependencies = { 'rafamadriz/friendly-snippets' },
     opts = {
-      keymap = { preset = "enter" },
-      appearance = {
-        nerd_font_variant = "mono",
-      },
-      completion = { documentation = { auto_show = true } },
+      keymap = { preset = "super-tab" },
       sources = { default = { "lsp", "path", "snippets", "buffer" } },
       signature = { enabled = true },
-      cmdline = {
-        keymap = { preset = "enter" },
-      }
+      fuzzy = {
+        sorts = { "exact", "score", "sort_text" },
+        max_typos = 0,
+      },
+      completion = {
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 0
+        },
+        ghost_text = { enabled = true },
+      },
     },
   }
 end
@@ -305,7 +323,7 @@ local function setup_plugins()
       plugin_treesitter(),
       plugin_gitsigns(),
       plugin_fzf_lua(),
-      plugin_blink(),
+      plugin_blink_cmp(),
     }
   })
 end
