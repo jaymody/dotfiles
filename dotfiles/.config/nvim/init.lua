@@ -105,6 +105,22 @@ local function setup_ocaml()
   vim.lsp.enable("ocamllsp")
 end
 
+local function setup_python()
+  vim.lsp.config("ty", {
+    cmd = { "ty", "server" },
+    filetypes = { "python" },
+    root_markers = { "pyproject.toml", ".git" },
+  })
+  vim.lsp.enable("ty")
+
+  vim.lsp.config("ruff", {
+    cmd = { "ruff", "server" },
+    filetypes = { "python" },
+    root_markers = { "pyproject.toml", ".git" },
+  })
+  vim.lsp.enable("ruff")
+end
+
 local function setup_lsp()
   -- autocomplete menu and autoformat
   vim.api.nvim_create_autocmd('LspAttach', {
@@ -135,6 +151,7 @@ local function setup_lsp()
   setup_lua()
   setup_rust()
   setup_ocaml()
+  setup_python()
 end
 
 -- lazy.nvim
@@ -274,7 +291,7 @@ local function plugin_blink_cmp()
     version = "*",
     dependencies = { 'rafamadriz/friendly-snippets' },
     opts = {
-      keymap = { preset = "super-tab" },
+      keymap = { preset = "enter" },
       sources = { default = { "lsp", "path", "snippets", "buffer" } },
       signature = { enabled = true },
       fuzzy = {
@@ -315,6 +332,21 @@ local function plugin_fzf_lua()
   }
 end
 
+local function plugin_yazi()
+  return {
+    "mikavilpas/yazi.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      { "nvim-lua/plenary.nvim", lazy = true },
+    },
+    init = function()
+      -- mark netrw as loaded so it's not loaded at all.
+      vim.g.loaded_netrwPlugin = 1
+      vim.keymap.set("n", "<leader>e", run("Yazi"))
+    end,
+  }
+end
+
 local function setup_plugins()
   require("lazy").setup({
     spec = {
@@ -324,6 +356,7 @@ local function setup_plugins()
       plugin_gitsigns(),
       plugin_fzf_lua(),
       plugin_blink_cmp(),
+      plugin_yazi(),
     }
   })
 end
